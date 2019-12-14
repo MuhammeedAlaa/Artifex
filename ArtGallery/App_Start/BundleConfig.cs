@@ -23,7 +23,7 @@ namespace ArtGallery
                       "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      "~/Content/temp.css",
                       "~/Content/site.css"));
         }
     }
