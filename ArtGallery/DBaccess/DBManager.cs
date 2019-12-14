@@ -13,7 +13,7 @@ namespace BBMS.db_access
         public SqlConnection myConnection;
         public DBManager() 
         {
-            myConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["con"].ConnectionString);
+            myConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["ArtifexContext"].ConnectionString);
             myConnection.Open();
         }
 
