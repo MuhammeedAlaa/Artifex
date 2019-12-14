@@ -30,3 +30,5 @@ namespace ArtGallery.Models
         public HttpPostedFileBase imagefile { get; set; }
     }
 }
+
+
