@@ -27,24 +27,28 @@ namespace ArtGallery.Controllers
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult SignUp(RegisterViewModel newuser) {
+            string imagefilename ="";
             if (ModelState.IsValid)
             {
 
+                
                 if (newuser.imagefile != null)
                 {
-                    string imagefilename = Path.GetFileNameWithoutExtension(newuser.imagefile.FileName);
+                    imagefilename = Path.GetFileNameWithoutExtension(newuser.imagefile.FileName);
                     string extension = Path.GetExtension(newuser.imagefile.FileName);
                     imagefilename = imagefilename + DateTime.Now.ToString("yymmssfff") + extension;
                     newuser.PROFILE_PIC = "~/Image/" + imagefilename;
                     imagefilename = Path.Combine(Server.MapPath("~/Image/"), imagefilename);
-                    string hash = (newuser.PASSWORD);
-                    if (db.SignUp(newuser) == 0)
-                    {
-                        return RedirectToAction("SignUp", "Authorization");
-                    }
-                    else
-                        newuser.imagefile.SaveAs(imagefilename);
+                   
+                   
                 }
+                if (db.SignUp(newuser) == 0)
+                {
+                    ModelState.AddModelError("", "Invalid signup attempt.");
+                    return View();
+                }
+                else if(newuser.imagefile != null)
+                    newuser.imagefile.SaveAs(imagefilename);
 
                 ModelState.Clear();
                 User u = new User
@@ -83,7 +87,11 @@ namespace ArtGallery.Controllers
           
                 DataTable t = db.SignIn(logeduser);
                 if (t == null)
-                    return RedirectToAction("SignIn","Authorization");
+                {
+                    ModelState.AddModelError("", "Invalid login attempt.");
+                    return View();
+
+                }
                 else
                 {
                     string Email = Convert.ToString(t.Rows[0]["EMAIL"]);
