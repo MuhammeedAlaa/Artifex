@@ -136,6 +136,28 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Admin.cs" />
+    <Compile Include="Models\Artist.cs" />
+    <Compile Include="Models\Artwork.cs" />
+    <Compile Include="Models\ArtworkKeywords.cs" />
+    <Compile Include="Models\AttendEvent.cs" />
+    <Compile Include="Models\BillingInfo.cs" />
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Event.cs" />
+    <Compile Include="Models\Expert.cs" />
+    <Compile Include="Models\ExpertQualifications.cs" />
+    <Compile Include="Models\FavouriteArtwork.cs" />
+    <Compile Include="Models\IncludeArtwork.cs" />
+    <Compile Include="Models\Invited.cs" />
+    <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\OrderInfo.cs" />
+    <Compile Include="Models\PreferedCategory.cs" />
+    <Compile Include="Models\Rate.cs" />
+    <Compile Include="Models\Recommend.cs" />
+    <Compile Include="Models\Report.cs" />
+    <Compile Include="Models\SelectedArtwork.cs" />
+    <Compile Include="Models\ShippingCompany.cs" />
+    <Compile Include="Models\Survey.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
