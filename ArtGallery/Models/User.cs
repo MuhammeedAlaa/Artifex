@@ -25,7 +25,7 @@ namespace ArtGallery.Models
         public string PASSWORD { get; set; }
 
         [Required(ErrorMessage = "Please enter your first name")]
-        [StringLength(15, ErrorMessage = "Max length = 15 characters")]
+        [StringLength(10, ErrorMessage = "Max length = 10 characters")]
         [RegularExpression("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", ErrorMessage = "Only letters are allowed")]
         public string FNAME { get; set; }
 
@@ -37,7 +37,7 @@ namespace ArtGallery.Models
         
 
         [Required(ErrorMessage = "Please enter your last name")]
-        [StringLength(15, ErrorMessage = "Max length = 15 characters")]
+        [StringLength(10, ErrorMessage = "Max length = 10 characters")]
         [RegularExpression("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", ErrorMessage = "Only letters are allowed")]
         public string LNAME { get; set; }
 

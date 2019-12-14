@@ -22,9 +22,9 @@ namespace ArtGallery.DBaccess
 
         public void SignUp(User u)
         {
-            string query = "insert into [USER] values ('"+ u.USER_NAME +"', '"+ u.EMAIL +"','"+ 
-                           u.PASSWORD +"', '"+ u.FNAME +"', '"+ u.MINIT +"', '"+ u.LNAME +"', '"+ 
-                           u.PHONE +"', '"+ u.PROFILE_PIC +"')";
+            string query = "insert into [USER] values ('" + u.USER_NAME + "', '" + u.EMAIL + "','" +
+                           u.PASSWORD + "', '" + u.FNAME + "', '" + u.MINIT + "', '" + u.LNAME + "', '" +
+                           u.PHONE + "', '" + u.PROFILE_PIC + "')";
             int d =  db.ExecuteNonQuery(query);
         }
     }

@@ -26,7 +26,7 @@ namespace ArtGallery.Controllers
         [HttpPost]
         public ActionResult SignUp(User newuser) {
             newuser.PROFILE_PIC = "~/Image/" + newuser.PROFILE_PIC;
-            db.SignUp(newuser);
+            
             if (newuser.imagefile != null)
             {
                 string imagefilename = Path.GetFileNameWithoutExtension(newuser.imagefile.FileName);
@@ -35,8 +35,10 @@ namespace ArtGallery.Controllers
                 newuser.PROFILE_PIC = "~/Image/" + imagefilename;
                 imagefilename = Path.Combine(Server.MapPath("~/Image/"), imagefilename);
                 newuser.imagefile.SaveAs(imagefilename);
-                ModelState.Clear();
             }
+            db.SignUp(newuser);
+            ModelState.Clear();
+
             return View();
         }
         
