@@ -47,7 +47,18 @@ namespace ArtGallery.Controllers
                 }
 
                 ModelState.Clear();
-                TempData["User"] = newuser;
+                User u = new User
+                {
+                    USER_NAME = newuser.USER_NAME,
+                    EMAIL = newuser.EMAIL,
+                    PASSWORD = newuser.PASSWORD,
+                    PHONE = newuser.PHONE,
+                    FNAME = newuser.FNAME,
+                    MINIT = newuser.MINIT,
+                    LNAME = newuser.LNAME,
+                    PROFILE_PIC = newuser.PROFILE_PIC
+                };
+                TempData["User"] = u;
                 return RedirectToAction("Index", "Authorization");
             }
             else
