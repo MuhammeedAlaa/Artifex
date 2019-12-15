@@ -6,7 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
 
-namespace BBMS.db_access
+namespace db_access
 {
     public class DBManager
     {

@@ -8,7 +8,7 @@ using System.Linq;
 using System.Web;
 using ArtGallery.Models;
 using ArtGallery.ViewModels;
-using BBMS.db_access;
+using db_access;
 
 namespace ArtGallery.DBaccess
 {
