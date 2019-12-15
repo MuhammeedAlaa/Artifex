@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace ArtGallery.ViewModels
 {
@@ -27,6 +28,7 @@ namespace ArtGallery.ViewModels
 
         public class RegisterViewModel
         {
+            [Remote("IsUserNameAvailable", "Authorization", ErrorMessage = "This name is already taken")]
             [Required(ErrorMessage = "Please enter your user name")]
             [RegularExpression("^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$", ErrorMessage = "Please enter a valid user name")]
             public string USER_NAME { get; set; }

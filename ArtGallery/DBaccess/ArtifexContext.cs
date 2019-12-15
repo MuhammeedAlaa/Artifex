@@ -35,6 +35,12 @@ namespace ArtGallery.DBaccess
                 "' AND PASSWORD = '" + u.password + "';";
             return db.ExecuteReader(query);
         }
+
+        public bool UserNameAvailable(string Username)
+        {
+            string query = "select count(*) from [USER] where USER_NAME ='" + Username + "'";
+            return (int)db.ExecuteScalar(query) == 0;
+        }
     }
 
     
