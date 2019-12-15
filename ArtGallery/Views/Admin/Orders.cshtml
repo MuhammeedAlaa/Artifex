@@ -15,32 +15,46 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
+                    @using (Html.BeginForm("Orders", "Admin", FormMethod.Get))
+                    {
                     <div class="card-header">
                         <h3 class="card-title">Orders</h3>
-
                         <div class="card-tools">
                             <div class="input-group input-group-sm" style="width: 150px;">
-                                <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
+                                <input type="text" name="table_search" class="form-control float-right" placeholder="Search with id">
                                 <div class="input-group-append">
+                                    
                                     <button type="submit" class="btn btn-default">
                                         <i class="fas fa-search"></i>
                                     </button>
+                                    
                                 </div>
                             </div>
                         </div>
                     </div>
+                    }
+                    
                     <!-- /.card-header -->
                     <div class="card-body table-responsive p-0">
                         <table class="table table-hover">
                             <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Status</th>
-                                <th>OrderDate</th>
-                                <th>DeliveryDate</th>
-                                <th>Details</th>
-                            </tr>
+                                <tr>
+                                    <th>ID</th>
+                                    @if (Request.QueryString["sortdir"] == "desc")
+                                    {
+                                        <th>@Html.ActionLink("Status", "Orders", "Admin", new {Orderby = "STATUS", sortdir = "asc"}, null)</th>
+                                        <th>@Html.ActionLink("OrderDate", "Orders", "Admin", new {Orderby = "OrderDate", sortdir = "asc"}, null)</th>
+                                        <th>@Html.ActionLink("OrderDate", "Orders", "Admin", new {Orderby = "deliveryDate", sortdir = "asc"}, null)</th>
+                                    }
+                                    else
+                                    {
+                                        <th>@Html.ActionLink("Status", "Orders", "Admin", new {Orderby = "STATUS", sortdir = "desc"}, null)</th>
+                                        <th>@Html.ActionLink("OrderDate", "Orders", "Admin", new {Orderby = "OrderDate", sortdir = "desc"}, null)</th>
+                                        <th>@Html.ActionLink("OrderDate", "Orders", "Admin", new {Orderby = "deliveryDate", sortdir = "desc"}, null)</th>
+                                     
+                                    }
+                                    <th>Details</th>
+                                </tr>
                             </thead>
                             <tbody>
 
@@ -49,18 +63,18 @@
                                 <tr>
                                     <td>@order.ORDER_ID</td>
                                     @if (order.STATUS == true)
-                                    {
-                                    <td>Delivered</td>
-                                    }
-                                    else
-                                    {
-                                    <td>Pending</td>
-                                    }
+                            {
+                                        <td>Delivered</td>
+                            }
+                            else
+                            {
+                                        <td>Pending</td>
+                            }
                                     <td>@order.ORDER_DATE</td>
                                     <td>@order.DELIVERY_DATE</td>
                                     <td>@Html.ActionLink("More details", "Index", "Order")</td>
                                 </tr>
-                            }
+                                }
 
                             </tbody>
                         </table>
@@ -83,5 +97,4 @@
     </div><!-- /.container-fluid -->
     
 </section>
-
 

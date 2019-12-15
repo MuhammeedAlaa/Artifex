@@ -30,6 +30,8 @@ namespace ArtGallery.DBaccess
         }
         private static List<T> ConvertDataTable<T>(DataTable dt)
         {
+            if (dt == null)
+                return new List<T>();
             List<T> data = new List<T>();
             foreach (DataRow row in dt.Rows)
             {
@@ -90,6 +92,12 @@ namespace ArtGallery.DBaccess
             string query = "SELECT * FROM [ORDER] ORDER BY " + criteria +" "+ orderDirection;
             return ConvertDataTable<Order>(db.ExecuteReader(query));
 
+        }
+
+        public List<Order> GetOrderById(int id)
+        {
+            string query = "SELECT * FROM [ORDER] WHERE ORDER_ID = " + id;
+            return ConvertDataTable<Order>(db.ExecuteReader(query));
         }
     }
 
