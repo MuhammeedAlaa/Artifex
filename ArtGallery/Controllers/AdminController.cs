@@ -22,7 +22,7 @@ namespace ArtGallery.Controllers
 
         public ActionResult Index()
         {
-            
+            //hard coded temporarly
             admin.Admin.Name = "nice man";
             return View(admin);
         }
