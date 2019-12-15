@@ -132,6 +132,7 @@ namespace ArtGallery.Controllers
                 };
 
                 TempData["User"] = inputUser;
+                System.Web.Security.FormsAuthentication.SetAuthCookie(logeduser.email, false);
                 return RedirectToAction("Index", "Home", true);
             }
         }
