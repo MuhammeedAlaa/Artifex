@@ -7,6 +7,7 @@ namespace ArtGallery.Models
 {
     public class Admin
     {
+
         public int ADMIN_ID { get; set; }
         public string EMAIL { get; set; }
         public string PASSWORD { get; set; }
