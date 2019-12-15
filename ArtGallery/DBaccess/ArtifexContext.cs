@@ -41,6 +41,13 @@ namespace ArtGallery.DBaccess
             string query = "select count(*) from [USER] where USER_NAME ='" + Username + "'";
             return (int)db.ExecuteScalar(query) == 0;
         }
+        public string ProfileImagePath (string Email){
+
+            string query = "select PROFILE_PIC from [USER] where EMAIL ='" + Email + "'";
+            return (string)db.ExecuteScalar(query);
+            
+
+        }
     }
 
     

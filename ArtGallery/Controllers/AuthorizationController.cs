@@ -11,18 +11,63 @@ using Microsoft.Owin.Security;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Security;
+using ArtGallery.App_Start;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace ArtGallery.Controllers
 {
+   // [Authorize]
     public class AuthorizationController : Controller
     {
         private ArtifexContext db = new ArtifexContext();
-        // GET: Authorization
-        public ActionResult Index()
+
+        private ApplicationSignInManager _signInManager;
+        private ApplicationUserManager _userManager;
+
+        public AuthorizationController()
         {
-            User inputUser = (User)TempData["User"];
+        }
+
+        public AuthorizationController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        {
+            UserManager = userManager;
+            SignInManager = signInManager;
+        }
+
+        public ApplicationSignInManager SignInManager
+        {
+            get
+            {
+                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set
+            {
+                _signInManager = value;
+            }
+        }
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
+        //
+        // GET: /Account/Login
+        [AllowAnonymous]
+        public ActionResult Login()
+        {
             return View();
         }
+
+        // GET: Authorization
         [HttpGet]
         [AllowAnonymous]
         public ActionResult SignUp()
@@ -42,14 +87,13 @@ namespace ArtGallery.Controllers
             if (ModelState.IsValid)
             {
 
-
                 if (newuser.imagefile != null)
                 {
                     imagefilename = Path.GetFileNameWithoutExtension(newuser.imagefile.FileName);
                     string extension = Path.GetExtension(newuser.imagefile.FileName);
                     imagefilename = imagefilename + DateTime.Now.ToString("yymmssfff") + extension;
-                    newuser.PROFILE_PIC = "~/Image/" + imagefilename;
-                    imagefilename = Path.Combine(Server.MapPath("~/Image/"), imagefilename);
+                    newuser.PROFILE_PIC = "~/Images/" + imagefilename;
+                    imagefilename = Path.Combine(Server.MapPath("~/Images/"), imagefilename);
 
 
                 }
@@ -75,7 +119,7 @@ namespace ArtGallery.Controllers
                 };
                 TempData["User"] = u;
                 System.Web.Security.FormsAuthentication.SetAuthCookie(u.EMAIL, false);
-                return RedirectToAction("Index", "Authorization");
+                return RedirectToAction("Index", "manage");
             }
             else
             {
@@ -102,14 +146,12 @@ namespace ArtGallery.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult SignIn(LoginViewModel logeduser)
+        public  ActionResult SignIn(LoginViewModel logeduser)
         {
-
             if (!ModelState.IsValid)
             {
                 return View(logeduser);
             }
-
             DataTable t = db.SignIn(logeduser);
             if (t == null)
             {
@@ -152,8 +194,24 @@ namespace ArtGallery.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (_userManager != null)
+                {
+                    _userManager.Dispose();
+                    _userManager = null;
+                }
 
+                if (_signInManager != null)
+                {
+                    _signInManager.Dispose();
+                    _signInManager = null;
+                }
+            }
 
-
+            base.Dispose(disposing);
+        }
     }
 }
