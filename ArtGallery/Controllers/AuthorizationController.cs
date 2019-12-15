@@ -74,6 +74,7 @@ namespace ArtGallery.Controllers
                     PROFILE_PIC = newuser.PROFILE_PIC
                 };
                 TempData["User"] = u;
+                System.Web.Security.FormsAuthentication.SetAuthCookie(u.EMAIL, false);
                 return RedirectToAction("Index", "Authorization");
             }
             else
