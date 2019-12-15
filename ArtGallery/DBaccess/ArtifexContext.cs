@@ -69,14 +69,15 @@ namespace ArtGallery.DBaccess
             string query = "select count(*) from [USER] where USER_NAME ='" + Username + "'";
             return (int)db.ExecuteScalar(query) == 0;
         }
-<<<<<<< HEAD
-        public string ProfileImagePath (string Email){
+
+        public string ProfileImagePath(string Email)
+        {
 
             string query = "select PROFILE_PIC from [USER] where EMAIL ='" + Email + "'";
-            return (string)db.ExecuteScalar(query);
-            
+            return (string) db.ExecuteScalar(query);
 
-=======
+        }
+
 
         public List<Order> GetSortedOrders(string criteria, bool asc)
         {
@@ -88,7 +89,7 @@ namespace ArtGallery.DBaccess
 
             string query = "SELECT * FROM [ORDER] ORDER BY " + criteria +" "+ orderDirection;
             return ConvertDataTable<Order>(db.ExecuteReader(query));
->>>>>>> 05e5063f4d42d2c7d5315db42a5ebbd65e44e42c
+
         }
     }
 

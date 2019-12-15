@@ -2325,13 +2325,10 @@
     <Content Include="Views\Shared\NavBar.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
-<<<<<<< HEAD
     <Content Include="Views\Manage\Index.cshtml" />
     <Content Include="Views\Authorization\index.cshtml" />
-=======
     <Content Include="Views\Admin\Orders.cshtml" />
     <Content Include="Views\Admin\_ViewStart.cshtml" />
->>>>>>> 05e5063f4d42d2c7d5315db42a5ebbd65e44e42c
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
