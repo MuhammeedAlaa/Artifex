@@ -17,7 +17,6 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace ArtGallery.Controllers
 {
-   // [Authorize]
     public class AuthorizationController : Controller
     {
         private ArtifexContext db = new ArtifexContext();
@@ -82,8 +81,6 @@ namespace ArtGallery.Controllers
         public ActionResult SignUp(RegisterViewModel newuser)
         {
             string imagefilename = "";
-
-
             if (ModelState.IsValid)
             {
 
@@ -94,19 +91,8 @@ namespace ArtGallery.Controllers
                     imagefilename = imagefilename + DateTime.Now.ToString("yymmssfff") + extension;
                     newuser.PROFILE_PIC = "~/Images/" + imagefilename;
                     imagefilename = Path.Combine(Server.MapPath("~/Images/"), imagefilename);
-
-
                 }
-                if (db.SignUp(newuser) == 0)
-                {
-                    ModelState.AddModelError("", "Invalid signup attempt.");
-                    return View();
-                }
-                else if (newuser.imagefile != null)
-                    newuser.imagefile.SaveAs(imagefilename);
-
-                ModelState.Clear();
-                User u = new User
+                RegisterViewModel u = new RegisterViewModel
                 {
                     USER_NAME = newuser.USER_NAME,
                     EMAIL = newuser.EMAIL,
@@ -115,11 +101,12 @@ namespace ArtGallery.Controllers
                     FNAME = newuser.FNAME,
                     MINIT = newuser.MINIT,
                     LNAME = newuser.LNAME,
-                    PROFILE_PIC = newuser.PROFILE_PIC
+                    PROFILE_PIC = newuser.PROFILE_PIC,
+                    imagefile = newuser.imagefile
                 };
                 TempData["User"] = u;
-                System.Web.Security.FormsAuthentication.SetAuthCookie(u.EMAIL, false);
-                return RedirectToAction("Index", "manage");
+                TempData["imagepath"] = imagefilename;
+                return RedirectToAction("BillingForm", "Authorization");
             }
             else
             {
@@ -193,6 +180,40 @@ namespace ArtGallery.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
         }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult BillingForm() 
+        {
+            RegisterViewModel newuser = (RegisterViewModel)TempData["User"] ;
+            TempData["Sign"] = newuser;
+            TempData["path"] = TempData["imagepath"];
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult BillingForm(BillingInfo b) 
+        {
+            if (ModelState.IsValid)
+            {
+                RegisterViewModel newuser = (RegisterViewModel)TempData["Sign"];
+                string path = (string)TempData["path"];
+                if (db.SignUp(newuser) == 0)
+                {
+                    ModelState.AddModelError("", "Invalid signup attempt.");
+                    return View();
+                }
+                else if (newuser.imagefile != null)
+                    newuser.imagefile.SaveAs(path);
+
+                ModelState.Clear();
+                System.Web.Security.FormsAuthentication.SetAuthCookie(newuser.EMAIL, false);
+                return RedirectToAction("index", "manage");
+            }
+            else
+                return View(b);
+        }
+
 
         protected override void Dispose(bool disposing)
         {
