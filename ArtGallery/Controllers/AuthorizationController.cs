@@ -8,6 +8,9 @@ using System.Data;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Security;
 
 namespace ArtGallery.Controllers
 {
@@ -144,6 +147,7 @@ namespace ArtGallery.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
+            FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
         }
 
