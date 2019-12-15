@@ -5,6 +5,9 @@ using System.IO;
 using System.Web.Mvc;
 using ArtGallery.DBaccess;
 using System.Data;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
 
 namespace ArtGallery.Controllers
 {
