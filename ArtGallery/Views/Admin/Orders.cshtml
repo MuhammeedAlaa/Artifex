@@ -1,0 +1,87 @@
+﻿@using ArtGallery.ViewModels
+@using PagedList
+@using PagedList.Mvc
+@model AdminViewModel
+@{
+    ViewBag.Title = "Orders";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+    <link href="~/Content/paging.css" rel="stylesheet" />
+
+<section class="content" style="padding-top: 1vh">
+    <div class="container-fluid">
+
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Orders</h3>
+
+                        <div class="card-tools">
+                            <div class="input-group input-group-sm" style="width: 150px;">
+                                <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-default">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Status</th>
+                                <th>OrderDate</th>
+                                <th>DeliveryDate</th>
+                                <th>Details</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            @foreach (var order in Model.Orders)
+                            {
+                                <tr>
+                                    <td>@order.ORDER_ID</td>
+                                    @if (order.STATUS == true)
+                                    {
+                                    <td>Delivered</td>
+                                    }
+                                    else
+                                    {
+                                    <td>Pending</td>
+                                    }
+                                    <td>@order.ORDER_DATE</td>
+                                    <td>@order.DELIVERY_DATE</td>
+                                    <td>@Html.ActionLink("More details", "Index", "Order")</td>
+                                </tr>
+                            }
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+        <!-- /.row -->
+        <div   class ="pagination" >
+            @Html.PagedListPager(Model.Orders, page => Url.Action("Orders",
+                new
+                {
+                    page,
+                         Orderby = Request.QueryString["Orderby"],
+                    asc = Request.QueryString["asc"], 
+                }),PagedListRenderOptions.ClassicPlusFirstAndLast)
+        </div>
+    </div><!-- /.container-fluid -->
+    
+</section>
+
+

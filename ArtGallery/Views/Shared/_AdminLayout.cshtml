@@ -8,7 +8,6 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
     <title>Dashboard</title>
-
     <!-- Font Awesome Icons -->
     <link href="~/lte/plugins/fontawesome-free/css/all.min.css" rel="stylesheet" />
     <!-- overlayScrollbars -->
@@ -16,8 +15,10 @@
     <!-- Theme style -->
 
     <link href="~/lte/dist/css/adminlte.min.css" rel="stylesheet" />
+
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
     <div class="wrapper">
@@ -150,7 +151,7 @@
                         <img src=@Url.Content(Model.Admin.ProfilePic.IsNullOrWhiteSpace()? "~/Images/default.png": Model.Admin.ProfilePic) class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">@Model.Admin.Name</a>
+                        <text href="#" style="color:#c2c7d0">@Model.Admin.Name</text>
                     </div>
                 </div>
 
@@ -168,10 +169,20 @@
                             </a>
                         </li>
                         <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
+                            <a href="/Admin/Orders" class="nav-link">
+                                <i class="nav-icon fab fa-btc"></i>
+                                <p>
+                                    Orders
+
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item has-treeview">
+                            <a href="/admin" class="nav-link">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Dashboard
+
                                 </p>
                             </a>
                         </li>
