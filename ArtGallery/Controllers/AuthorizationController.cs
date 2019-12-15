@@ -213,7 +213,32 @@ namespace ArtGallery.Controllers
             else
                 return View(b);
         }
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult ApplyArtist() 
+        {
+            return View();
+        }
 
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult ApplyExpert()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ApplyArtist(Artist a)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ApplyExpert(Expert e)
+        {
+            return View();
+        }
 
         protected override void Dispose(bool disposing)
         {
