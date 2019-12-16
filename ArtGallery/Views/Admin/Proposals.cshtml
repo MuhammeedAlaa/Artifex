@@ -1,0 +1,138 @@
+﻿@using ArtGallery.ViewModels
+@using PagedList
+@using PagedList.Mvc
+@model AdminViewModel
+@{
+    ViewBag.Title = "Proposals";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    .customtbl {text-align: center;}
+    .customtbl td{vertical-align: middle;}
+</style>
+
+<link href="~/Content/paging.css" rel="stylesheet" />
+
+<section class="content" style="padding-top: 1vh">
+    <div class="container-fluid">
+
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    @using (Html.BeginForm("Proposals", "Admin", FormMethod.Get))
+                    {
+                        <div class="card-header">
+                            <h3 class="card-title">Artwork Proposals</h3>
+                            <div class="card-tools">
+                                <div class="input-group input-group-sm" style="width: 150px;">
+                                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search by Artist">
+                                    <div class="input-group-append">
+
+                                        <button type="submit" class="btn btn-default">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    <!-- /.card-header -->
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-hover customtbl">
+                            <thead>
+                                <tr>
+                                    <th>Code</th>
+                                    <th>Photo</th>
+                                    @if (Request.QueryString["sortdir"] == "desc")
+                                    {
+                                        <th>
+                                            @Html.ActionLink("Title", "Proposals", "Admin", new { Orderby = "Title", sortdir = "asc" }, null)
+                                            @if (Request.QueryString["Orderby"] == "Title")
+                                            {
+                                                <i class="fas fa-sort-amount-up" style="color: #007bff"></i>
+                                            }
+                                        </th>
+                                        <th>
+                                            @Html.ActionLink("Category", "Proposals", "Admin", new { Orderby = "Category", sortdir = "asc" }, null)
+                                            @if (Request.QueryString["Orderby"] == "Category")
+                                            {
+                                                <i class="fas fa-sort-amount-up" style="color: #007bff"></i>
+                                            }
+                                        </th>
+                                        <th>
+                                            @Html.ActionLink("Artist", "Proposals", "Admin", new { Orderby = "Artist", sortdir = "asc" }, null)
+                                            @if (Request.QueryString["Orderby"] == "Artist")
+                                            {
+                                                <i class="fas fa-sort-amount-up" style="color: #007bff"></i>
+                                            }
+                                        </th>
+                                    }
+                                    else
+                                    {
+                                        <th>
+                                            @Html.ActionLink("Title", "Proposals", "Admin", new { Orderby = "Title", sortdir = "desc" }, null)
+                                            @if (Request.QueryString["Orderby"] == "Title")
+                                            {
+                                                <i class="fas fa-sort-amount-down-alt" style="color: #007bff"></i>
+                                            }
+                                        </th>
+                                        <th>
+                                            @Html.ActionLink("Category", "Proposals", "Admin", new { Orderby = "Category", sortdir = "desc" }, null)
+                                            @if (Request.QueryString["Orderby"] == "Category")
+                                            {
+                                                <i class="fas fa-sort-amount-down-alt" style="color: #007bff"></i>
+                                            }
+                                        </th>
+                                        <th>
+                                            @Html.ActionLink("Artist", "Proposals", "Admin", new { Orderby = "Artist", sortdir = "desc" }, null)
+                                            @if (Request.QueryString["Orderby"] == "Artist")
+                                            {
+                                                <i class="fas fa-sort-amount-down-alt" style="color: #007bff"></i>
+                                            }
+                                        </th>
+
+                                    }
+                                    <th>More Details</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var artwork in Model.Artworks)
+                                {
+                                    <tr>
+                                        <td>@artwork.AW_CODE</td>
+                                        <td><img src=@Url.Content(artwork.PHOTO) alt="Artwork photo" height="100vh" /></td>
+                                        <td>@artwork.TITLE</td>
+                                        <td>@artwork.CATEGORY_NAME</td>
+                                        <td>@artwork.ARTIST_UNAME</td>
+                                        <td>@Html.ActionLink("More details", "Index", "Artwork")</td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+        <!-- /.row -->
+        <div class="pagination">
+            @Html.PagedListPager(Model.Artworks, page => Url.Action("Proposals",
+                new
+                {
+                    page,
+                         Orderby = Request.QueryString["Orderby"],
+                    asc = Request.QueryString["asc"],
+                }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+        </div>
+    </div><!-- /.container-fluid -->
+
+</section>
+
+

@@ -9,7 +9,7 @@ namespace ArtGallery.Models
     {
         public int REPORT_ID { get; set; }
         public string USER_NAME { get; set; }
-        public Nullable<int> ADMIN_ID { get; set; }
+        public int? ADMIN_ID { get; set; }
         public int ORDER_ID { get; set; }
         public string TEXT { get; set; }
     }

@@ -2335,7 +2335,11 @@
     <Content Include="Views\Authorization\ApplyExpert.cshtml" />
     <Content Include="Views\Authorization\ApplyArtist.cshtml" />
     <Content Include="Views\Admin\Reports.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\Manage\ChangePassword.cshtml" />
+=======
+    <Content Include="Views\Admin\Proposals.cshtml" />
+>>>>>>> 372883ece3c63f8f0e4a28ba361f65272b25089b
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
