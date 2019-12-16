@@ -79,10 +79,6 @@ namespace ArtGallery.Controllers
 
             if (ViewBag.imagepath == "")
                 ViewBag.imagepath = "/Images/def.png";
-            else
-            {
-                ViewBag.imagepath = ViewBag.imagepath.Substring(1);
-            }
             return View();
         }
 

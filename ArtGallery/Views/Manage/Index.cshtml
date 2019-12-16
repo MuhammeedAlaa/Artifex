@@ -17,7 +17,8 @@
             <div class="profile-bio">
                 <div class="row">
                     <div class="col-md-5 text-center">
-                        <img class="img-thumbnail md-margin-bottom-10" src="@ViewBag.imagepath" alt="Profile pic" style="width:100%" />
+
+                        <img class="img-thumbnail md-margin-bottom-10" src=@Url.Content(ViewBag.imagepath) alt="Profile pic" style="width: 100%"/>
                     </div>
                     <div class="col-md-7">
                         @if (a != null)

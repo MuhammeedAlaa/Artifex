@@ -46,6 +46,7 @@ namespace db_access
                 }
                 else
                 {
+                    reader.Close();
                     return null;
                 }
             }

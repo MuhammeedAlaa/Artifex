@@ -186,9 +186,7 @@ namespace ArtGallery.Controllers
         [AllowAnonymous]
         public ActionResult BillingForm() 
         {
-            RegisterViewModel newuser = (RegisterViewModel)TempData["User"] ;
-            TempData["Sign"] = newuser;
-            TempData["path"] = TempData["imagepath"];
+            
             return View();
         }
         [HttpPost]
@@ -197,8 +195,8 @@ namespace ArtGallery.Controllers
         {
             if (ModelState.IsValid)
             {
-                RegisterViewModel newuser = (RegisterViewModel)TempData["Sign"];
-                string path = (string)TempData["path"];
+                RegisterViewModel newuser = (RegisterViewModel)TempData["User"];
+                string path = (string)TempData["imagepath"];
                 if (db.SignUp(newuser) == 0)
                 {
                     ModelState.AddModelError("", "Invalid signup attempt.");
