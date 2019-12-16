@@ -1,7 +1,6 @@
 ﻿@using ArtGallery.Models
 @using ArtGallery.ViewModels
 @{
-    ViewBag.Title = "Profile page";
     List<Artist> a = ViewBag.artist;
     List<ExpertViewModel> e = ViewBag.expert;
 }
@@ -17,8 +16,7 @@
             <div class="profile-bio">
                 <div class="row">
                     <div class="col-md-5 text-center">
-
-                        <img class="img-thumbnail md-margin-bottom-10" src=@Url.Content(ViewBag.imagepath) alt="Profile pic" style="width: 100%"/>
+                        <img class="img-thumbnail md-margin-bottom-10" src=@Url.Content(ViewBag.imagepath) alt="Profile pic" style="width: 100%" />
                     </div>
                     <div class="col-md-7">
                         @if (a != null)
@@ -57,6 +55,7 @@
         </div>
     </div>
 </div>
+@Html.ActionLink("Change yours password", "ChangePassword", "Manage")
 <div class="jumbotron">
     <div class="row">
         <div class="column">
@@ -66,7 +65,6 @@
             <br />
             <p> Atrifex@gmail.com</p>
         </div>
-
         <div class="column">
             <h3 style="color:darkblue">Services </h3>
             <br />
@@ -78,10 +76,8 @@
             <br />
             <p> FAQ</p>
         </div>
-
         <div class="column">
             <h3 style="color:darkblue"> Information</h3>
-
             <br />
             <p> Work With Us</p>
             <br />

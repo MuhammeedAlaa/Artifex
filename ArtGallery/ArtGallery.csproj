@@ -436,6 +436,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="ViewModels\AdminViewModel.cs" />
+    <Compile Include="ViewModels\ChangePasswordViewModel.cs" />
     <Compile Include="ViewModels\ExpertViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -2334,6 +2335,7 @@
     <Content Include="Views\Authorization\ApplyExpert.cshtml" />
     <Content Include="Views\Authorization\ApplyArtist.cshtml" />
     <Content Include="Views\Admin\Reports.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

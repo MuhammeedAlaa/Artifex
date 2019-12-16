@@ -157,11 +157,31 @@ namespace ArtGallery.DBaccess
             return ConvertDataTable<Report>(db.ExecuteReader(query));
 
         }
+        public string GetUserName(string Email) 
+        {
+            string query = "SELECT USER_NAME FROM [dbo].[USER] WHERE EMAIL ='" + Email + "';";
+            return (string)db.ExecuteScalar(query);
+        }
+
+        public string GetEmail(string Uname)
+        {
+            string query = "SELECT EMAIL FROM [dbo].[USER] WHERE USER_NAME ='" + Uname + "';";
+            return (string)db.ExecuteScalar(query);
+        }
 
         public List<Report> GetReportById(int id)
         {
             string query = "SELECT * FROM [ORDER] WHERE ORDER_ID = " + id;
             return ConvertDataTable<Report>(db.ExecuteReader(query));
+        }
+        public void UpdatePassword(string EMAIL, ChangePasswordViewModel p) {
+            string query = "SELECT [dbo].[USER].PASSWORD FROM [dbo].[USER] WHERE EMAIL='" + EMAIL + "';";
+            string pass = (string)db.ExecuteScalar(query);
+            if(pass == p.PASSWORD)
+            {
+                query = "UPDATE [dbo].[USER] SET [PASSWORD] ='" + p.NEWPASSWORD + "' WHERE EMAIL='" + EMAIL + "';";
+                db.ExecuteNonQuery(query);
+            }
         }
     }
 

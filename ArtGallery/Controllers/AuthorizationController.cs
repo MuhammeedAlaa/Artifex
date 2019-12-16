@@ -207,7 +207,7 @@ namespace ArtGallery.Controllers
 
                 ModelState.Clear();
                 System.Web.Security.FormsAuthentication.SetAuthCookie(newuser.EMAIL, false);
-                return RedirectToAction("index", "manage");
+                return RedirectToAction("index", "manage",new { uname = newuser.USER_NAME});
             }
             else
                 return View(b);

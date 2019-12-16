@@ -54,32 +54,107 @@ namespace ArtGallery.Controllers
                 _userManager = value;
             }
         }
+        [HttpGet]
+        [Authorize]
+        public ActionResult ChangePassword() {
+
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangePassword(ChangePasswordViewModel p)
+        {
+            db.UpdatePassword(User.Identity.Name, p);
+
+            return RedirectToAction("Index","manage");
+        }
 
         //
         // GET: /Manage/Index
-        public ActionResult Index()
+        public ActionResult Index(string Uname)
         {
            
             string Email = User.Identity.Name;
+            ViewBag.expert = null;
+            ViewBag.artist = null;
+
+            if (Email == "" && Uname == null)
+                return RedirectToAction("SignIn", "Authorization");
+            string un = db.GetUserName(Email);
+            if (Email != "" && Uname == null || (Email == un))
+            {
+
+                ViewBag.title = un;
+                List<ExpertViewModel> e = db.GetExpert(Email);
+
+                ViewBag.imagepath = db.ProfileImagePath(Email);
+
+                List<Artist> a = db.GetArtist(Email);
+                if (e != null)
+                    ViewBag.expert = e;
+                else
+                    ViewBag.expert = null;
+                if (a != null)
+                    ViewBag.artist = a;
+                else
+                    ViewBag.artist = null;
+
+
+                if (ViewBag.imagepath == "")
+                    ViewBag.imagepath = "/Images/def.png";
+                return View();
+            }
+            else //if(Email == null && Uname != "" || (Email != null && Uname != "") )
+            {
+                Email = db.GetEmail(Uname);
+                ViewBag.title = Uname;
+
+                List<ExpertViewModel> e = db.GetExpert(Email);
+
+                ViewBag.imagepath = db.ProfileImagePath(Email);
+
+                List<Artist> a = db.GetArtist(Email);
+                if (e != null)
+                    ViewBag.expert = e;
+                else
+                    ViewBag.expert = null;
+                if (a != null)
+                    ViewBag.artist = a;
+                else
+                    ViewBag.artist = null;
+
+
+                if (ViewBag.imagepath == "")
+                    ViewBag.imagepath = "/Images/def.png";
+                return View();
+            }
             
-            List<ExpertViewModel> e = db.GetExpert(Email);
+        }
 
-            ViewBag.imagepath = db.ProfileImagePath(Email);
-           
-            List<Artist> a = db.GetArtist(Email);
-            if (e != null)
-                ViewBag.expert = e;
-            else
-                ViewBag.expert = null;
-            if (a != null)
-                ViewBag.artist = a;
-            else
-                ViewBag.artist = null;
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (_userManager != null)
+                {
+                    _userManager.Dispose();
+                    _userManager = null;
+                }
 
+                if (_signInManager != null)
+                {
+                    _signInManager.Dispose();
+                    _signInManager = null;
+                }
+                if (db != null)
+                {
 
-            if (ViewBag.imagepath == "")
-                ViewBag.imagepath = "/Images/def.png";
-            return View();
+                    db.Dispose();
+                    db = null;
+                }
+            }
+
+            base.Dispose(disposing);
         }
 
     }
