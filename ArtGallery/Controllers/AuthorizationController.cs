@@ -200,7 +200,7 @@ namespace ArtGallery.Controllers
                 if (db.SignUp(newuser) == 0)
                 {
                     ModelState.AddModelError("", "Invalid signup attempt.");
-                    return View();
+                    return RedirectToAction("SignUp", "Authorization");
                 }
                 else if (newuser.imagefile != null)
                     newuser.imagefile.SaveAs(path);
