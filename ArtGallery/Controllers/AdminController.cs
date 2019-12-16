@@ -55,5 +55,33 @@ namespace ArtGallery.Controllers
                 return View(admin);
             }
         }
+        public ActionResult Reports(string Orderby, int? page, string sortdir)
+        {
+            if (Request.QueryString["table_search"].IsNullOrWhiteSpace() || !Request.QueryString["table_search"].IsInt())
+            {
+                sortdir = sortdir == "desc" ? "asc" : "desc";
+                bool asc = sortdir == "desc" ? true : false;
+                if (Orderby == "UserName")
+                {
+                    admin.Reports = db.GetSortedReports("USER_NAME", asc).ToPagedList(page ?? 1, 5);
+                    return View(admin);
+                }
+                else if (Orderby == "OrderId")
+                {
+                    admin.Reports = db.GetSortedReports("ORDER_ID", asc).ToPagedList(page ?? 1, 5);
+                    return View(admin);
+                }
+                else
+                {
+                    admin.Reports = db.GetSortedReports("ADMIN_ID", asc).ToPagedList(page ?? 1, 5);
+                    return View(admin);
+                }
+            }
+            else
+            {
+                admin.Reports = db.GetReportById(Convert.ToInt32(Request.QueryString["table_search"])).ToPagedList(page ?? 1, 1);
+                return View(admin);
+            }
+        }
     }
 }

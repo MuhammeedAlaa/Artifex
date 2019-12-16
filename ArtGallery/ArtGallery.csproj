@@ -2333,6 +2333,7 @@
     <Content Include="Views\Authorization\BillingForm.cshtml" />
     <Content Include="Views\Authorization\ApplyExpert.cshtml" />
     <Content Include="Views\Authorization\ApplyArtist.cshtml" />
+    <Content Include="Views\Admin\Reports.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

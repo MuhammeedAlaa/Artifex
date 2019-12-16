@@ -50,7 +50,12 @@ namespace ArtGallery.DBaccess
                 foreach (PropertyInfo pro in temp.GetProperties())
                 {
                     if (pro.Name == column.ColumnName)
-                        pro.SetValue(obj, dr[column.ColumnName], null);
+                    {
+                        var value = dr[column.ColumnName];
+                        if (value == DBNull.Value)
+                            value = null;
+                        pro.SetValue(obj, value, null);
+                    }
                     else
                         continue;
                 }
@@ -139,6 +144,24 @@ namespace ArtGallery.DBaccess
             string query = "SELECT * FROM [ORDER] WHERE ORDER_ID = " + id;
             return ConvertDataTable<Order>(db.ExecuteReader(query));
 
+        }
+        public List<Report> GetSortedReports(string criteria, bool asc)
+        {
+            string orderDirection;
+            if (asc)
+                orderDirection = "ASC";
+            else
+                orderDirection = "DESC";
+
+            string query = "SELECT * FROM REPORT ORDER BY " + criteria + " " + orderDirection;
+            return ConvertDataTable<Report>(db.ExecuteReader(query));
+
+        }
+
+        public List<Report> GetReportById(int id)
+        {
+            string query = "SELECT * FROM [ORDER] WHERE ORDER_ID = " + id;
+            return ConvertDataTable<Report>(db.ExecuteReader(query));
         }
     }
 
