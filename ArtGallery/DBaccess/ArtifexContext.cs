@@ -93,7 +93,6 @@ namespace ArtGallery.DBaccess
             return ConvertDataTable<Order>(db.ExecuteReader(query));
 
         }
-<<<<<<< HEAD
         public void InsertExpert(string Email, string bio, string qul, int? Byear ) 
         {
             string query = "SELECT USER_NAME FROM[dbo].[USER] WHERE EMAIL = '" + Email+"';";
@@ -132,13 +131,14 @@ namespace ArtGallery.DBaccess
                 return ConvertDataTable<ExpertViewModel>(d);
             else
                 return null;
-=======
+        }
+
 
         public List<Order> GetOrderById(int id)
         {
             string query = "SELECT * FROM [ORDER] WHERE ORDER_ID = " + id;
             return ConvertDataTable<Order>(db.ExecuteReader(query));
->>>>>>> b3f98da0d28f6a46852760f5559d66651690cfbe
+
         }
     }
 
