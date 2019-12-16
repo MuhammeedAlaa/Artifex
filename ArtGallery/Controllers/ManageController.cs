@@ -9,6 +9,8 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.Owin.Security;
 using ArtGallery.DBaccess;
+using ArtGallery.Models;
+using ArtGallery.ViewModels;
 
 namespace ArtGallery.Controllers
 {
@@ -59,7 +61,22 @@ namespace ArtGallery.Controllers
         {
            
             string Email = User.Identity.Name;
+            
+            List<ExpertViewModel> e = db.GetExpert(Email);
+
             ViewBag.imagepath = db.ProfileImagePath(Email);
+           
+            List<Artist> a = db.GetArtist(Email);
+            if (e != null)
+                ViewBag.expert = e;
+            else
+                ViewBag.expert = null;
+            if (a != null)
+                ViewBag.artist = a;
+            else
+                ViewBag.artist = null;
+
+
             if (ViewBag.imagepath == "")
                 ViewBag.imagepath = "/Images/def.png";
             else

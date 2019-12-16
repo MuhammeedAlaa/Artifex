@@ -19,13 +19,14 @@ namespace ArtGallery.Controllers
 {
     public class AuthorizationController : Controller
     {
-        private ArtifexContext db = new ArtifexContext();
+        private ArtifexContext db ;
 
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
         public AuthorizationController()
         {
+            db = new ArtifexContext();
         }
 
         public AuthorizationController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -230,14 +231,20 @@ namespace ArtGallery.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ApplyArtist(Artist a)
         {
-            return View();
+
+            string Email = User.Identity.Name;
+            db.InsertArtist(Email, a.BIO, a.BYEAR,a.START_SALARY,a.END_SALARY);
+
+            return RedirectToAction("index","manage");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ApplyExpert(Expert e)
+        public ActionResult ApplyExpert(ExpertViewModel e)
         {
-            return View();
+            string Email = User.Identity.Name;
+            db.InsertExpert(Email, e.BIO, e.QUALIFICATIONS, e.BYEAR);
+            return RedirectToAction("index", "manage");
         }
 
         protected override void Dispose(bool disposing)
@@ -254,6 +261,12 @@ namespace ArtGallery.Controllers
                 {
                     _signInManager.Dispose();
                     _signInManager = null;
+                }
+                if(db != null)
+                {
+
+                    db.Dispose();
+                    db = null;
                 }
             }
 

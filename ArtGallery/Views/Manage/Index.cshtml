@@ -1,14 +1,61 @@
-﻿
+﻿@using ArtGallery.Models
+@using ArtGallery.ViewModels
 @{
-    ViewBag.Title = "Home page";
+    ViewBag.Title = "Profile page";
+    List<Artist> a = ViewBag.artist;
+    List<ExpertViewModel> e = ViewBag.expert;
 }
 
 @section AddToHead{
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Home.css")" rel="stylesheet" type="text/css" />
 }
-<img src="@ViewBag.imagepath" alt="Profile pic" style="width:100%" />
 
+<div class="container bootstrap snippet">
+    <div class="profile card">
+        <div class="profile-body">
+            <div class="profile-bio">
+                <div class="row">
+                    <div class="col-md-5 text-center">
+                        <img class="img-thumbnail md-margin-bottom-10" src="@ViewBag.imagepath" alt="Profile pic" style="width:100%" />
+                    </div>
+                    <div class="col-md-7">
+                        @if (a != null)
+                        {
+                            <h2>@a[0].ARTIST_UNAME </h2>
+                        }
+                        @if (a != null && e == null)
+                        {
+
+                            <span><strong>Job:</strong> Artist</span>
+                        }
+                        @if (e != null && a == null)
+                        {
+
+                            <span><strong>Job:</strong> Expert</span>
+                        }
+                        @if (a != null && e != null)
+                        {
+                            <span><strong>Job:</strong> Expert & Artist</span>
+
+                        }
+                        <hr>
+                        <h1>Bio</h1>
+                        <br />
+                        @if (e != null)
+                        {
+                            <p>@e[0].BIO</p>
+                        }
+                        @if (a != null)
+                        {
+                            <p>@a[0].BIO</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="jumbotron">
     <div class="row">
         <div class="column">

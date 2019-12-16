@@ -91,6 +91,45 @@ namespace ArtGallery.DBaccess
             return ConvertDataTable<Order>(db.ExecuteReader(query));
 
         }
+        public void InsertExpert(string Email, string bio, string qul, int? Byear ) 
+        {
+            string query = "SELECT USER_NAME FROM[dbo].[USER] WHERE EMAIL = '" + Email+"';";
+            string username = (string)db.ExecuteReader(query).Rows[0]["USER_NAME"];
+            query = "INSERT INTO [dbo].[EXPERT]([EXPERT_UNAME],[BIO],[BYEAR])VALUES" +
+                "('" + username + "','" + bio + "'," + Byear + ");";
+            db.ExecuteNonQuery(query);
+            query = "INSERT INTO EXP_QUALIFICATIONS VALUES('" + username+ "','" + qul + "');";
+            db.ExecuteNonQuery(query);
+        }
+
+        public void InsertArtist(string Email, string bio, int? Byear, int START_SALARY, int END_SALARY)
+        {
+            string query = "SELECT USER_NAME FROM[dbo].[USER] WHERE EMAIL = '" + Email + "';";
+            string username = (string)db.ExecuteReader(query).Rows[0]["USER_NAME"];
+            query = "INSERT INTO [dbo].[ARTIST]([ARTIST_UNAME],[BIO],[BYEAR],[START_SALARY],[END_SALARY])" +
+                "VALUES('" + username + "','" + bio + "','" + Byear + "'," + START_SALARY + "," + END_SALARY + ");";
+            db.ExecuteNonQuery(query);
+        }
+        public List<Artist> GetArtist(string Email) 
+        {
+            string query = "SELECT A.* FROM ARTIST A JOIN [dbo].[USER] U ON U.USER_NAME = A.ARTIST_UNAME WHERE  U.EMAIL ='" + Email + "';";
+            DataTable d = db.ExecuteReader(query);
+            if (d != null)
+                return ConvertDataTable<Artist>(d);
+            else
+                return null;
+        }
+
+        public List<ExpertViewModel> GetExpert(string Email)
+        {
+
+            string query = "SELECT E.*,ES.QUALIFICATIONS FROM EXPERT E JOIN[dbo].[USER] U ON U.USER_NAME = E.EXPERT_UNAME join EXP_QUALIFICATIONS ES on E.EXPERT_UNAME = ES.EXPERT_UNAME  WHERE U.EMAIL = '" + Email + "'; ";
+            DataTable d = db.ExecuteReader(query);
+            if (d != null)
+                return ConvertDataTable<ExpertViewModel>(d);
+            else
+                return null;
+        }
     }
 
     
