@@ -71,6 +71,7 @@ namespace ArtGallery.Controllers
 
         //
         // GET: /Manage/Index
+        [Route("Manage/{Uname?}")]
         public ActionResult Index(string Uname)
         {
            
@@ -81,7 +82,7 @@ namespace ArtGallery.Controllers
             if (Email == "" && Uname == null)
                 return RedirectToAction("SignIn", "Authorization");
             string un = db.GetUserName(Email);
-            if (Email != "" && Uname == null || (Email == un))
+            if (Email != "" && Uname == "" || (Email == Uname))
             {
 
                 ViewBag.title = un;
@@ -106,7 +107,7 @@ namespace ArtGallery.Controllers
             }
             else //if(Email == null && Uname != "" || (Email != null && Uname != "") )
             {
-                Email = db.GetEmail(Uname);
+                Email = Uname;
                 ViewBag.title = Uname;
 
                 List<ExpertViewModel> e = db.GetExpert(Email);
