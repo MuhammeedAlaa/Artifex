@@ -105,6 +105,11 @@ namespace ArtGallery.Controllers
                     admin.Artworks = db.GetSortedArtworks("TITLE", asc).ToPagedList(page ?? 1, 5);
                     return View(admin);
                 }
+                else if (Orderby == "Price")
+                {
+                    admin.Artworks = db.GetSortedArtworks("Price", asc).ToPagedList(page ?? 1, 5);
+                    return View(admin);
+                }
                 else
                 {
                     admin.Artworks = db.GetSortedArtworks("AW_CODE", asc).ToPagedList(page ?? 1, 5);

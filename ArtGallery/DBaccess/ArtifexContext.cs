@@ -175,16 +175,18 @@ namespace ArtGallery.DBaccess
             string query = "SELECT * FROM REPORT WHERE REPORT_ID = " + id;
             return ConvertDataTable<Report>(db.ExecuteReader(query));
         }
-<<<<<<< HEAD
-        public void UpdatePassword(string EMAIL, ChangePasswordViewModel p) {
+
+        public void UpdatePassword(string EMAIL, ChangePasswordViewModel p)
+        {
             string query = "SELECT [dbo].[USER].PASSWORD FROM [dbo].[USER] WHERE EMAIL='" + EMAIL + "';";
-            string pass = (string)db.ExecuteScalar(query);
-            if(pass == p.PASSWORD)
+            string pass = (string) db.ExecuteScalar(query);
+            if (pass == p.PASSWORD)
             {
                 query = "UPDATE [dbo].[USER] SET [PASSWORD] ='" + p.NEWPASSWORD + "' WHERE EMAIL='" + EMAIL + "';";
                 db.ExecuteNonQuery(query);
             }
-=======
+
+        }
 
         public List<Artwork> GetSortedArtworks(string criteria, bool asc)
         {
@@ -203,7 +205,6 @@ namespace ArtGallery.DBaccess
         {
             string query = "SELECT * FROM Artwork WHERE ARTIST_UNAME LIKE '%" + name + "%' AND ACCEPTED = 0";
             return ConvertDataTable<Artwork>(db.ExecuteReader(query));
->>>>>>> 372883ece3c63f8f0e4a28ba361f65272b25089b
         }
     }
 
