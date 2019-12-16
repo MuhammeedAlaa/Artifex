@@ -2110,6 +2110,7 @@
     <Content Include="lte\plugins\toastr\toastr.css" />
     <Content Include="lte\plugins\toastr\toastr.min.css" />
     <Content Include="lte\plugins\toastr\toastr.min.js" />
+    <Content Include="Scripts\bootstrap.3.4.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
