@@ -86,18 +86,6 @@ namespace ArtGallery.DBaccess
         }
 
 
-        public List<Order> GetSortedOrders(string criteria, bool asc)
-        {
-            string orderDirection;
-            if (asc)
-                orderDirection = "ASC";
-            else
-                orderDirection = "DESC";
-
-            string query = "SELECT * FROM [ORDER] ORDER BY " + criteria +" "+ orderDirection;
-            return ConvertDataTable<Order>(db.ExecuteReader(query));
-
-        }
         public void InsertExpert(string Email, string bio, string qul, int? Byear ) 
         {
             string query = "SELECT USER_NAME FROM[dbo].[USER] WHERE EMAIL = '" + Email+"';";
@@ -139,6 +127,19 @@ namespace ArtGallery.DBaccess
         }
 
 
+        public List<Order> GetSortedOrders(string criteria, bool asc)
+        {
+            string orderDirection;
+            if (asc)
+                orderDirection = "ASC";
+            else
+                orderDirection = "DESC";
+
+            string query = "SELECT * FROM [ORDER] ORDER BY " + criteria + " " + orderDirection;
+            return ConvertDataTable<Order>(db.ExecuteReader(query));
+
+        }
+
         public List<Order> GetOrderById(int id)
         {
             string query = "SELECT * FROM [ORDER] WHERE ORDER_ID = " + id;
@@ -160,8 +161,27 @@ namespace ArtGallery.DBaccess
 
         public List<Report> GetReportById(int id)
         {
-            string query = "SELECT * FROM [ORDER] WHERE ORDER_ID = " + id;
+            string query = "SELECT * FROM REPORT WHERE REPORT_ID = " + id;
             return ConvertDataTable<Report>(db.ExecuteReader(query));
+        }
+
+        public List<Artwork> GetSortedArtworks(string criteria, bool asc)
+        {
+            string orderDirection;
+            if (asc)
+                orderDirection = "ASC";
+            else
+                orderDirection = "DESC";
+
+            string query = "SELECT * FROM Artwork WHERE ACCEPTED = 0 ORDER BY " + criteria + " " + orderDirection;
+            return ConvertDataTable<Artwork>(db.ExecuteReader(query));
+
+        }
+
+        public List<Artwork> GetArtworksByArtist(string name)
+        {
+            string query = "SELECT * FROM Artwork WHERE ARTIST_UNAME LIKE '%" + name + "%' AND ACCEPTED = 0";
+            return ConvertDataTable<Artwork>(db.ExecuteReader(query));
         }
     }
 

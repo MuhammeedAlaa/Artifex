@@ -51,7 +51,7 @@ namespace ArtGallery.Controllers
             }
             else
             {
-                admin.Orders = db.GetOrderById(Convert.ToInt32(Request.QueryString["table_search"])).ToPagedList(page ?? 1, 1);
+                admin.Orders = db.GetOrderById(Convert.ToInt32(Request.QueryString["table_search"])).ToPagedList(page ?? 1, 5);
                 return View(admin);
             }
         }
@@ -79,7 +79,41 @@ namespace ArtGallery.Controllers
             }
             else
             {
-                admin.Reports = db.GetReportById(Convert.ToInt32(Request.QueryString["table_search"])).ToPagedList(page ?? 1, 1);
+                admin.Reports = db.GetReportById(Convert.ToInt32(Request.QueryString["table_search"])).ToPagedList(page ?? 1, 5);
+                return View(admin);
+            }
+        }
+
+        public ActionResult Proposals(string Orderby, int? page, string sortdir)
+        {
+            if (Request.QueryString["table_search"].IsNullOrWhiteSpace())
+            {
+                sortdir = sortdir == "desc" ? "asc" : "desc";
+                bool asc = sortdir == "desc" ? true : false;
+                if (Orderby == "Artist")
+                {
+                    admin.Artworks = db.GetSortedArtworks("ARTIST_UNAME", asc).ToPagedList(page ?? 1, 5);
+                    return View(admin);
+                }
+                else if (Orderby == "Category")
+                {
+                    admin.Artworks = db.GetSortedArtworks("CATEGORY_NAME", asc).ToPagedList(page ?? 1, 5);
+                    return View(admin);
+                }
+                else if (Orderby == "Title")
+                {
+                    admin.Artworks = db.GetSortedArtworks("TITLE", asc).ToPagedList(page ?? 1, 5);
+                    return View(admin);
+                }
+                else
+                {
+                    admin.Artworks = db.GetSortedArtworks("AW_CODE", asc).ToPagedList(page ?? 1, 5);
+                    return View(admin);
+                }
+            }
+            else
+            {
+                admin.Artworks = db.GetArtworksByArtist(Request.QueryString["table_search"]).ToPagedList(page ?? 1, 5);
                 return View(admin);
             }
         }
