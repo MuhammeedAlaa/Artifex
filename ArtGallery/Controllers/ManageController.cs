@@ -80,7 +80,10 @@ namespace ArtGallery.Controllers
 
             if (ViewBag.imagepath == "")
                 ViewBag.imagepath = "/Images/def.png";
+<<<<<<< HEAD
 
+=======
+>>>>>>> eb18f290d0d40984de3dda33ae1a02a56f8c68f7
             return View();
         }
 
