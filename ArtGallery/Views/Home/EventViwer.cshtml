@@ -1,16 +1,22 @@
 ﻿
 <h2>Event</h2>
 <div class="jumbotron">
-    <img class="img-thumbnail md-margin-bottom-10" src=@Url.Content(ViewBag.image) alt="Profile pic" style="width: 100%" />
-    <h1>Title: </h1><p>@ViewBag.title</p>
-    <br />
-    <h1>Informations: </h1><p>@ViewBag.info</p>
-    <br />
-    <h1>Location: </h1><p>@ViewBag.loc</p>
-    <br />
-    <h1>Price: </h1><p>@ViewBag.price</p>
-    <br />
-    <a class="btn btn-default" href='@Url.Action("Buy", "Home",new { title = ViewBag.Title })' >Buy</a>
+    <div class="image-container" style="width: 80vw">
+        <img class="img-thumbnail md-margin-bottom-10" src=@Url.Content(ViewBag.image) alt="Profile pic" style="width: 70vw; height: 70vh; margin: auto;" />
+    </div>
+    <h1>Title: </h1>
+    <p>@ViewBag.title</p>
+    <br/>
+    <h1>Informations: </h1>
+    <p>@ViewBag.info</p>
+    <br/>
+    <h1>Location: </h1>
+    <p>@ViewBag.loc</p>
+    <br/>
+    <h1>Price: </h1>
+    <p>@ViewBag.price</p>
+    <br/>
+    <a class="btn btn-default" href='@Url.Action("Buy", "Home", new {title = ViewBag.Title})'>Buy</a>
 </div>
 
 

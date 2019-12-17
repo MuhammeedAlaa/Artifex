@@ -2341,6 +2341,7 @@
     <Content Include="Views\Authorization\IsArtist.cshtml" />
     <Content Include="Views\Authorization\IsExpert.cshtml" />
     <Content Include="Views\Home\EventViwer.cshtml" />
+    <Content Include="Views\Home\Events.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

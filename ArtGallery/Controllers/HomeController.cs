@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 
 namespace ArtGallery.Controllers
 {
@@ -72,16 +73,18 @@ namespace ArtGallery.Controllers
         }
 
         //this view should return an event TITLE to EventViwer Action
-        public ActionResult Events()
+        [Authorize]
+        public ActionResult Events(int? page)
         {
-            return View();
+            IPagedList<Event> events = db.GetEvents().ToPagedList(page ?? 1, 5);
+            return View(events);
 
         }
 
         [Authorize]
-        public ActionResult EventViwer(/*string title*/)
+        public ActionResult EventViwer(string EventTitle)
         {
-            List<Event> e = db.GetEventInfo("Eventsadsa");
+            List<Event> e = db.GetEventInfo(EventTitle);
             ViewBag.image = e[0].IMAGE;
             ViewBag.info = e[0].INFO;
             ViewBag.loc = e[0].LOCATION;
