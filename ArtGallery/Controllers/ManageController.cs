@@ -71,14 +71,13 @@ namespace ArtGallery.Controllers
 
         //
         // GET: /Manage/Index
-        [Route("Manage/{Uname?}")]
+        [Route("Manage/Index/{Uname?}")]
         public ActionResult Index(string Uname)
         {
            
             string Email = User.Identity.Name;
             ViewBag.expert = null;
             ViewBag.artist = null;
-
             if (Email == "" && Uname == "")
                 return RedirectToAction("SignIn", "Authorization");
             string un = db.GetUserName(Email);

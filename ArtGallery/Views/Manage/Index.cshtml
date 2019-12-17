@@ -1,5 +1,6 @@
 ﻿@using ArtGallery.Models
 @using ArtGallery.ViewModels
+@using Microsoft.AspNet.Identity
 @{
     List<Artist> a = ViewBag.artist;
     List<ExpertViewModel> e = ViewBag.expert;
@@ -67,7 +68,10 @@
         </div>
     </div>
 </div>
-@Html.ActionLink("Change yours password", "ChangePassword", "Manage")
+@if (User.Identity.GetUserName() != "")
+{
+    @Html.ActionLink("Change yours password", "ChangePassword", "Manage", null, null)
+}
 <div class="jumbotron">
     <div class="row">
         <div class="column">
