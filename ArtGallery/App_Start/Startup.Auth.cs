@@ -7,7 +7,7 @@ using Owin;
 using ArtGallery.Models;
 using ArtGallery.App_Start;
 
-namespace Vidly
+namespace ArtGallery
 {
     public partial class Startup
     {

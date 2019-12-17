@@ -66,8 +66,10 @@ namespace ArtGallery.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ChangePassword(ChangePasswordViewModel p)
         {
-            db.UpdatePassword(User.Identity.Name, p);
-
+            if (ModelState.IsValid)
+            {
+                db.UpdatePassword(User.Identity.Name, p);
+            }
             return RedirectToAction("Index","manage");
         }
 
@@ -76,9 +78,8 @@ namespace ArtGallery.Controllers
         [Route("Manage/Index/{Uname?}")]
         public ActionResult Index(string Uname)
         {
-           
             string Email = User.Identity.Name;
-            ViewBag.expert = null;
+            ViewBag.exp = null;
             ViewBag.artist = null;
             if (Email == "" && Uname == "")
                 return RedirectToAction("SignIn", "Authorization");
@@ -92,11 +93,11 @@ namespace ArtGallery.Controllers
 
                 List<Artist> a = db.GetArtist(Email);
                 if (e != null)
-                    ViewBag.expert = e;
+                    ViewBag.exp = e[0];
                 else
-                    ViewBag.expert = null;
+                    ViewBag.exp = null;
                 if (a != null)
-                    ViewBag.artist = a;
+                    ViewBag.artist = a[0];
                 else
                     ViewBag.artist = null;
 
@@ -116,11 +117,11 @@ namespace ArtGallery.Controllers
 
                 List<Artist> a = db.GetArtist(Email);
                 if (e != null)
-                    ViewBag.expert = e;
+                    ViewBag.exp = e[0];
                 else
-                    ViewBag.expert = null;
+                    ViewBag.exp = null;
                 if (a != null)
-                    ViewBag.artist = a;
+                    ViewBag.artist = a[0];
                 else
                     ViewBag.artist = null;
                 if (ViewBag.imagepath == "")
@@ -162,6 +163,38 @@ namespace ArtGallery.Controllers
             if(b != null)
             {
                 ViewBag.cat = b.AsEnumerable().Select(row => new Category
+                {
+                    NAME = row["NAME"].ToString()
+                }
+                );
+            }
+            return View();
+        }
+
+
+
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CustomOrder(CustomOrderUserViewModel c)
+        {
+            if (ModelState.IsValid)
+            {
+                db.InsertCustomOrder(c);
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View();
+        }
+        [Authorize]
+        public ActionResult CustomOrder() 
+        {
+
+            DataTable cat = db.GetCategories();
+            if (cat != null)
+            {
+                ViewBag.cat = cat.AsEnumerable().Select(row => new Category
                 {
                     NAME = row["NAME"].ToString()
                 }

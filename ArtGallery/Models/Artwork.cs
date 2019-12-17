@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -24,7 +25,9 @@ namespace ArtGallery.Models
         public string MEDIUM { get; set; }
         public string SUBJECT { get; set; }
         public int YEAR { get; set; }
+        
         public string PHOTO { get; set; }
+        [Required]
         public HttpPostedFileBase imagefile { get; set; }
     }
 }

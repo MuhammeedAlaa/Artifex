@@ -248,6 +248,22 @@ namespace ArtGallery.DBaccess
             string query = "SELECT NAME FROM CATEGORY";
             return db.ExecuteReader(query);
         }
+        public void InsertCustomOrder(CustomOrderUserViewModel c)
+        {
+            string query = "SELECT ARTIST_UNAME FROM ARTIST WHERE START_SALARY <=" + c.Budget;
+             List<Artist> l = ConvertDataTable<Artist>(db.ExecuteReader(query));
+            if (l == null)
+                return;
+            Random random = new Random();
+            int artist = random.Next(0, l.Count);
+            string uname = l[artist].ARTIST_UNAME;
+            query = "INSERT INTO ARTWORK VALUES('" + c.Category + "','" + uname + "'," + "null"
+                + ",'" + c.TITLE + "',0,1,1,'" + "null" + "'," + c.WIDTH + "," + c.HEIGHT
+                + "," + c.DEPTH + "," + c.Budget + ",'" + c.MATERIAL + "','" + c.MEDIUM + "','" + "null" + "','" + "null" + "'," + "null" + ")";
+            db.ExecuteNonQuery(query);
+            query = "INSERT INTO dbo.[ORDER] VALUES(1,'11/2/2019','" + c.Deadline.ToString().Substring(0,9) +"');";
+            db.ExecuteNonQuery(query);
+        }
     }
 
     

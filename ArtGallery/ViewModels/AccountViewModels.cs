@@ -26,12 +26,6 @@ namespace ArtGallery.ViewModels
 
     }
 
-    public class ExternalLoginListViewModel
-    {
-        public string ReturnUrl { get; set; }
-    }
-
-
 
     public class RegisterViewModel
     {

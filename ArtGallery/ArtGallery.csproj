@@ -437,6 +437,7 @@
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="ViewModels\AdminViewModel.cs" />
     <Compile Include="ViewModels\ChangePasswordViewModel.cs" />
+    <Compile Include="ViewModels\CustomOrderUserViewModel.cs" />
     <Compile Include="ViewModels\ExpertViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -2343,6 +2344,7 @@
     <Content Include="Views\Home\EventViwer.cshtml" />
     <Content Include="Views\Home\Events.cshtml" />
     <Content Include="Views\Manage\UplodeArt.cshtml" />
+    <Content Include="Views\Manage\CustomOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

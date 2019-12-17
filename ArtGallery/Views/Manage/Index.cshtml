@@ -3,11 +3,8 @@
 @using Microsoft.AspNet.Identity
 @{
     List<Artist> a = ViewBag.artist;
-    List<ExpertViewModel> e = null;
-    if (ViewBag.expert != null)
-    {
-        e = ViewBag.expert;
-    }
+    List<ExpertViewModel> e = ViewBag.exp;
+
 }
 
 @section AddToHead{
@@ -44,7 +41,10 @@
 
                         }
                         <hr>
-                        <h1>Bio</h1>
+                        @if (a != null || e != null)
+                        {
+                            <h1>Bio</h1>
+                        }
                         <br />
                         @if (a != null)
                         {
@@ -65,6 +65,10 @@
                         @if (a != null && (a[0].ARTIST_UNAME == ViewBag.title))
                         {
                             <a class="btn btn-default" href='@Url.Action("UplodeArt", "Manage", new {Username = a[0].ARTIST_UNAME})'>Uplode</a>
+                        }
+                        @if (User.Identity.GetUserName() != "")
+                        {
+                            <a class="btn btn-default" href='@Url.Action("CustomOrder", "Manage")'>Create Custom Order </a>
                         }
                     </div>
                 </div>
