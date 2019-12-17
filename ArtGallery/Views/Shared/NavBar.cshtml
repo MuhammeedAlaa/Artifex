@@ -16,8 +16,9 @@
                 <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 @if (Request.IsAuthenticated)
                 {
-                    <li>@Html.ActionLink("ApplyArtist", "ApplyArtist","Authorization")</li>
-                    <li>@Html.ActionLink("ApplyExpert","ApplyExpert" , "Authorization")</li>
+                    <li>@Html.ActionLink("Event","EventViwer","Home")</li>
+                    <li>@Html.ActionLink("ApplyArtist", "ApplyArtist", "Authorization")</li>
+                    <li>@Html.ActionLink("ApplyExpert", "ApplyExpert", "Authorization")</li>
                 }
             </ul>
             @Html.Partial("loginPartialView")

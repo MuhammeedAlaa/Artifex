@@ -216,6 +216,9 @@ namespace ArtGallery.Controllers
         [AllowAnonymous]
         public ActionResult ApplyArtist() 
         {
+            string Email = User.Identity.Name;
+            if (db.IsArtist(Email))
+                return RedirectToAction("IsArtist", "Authorization");
             return View();
         }
 
@@ -223,17 +226,34 @@ namespace ArtGallery.Controllers
         [AllowAnonymous]
         public ActionResult ApplyExpert()
         {
+            string Email = User.Identity.Name;
+            if (db.IsExpert(Email))
+                return RedirectToAction("IsExpert", "Authorization");
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult ApplyArtist(Artist a)
         {
+            
 
             string Email = User.Identity.Name;
             db.InsertArtist(Email, a.BIO, a.BYEAR,a.START_SALARY,a.END_SALARY);
 
             return RedirectToAction("index","manage");
+        }
+        [HttpGet]
+        [Authorize]
+        public ActionResult IsArtist() 
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult IsExpert()
+        {
+            return View();
         }
 
         [HttpPost]

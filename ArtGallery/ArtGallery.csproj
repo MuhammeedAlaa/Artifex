@@ -2338,6 +2338,9 @@
     <Content Include="Views\Admin\Reports.cshtml" />
     <Content Include="Views\Manage\ChangePassword.cshtml" />
     <Content Include="Views\Admin\Proposals.cshtml" />
+    <Content Include="Views\Authorization\IsArtist.cshtml" />
+    <Content Include="Views\Authorization\IsExpert.cshtml" />
+    <Content Include="Views\Home\EventViwer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

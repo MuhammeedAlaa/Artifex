@@ -206,6 +206,29 @@ namespace ArtGallery.DBaccess
             string query = "SELECT * FROM Artwork WHERE ARTIST_UNAME LIKE '%" + name + "%' AND ACCEPTED = 0";
             return ConvertDataTable<Artwork>(db.ExecuteReader(query));
         }
+        public bool IsArtist(string email)
+        {
+            string query = "SELECT COUNT(*) FROM ARTIST JOIN [dbo].[USER] ON ARTIST_UNAME = USER_NAME WHERE EMAIL ='" + email + "';";
+            return (int)db.ExecuteScalar(query) != 0;
+        }
+        public bool IsExpert(string email) 
+        {
+            string query = "SELECT COUNT(*) FROM Expert JOIN [dbo].[USER] ON EXPERT_UNAME = USER_NAME WHERE EMAIL ='" + email + "';";
+            return (int)db.ExecuteScalar(query) != 0;
+        }
+        public List<Event> GetEventInfo(string title)
+        {
+            string query = "SELECT * FROM EVENT WHERE TITLE='" + title + "';";
+            return ConvertDataTable<Event>(db.ExecuteReader(query));
+        
+        }
+
+        public void UpdateEvent(string title)
+        {
+            string query = "UPDATE EVENT SET TICKETS_NUM=TICKETS_NUM - 1";
+           db.ExecuteNonQuery(query);
+
+        }
     }
 
     

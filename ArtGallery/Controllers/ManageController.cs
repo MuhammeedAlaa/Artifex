@@ -79,12 +79,11 @@ namespace ArtGallery.Controllers
             ViewBag.expert = null;
             ViewBag.artist = null;
 
-            if (Email == "" && Uname == null)
+            if (Email == "" && Uname == "")
                 return RedirectToAction("SignIn", "Authorization");
             string un = db.GetUserName(Email);
             if (Email != "" && Uname == "" || (Email == Uname))
             {
-
                 ViewBag.title = un;
                 List<ExpertViewModel> e = db.GetExpert(Email);
 
@@ -123,15 +122,14 @@ namespace ArtGallery.Controllers
                     ViewBag.artist = a;
                 else
                     ViewBag.artist = null;
-
-
                 if (ViewBag.imagepath == "")
                     ViewBag.imagepath = "/Images/def.png";
                 return View();
             }
-            
-        }
 
+        }
+       
+         
         protected override void Dispose(bool disposing)
         {
             if (disposing)

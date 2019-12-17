@@ -10,6 +10,7 @@ namespace ArtGallery.Models
         public string TITLE { get; set; }
         public int ADMIN_ID { get; set; }
         public string IMAGE { get; set; }
+        public HttpPostedFileBase imagefile { get; set; }
         public int TICKET_PRICE { get; set; }
         public DateTime EVENTDATE { get; set; }
         public string LOCATION { get; set; }

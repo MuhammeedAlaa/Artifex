@@ -41,13 +41,25 @@
                         <hr>
                         <h1>Bio</h1>
                         <br />
-                        @if (e != null)
-                        {
-                            <p>@e[0].BIO</p>
-                        }
                         @if (a != null)
                         {
                             <p>@a[0].BIO</p>
+                        }
+                        @if (e != null)
+                        {
+                            <p>@e[0].BIO</p>
+                            <hr>
+                            <h1>QUALIFICATIONS</h1>
+                            <br />
+                            <p>@e[0].QUALIFICATIONS</p>
+                        }
+                        @if (e != null && (e[0].EXPERT_UNAME == ViewBag.title))
+                        {
+                            <h1>This will be handled late when add survey</h1>
+                        }
+                        @if (a != null && (a[0].ARTIST_UNAME == ViewBag.title))
+                        {
+                            <h1>This will be handled late when add artwork</h1>
                         }
                     </div>
                 </div>

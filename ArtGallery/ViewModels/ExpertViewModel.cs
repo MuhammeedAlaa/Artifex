@@ -7,7 +7,7 @@ namespace ArtGallery.ViewModels
 {
     public class ExpertViewModel
     {
-        public string USER_NAME { get; set; }
+        public string EXPERT_UNAME { get; set; }
         public string BIO { get; set; }
         public int? BYEAR { get; set; }
         public string QUALIFICATIONS { get; set; }
