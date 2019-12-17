@@ -3,7 +3,11 @@
 @using Microsoft.AspNet.Identity
 @{
     List<Artist> a = ViewBag.artist;
-    List<ExpertViewModel> e = ViewBag.expert;
+    List<ExpertViewModel> e = null;
+    if (ViewBag.expert != null)
+    {
+        e = ViewBag.expert;
+    }
 }
 
 @section AddToHead{
@@ -60,7 +64,7 @@
                         }
                         @if (a != null && (a[0].ARTIST_UNAME == ViewBag.title))
                         {
-                            <h1>This will be handled late when add artwork</h1>
+                            <a class="btn btn-default" href='@Url.Action("UplodeArt", "Manage", new {Username = a[0].ARTIST_UNAME})'>Uplode</a>
                         }
                     </div>
                 </div>

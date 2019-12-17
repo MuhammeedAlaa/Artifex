@@ -11,6 +11,8 @@ using Microsoft.Owin.Security;
 using ArtGallery.DBaccess;
 using ArtGallery.Models;
 using ArtGallery.ViewModels;
+using System.Data;
+using System.IO;
 
 namespace ArtGallery.Controllers
 {
@@ -127,8 +129,46 @@ namespace ArtGallery.Controllers
             }
 
         }
-       
-         
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UplodeArt(Artwork a) 
+        {
+            string imagefilename = "";
+            if (ModelState.IsValid)
+            {
+
+                if (a.imagefile != null)
+                {
+                    imagefilename = Path.GetFileNameWithoutExtension(a.imagefile.FileName);
+                    string extension = Path.GetExtension(a.imagefile.FileName);
+                    imagefilename = imagefilename + DateTime.Now.ToString("yymmssfff") + extension;
+                    a.PHOTO = "~/Images/" + imagefilename;
+                    imagefilename = Path.Combine(Server.MapPath("~/Images/"), imagefilename);
+                    a.imagefile.SaveAs(imagefilename);
+                }
+                a.ARTIST_UNAME = db.GetUserName(User.Identity.Name);
+                db.InsertArtwork(a);
+                return RedirectToAction("Index", "Home");
+            }
+            return View(a);
+        }
+        [Authorize]
+        public ActionResult UplodeArt(string Username)
+        {
+
+            ViewBag.Uname = Username;
+            DataTable b = db.GetCategories();
+            if(b != null)
+            {
+                ViewBag.cat = b.AsEnumerable().Select(row => new Category
+                {
+                    NAME = row["NAME"].ToString()
+                }
+                );
+            }
+            return View();
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

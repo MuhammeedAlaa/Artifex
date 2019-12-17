@@ -235,6 +235,19 @@ namespace ArtGallery.DBaccess
             string query = "SELECT * FROM EVENT WHERE EVENTDATE >='"+ DateTime.Now.Date+"'";
             return ConvertDataTable<Event>(db.ExecuteReader(query));
         }
+        public void InsertArtwork(Artwork a) 
+        {
+            //category is a foreign key get it from the user with drop down list
+            string query = "INSERT INTO ARTWORK VALUES('" + a.CATEGORY_NAME + "','" + a.ARTIST_UNAME + "'," + "null"
+                 + ",'" + a.TITLE + "',0,'" + a.PRIVACY + "',1,'" + a.DESCRIPTION + "'," + a.WIDTH + "," + a.HEIGHT
+                 + "," + a.DEPTH + "," + a.PRICE + ",'" + a.MATERIAL + "','" + a.MEDIUM + "','" + a.SUBJECT + "','" + a.PHOTO + "'," + a.YEAR + ")";
+            db.ExecuteNonQuery(query);
+        }
+        public DataTable GetCategories()
+        {
+            string query = "SELECT NAME FROM CATEGORY";
+            return db.ExecuteReader(query);
+        }
     }
 
     
