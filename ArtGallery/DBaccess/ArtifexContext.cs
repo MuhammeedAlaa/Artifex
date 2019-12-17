@@ -225,9 +225,15 @@ namespace ArtGallery.DBaccess
 
         public void UpdateEvent(string title)
         {
-            string query = "UPDATE EVENT SET TICKETS_NUM=TICKETS_NUM - 1";
+            string query = "UPDATE EVENT SET TICKETS_NUM=TICKETS_NUM - 1 WHERE TITLE = '"+ title+"'";
            db.ExecuteNonQuery(query);
 
+        }
+
+        public List<Event> GetEvents()
+        {
+            string query = "SELECT * FROM EVENT WHERE EVENTDATE >='"+ DateTime.Now.Date+"'";
+            return ConvertDataTable<Event>(db.ExecuteReader(query));
         }
     }
 
