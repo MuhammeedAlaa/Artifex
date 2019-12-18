@@ -111,23 +111,23 @@ namespace ArtGallery.DBaccess
                 "VALUES('" + username + "','" + bio + "','" + Byear + "'," + START_SALARY + "," + END_SALARY + ");";
             db.ExecuteNonQuery(query);
         }
-        public List<Artist> GetArtist(string Email) 
+        public Artist GetArtist(string Email) 
         {
             string query = "SELECT A.* FROM ARTIST A JOIN [dbo].[USER] U ON U.USER_NAME = A.ARTIST_UNAME WHERE  U.EMAIL ='" + Email + "';";
             DataTable d = db.ExecuteReader(query);
             if (d != null)
-                return ConvertDataTable<Artist>(d);
+                return ConvertDataTable<Artist>(d)[0];
             else
                 return null;
         }
 
-        public List<ExpertViewModel> GetExpert(string Email)
+        public ExpertViewModel GetExpert(string Email)
         {
 
             string query = "SELECT E.*,ES.QUALIFICATIONS FROM EXPERT E JOIN[dbo].[USER] U ON U.USER_NAME = E.EXPERT_UNAME join EXP_QUALIFICATIONS ES on E.EXPERT_UNAME = ES.EXPERT_UNAME  WHERE U.EMAIL = '" + Email + "'; ";
             DataTable d = db.ExecuteReader(query);
             if (d != null)
-                return ConvertDataTable<ExpertViewModel>(d);
+                return (ConvertDataTable<ExpertViewModel>(d))[0];
             else
                 return null;
         }
