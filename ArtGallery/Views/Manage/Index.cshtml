@@ -2,13 +2,12 @@
 @using ArtGallery.ViewModels
 @using Microsoft.AspNet.Identity
 @{
-    List<Artist> a = ViewBag.artist;
-    List<ExpertViewModel> e = ViewBag.exp;
+    Artist a = ViewBag.artist;
+    ExpertViewModel e = ViewBag.exp;
 
 }
 
 @section AddToHead{
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Home.css")" rel="stylesheet" type="text/css" />
 }
 
@@ -18,12 +17,12 @@
             <div class="profile-bio">
                 <div class="row">
                     <div class="col-md-5 text-center">
-                        <img class="img-thumbnail md-margin-bottom-10" src=@Url.Content(ViewBag.imagepath) alt="Profile pic" style="width: 100%" />
+                        <img class="img-thumbnail md-margin-bottom-10" src=@Url.Content(ViewBag.imagepath != null ? ViewBag.imagepath: "~/Images/default.png") alt="Profile pic" style="width: 100%" />
                     </div>
                     <div class="col-md-7">
                         @if (a != null)
                         {
-                            <h2>@a[0].ARTIST_UNAME </h2>
+                            <h2>@a.ARTIST_UNAME </h2>
                         }
                         @if (a != null && e == null)
                         {
@@ -48,23 +47,23 @@
                         <br />
                         @if (a != null)
                         {
-                            <p>@a[0].BIO</p>
+                            <p>@a.BIO</p>
                         }
                         @if (e != null)
                         {
-                            <p>@e[0].BIO</p>
+                            <p>@e.BIO</p>
                             <hr>
                             <h1>QUALIFICATIONS</h1>
                             <br />
-                            <p>@e[0].QUALIFICATIONS</p>
+                            <p>@e.QUALIFICATIONS</p>
                         }
-                        @if (e != null && (e[0].EXPERT_UNAME == ViewBag.title))
+                        @if (e != null && (e.EXPERT_UNAME == ViewBag.title))
                         {
                             <h1>This will be handled late when add survey</h1>
                         }
-                        @if (a != null && (a[0].ARTIST_UNAME == ViewBag.title))
+                        @if (a != null && (a.ARTIST_UNAME == ViewBag.title))
                         {
-                            <a class="btn btn-default" href='@Url.Action("UplodeArt", "Manage", new {Username = a[0].ARTIST_UNAME})'>Uplode</a>
+                            <a class="btn btn-default" href='@Url.Action("UploadArt", "Manage", new {Username = a.ARTIST_UNAME})'>Upload Artwork</a>
                         }
                         @if (User.Identity.GetUserName() != "")
                         {

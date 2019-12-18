@@ -87,17 +87,17 @@ namespace ArtGallery.Controllers
             if (Email != "" && Uname == "" || (Email == Uname))
             {
                 ViewBag.title = un;
-                List<ExpertViewModel> e = db.GetExpert(Email);
+                ExpertViewModel e = db.GetExpert(Email);
 
                 ViewBag.imagepath = db.ProfileImagePath(Email);
 
-                List<Artist> a = db.GetArtist(Email);
+                Artist a = db.GetArtist(Email);
                 if (e != null)
-                    ViewBag.exp = e[0];
+                    ViewBag.exp = e;
                 else
                     ViewBag.exp = null;
                 if (a != null)
-                    ViewBag.artist = a[0];
+                    ViewBag.artist = a;
                 else
                     ViewBag.artist = null;
 
@@ -111,17 +111,17 @@ namespace ArtGallery.Controllers
                 Email = Uname;
                 ViewBag.title = Uname;
 
-                List<ExpertViewModel> e = db.GetExpert(Email);
+                ExpertViewModel e = db.GetExpert(Email);
 
                 ViewBag.imagepath = db.ProfileImagePath(Email);
 
-                List<Artist> a = db.GetArtist(Email);
+                Artist a = db.GetArtist(Email);
                 if (e != null)
-                    ViewBag.exp = e[0];
+                    ViewBag.exp = e;
                 else
                     ViewBag.exp = null;
                 if (a != null)
-                    ViewBag.artist = a[0];
+                    ViewBag.artist = a;
                 else
                     ViewBag.artist = null;
                 if (ViewBag.imagepath == "")
@@ -133,7 +133,7 @@ namespace ArtGallery.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult UplodeArt(Artwork a) 
+        public ActionResult UploadArt(Artwork a) 
         {
             string imagefilename = "";
             if (ModelState.IsValid)
@@ -155,7 +155,7 @@ namespace ArtGallery.Controllers
             return View(a);
         }
         [Authorize]
-        public ActionResult UplodeArt(string Username)
+        public ActionResult UploadArt(string Username)
         {
 
             ViewBag.Uname = Username;
