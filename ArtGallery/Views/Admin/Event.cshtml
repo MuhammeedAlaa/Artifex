@@ -1,0 +1,102 @@
+﻿@model ArtGallery.Models.Event
+
+@{
+    ViewBag.Title = "Event";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<section class="content">
+    <h2>Event</h2>
+    @using (Html.BeginForm("Event", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Add Event</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="card-body">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.TITLE, new { @class = "control-label col-md-2" })
+
+                            @Html.EditorFor(model => model.TITLE, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.TITLE, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.INFO, new { @class = "control-label col-md-2" })
+
+                            @Html.TextAreaFor(model => model.INFO, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.INFO, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.EVENTDATE, new { @class = "control-label col-md-2" })
+
+                            @Html.TextBoxFor(model => model.EVENTDATE, new { type = "date", @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.EVENTDATE, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.TICKET_PRICE, new { @class = "control-label col-md-2" })
+
+                            @Html.TextBoxFor(model => model.TICKET_PRICE, new { type = "number", @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.TICKET_PRICE, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.TICKETS_NUM, new { @class = "control-label col-md-2" })
+
+                            @Html.TextBoxFor(model => model.TICKETS_NUM, new { type = "number", @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.TICKETS_NUM, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LOCATION, new { @class = "control-label col-md-2" })
+
+                            @Html.TextAreaFor(model => model.LOCATION, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.LOCATION, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.IMAGE, new { @class = "control-label col-md-2" })
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="IMAGE" name="imagefile">
+                                    <label class="custom-file-label" for="IMAGE">Choose file</label>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <a href="/admin" class="btn btn-secondary">Cancel</a>
+                <input type="submit" value="Create new Porject" class="btn btn-success float-right">
+            </div>
+        </div>
+    }
+</section>
+<script src="~/lte/plugins/jquery/jquery.min.js"></script>
+<!-- bs-custom-file-input -->
+<script src="~/lte/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        bsCustomFileInput.init();
+    });
+</script>
+

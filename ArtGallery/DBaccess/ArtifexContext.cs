@@ -289,12 +289,21 @@ namespace ArtGallery.DBaccess
             string query = "UPDATE ARTWORK set ACCEPTED = "+ state +", ADMIN_ID = " + adminId + " where AW_CODE = " + code;
             return db.ExecuteNonQuery(query) != 0;
         }
+<<<<<<< HEAD
 
         //PasswordHasher P = new PasswordHasher();
 
         //string pas = logeduser.password;
         //logeduser.password = P.HashPassword(logeduser.password);
         //    bool f = Convert.ToBoolean(P.VerifyHashedPassword(logeduser.password, pas));
+=======
+        public bool CreateEvent(Event e)
+        {
+            string query = "INSERT INTO EVENT VALUES('" + e.TITLE + "', "+ e.ADMIN_ID+", '" + e.IMAGE + "', " + e.TICKET_PRICE + ", '" +
+            e.EVENTDATE + "', '" + e.LOCATION + "'," + e.TICKETS_NUM + ", '" + e.INFO + "')";
+            return db.ExecuteNonQuery(query) != 0;
+        }
+>>>>>>> 64477515a9788a5b83b3e2461cee3cd86b3c7f06
 
     }
 

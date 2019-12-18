@@ -2348,6 +2348,7 @@
     <Content Include="Views\Manage\UplodeArt.cshtml" />
     <Content Include="Views\Manage\CustomOrder.cshtml" />
     <Content Include="Views\Admin\ProposalsAction.cshtml" />
+    <Content Include="Views\Admin\Event.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
