@@ -1,0 +1,114 @@
+﻿@using ArtGallery.Models
+@model ArtGallery.ViewModels.AdminViewModel
+@{
+    ViewBag.Title = "ProposalsAction";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section class="content" style="padding-top: 1vh">
+    <div class="container-fluid">
+
+        @using (Html.BeginForm("ProposalsAction", "Admin", FormMethod.Post, new {enctype = "multipart/form-data"}))
+        {
+            @Html.AntiForgeryToken()
+            @Html.Hidden("code", Model.Artwork.AW_CODE)
+
+        <div class="form-horizontal">
+            <h4>Artwork</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+              
+
+            <div class="form-group">
+            @Html.LabelFor(model => model.Artwork.CATEGORY_NAME, "CATEGORY", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.Label(Model.Artwork.CATEGORY_NAME, new { @class = "form-control" })
+            </div>
+        </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Artwork.TITLE, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.Label(Model.Artwork.TITLE, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Artwork.DESCRIPTION, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.Label(Model.Artwork.DESCRIPTION, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Artwork.WIDTH, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.Label(Model.Artwork.WIDTH.ToString(), new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Artwork.HEIGHT, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.Label(Model.Artwork.HEIGHT.ToString(), new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Artwork.DEPTH, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.Label(Model.Artwork.DEPTH.ToString(), new { @class = "form-control" })
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Artwork.PRICE, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.Label(Model.Artwork.PRICE.ToString(), new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Artwork.MATERIAL, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.Label(Model.Artwork.MATERIAL, new { @class = "form-control" })
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Artwork.MEDIUM, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.Label(Model.Artwork.MEDIUM, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Artwork.SUBJECT, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.Label(Model.Artwork.SUBJECT, new { @class = "form-control" })
+
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Artwork.YEAR, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.Label(Model.Artwork.YEAR.ToString(), new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Artwork.PHOTO, "Artwork Photo", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <img src=@Url.Content(Model.Artwork.PHOTO) alt="Artwork photo" height="100%" />
+                </div>
+            </div>
+            <div class="btn-group col-md-8">
+                <div class="col-md-offset-2 col-md-4">
+                    <input type="submit" value="Refuse" name="Refuse" class="btn btn-block btn-danger" />
+                </div>
+                <div class="col-md-offset-2 col-md-4">
+                    <input type="submit" value="Approve" name="Approve" class="btn btn-block btn-success" />
+                </div>
+            </div>
+        </div>
+        }
+
+    </div>
+
+</section>

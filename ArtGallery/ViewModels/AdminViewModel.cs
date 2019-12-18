@@ -10,6 +10,7 @@ namespace ArtGallery.ViewModels
     public class AdminViewModel 
     {
         public Admin Admin = new Admin();
+        public Artwork Artwork;
         public IPagedList<Order> Orders;
         public IPagedList<Report> Reports;
         public IPagedList<Artwork> Artworks;

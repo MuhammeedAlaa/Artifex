@@ -124,7 +124,7 @@
                                         <td>@artwork.CATEGORY_NAME</td>
                                         <td>@artwork.ARTIST_UNAME</td>
                                         <td>@artwork.PRICE</td>
-                                        <td>@Html.ActionLink("More details", "Index", "Artwork")</td>
+                                        <td>@Html.ActionLink("More details", "ProposalsAction", "Admin", new{code = artwork.AW_CODE}, null)</td>
                                     </tr>
                                 }
 

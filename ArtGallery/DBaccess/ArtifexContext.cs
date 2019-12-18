@@ -194,7 +194,7 @@ namespace ArtGallery.DBaccess
 
         }
 
-        public List<Artwork> GetSortedArtworks(string criteria, bool asc)
+        public List<Artwork> GetSortedProposedArtworks(string criteria, bool asc)
         {
             string orderDirection;
             if (asc)
@@ -202,14 +202,14 @@ namespace ArtGallery.DBaccess
             else
                 orderDirection = "DESC";
 
-            string query = "SELECT * FROM Artwork WHERE ACCEPTED = 0 ORDER BY " + criteria + " " + orderDirection;
+            string query = "SELECT * FROM Artwork WHERE ACCEPTED = 0  AND ADMIN_ID IS NULL ORDER BY " + criteria + " " + orderDirection;
             return ConvertDataTable<Artwork>(db.ExecuteReader(query));
 
         }
 
-        public List<Artwork> GetArtworksByArtist(string name)
+        public List<Artwork> GetProposedArtworksByArtist(string name)
         {
-            string query = "SELECT * FROM Artwork WHERE ARTIST_UNAME LIKE '%" + name + "%' AND ACCEPTED = 0";
+            string query = "SELECT * FROM Artwork WHERE ADMIN_ID IS NULL AND ARTIST_UNAME LIKE '%" + name + "%' AND ACCEPTED = 0";
             return ConvertDataTable<Artwork>(db.ExecuteReader(query));
         }
         public bool IsArtist(string email)
@@ -270,6 +270,18 @@ namespace ArtGallery.DBaccess
             query = "INSERT INTO dbo.[ORDER] VALUES(1,'11/2/2019','" + c.Deadline.ToString().Substring(0,9) +"');";
             db.ExecuteNonQuery(query);
         }
+        public Artwork GetArtworkWithCode(int code)
+        {
+            string query = "SELECT * FROM Artwork WHERE AW_CODE = "+ code;
+            return ConvertDataTable<Artwork>(db.ExecuteReader(query))[0];
+        }
+
+        public bool ApproveArtwork(int adminId, int code, int state)
+        {
+            string query = "UPDATE ARTWORK set ACCEPTED = "+ state +", ADMIN_ID = " + adminId + " where AW_CODE = " + code;
+            return db.ExecuteNonQuery(query) != 0;
+        }
+        
     }
 
     

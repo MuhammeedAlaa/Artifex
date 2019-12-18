@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.WebPages;
 using ArtGallery.DBaccess;
+using ArtGallery.Models;
 using ArtGallery.ViewModels;
-using db_access;
 using Microsoft.Ajax.Utilities;
-using Microsoft.EntityFrameworkCore;
 using PagedList;
 
 namespace ArtGallery.Controllers
@@ -16,8 +12,9 @@ namespace ArtGallery.Controllers
     public class AdminController : Controller
     {
         
-        AdminViewModel admin = new AdminViewModel();
-         ArtifexContext db = new ArtifexContext();
+        readonly AdminViewModel admin = new AdminViewModel();
+
+        readonly ArtifexContext db = new ArtifexContext();
         // GET: Admin
 
         public ActionResult Index()
@@ -92,35 +89,64 @@ namespace ArtGallery.Controllers
                 bool asc = sortdir == "desc" ? true : false;
                 if (Orderby == "Artist")
                 {
-                    admin.Artworks = db.GetSortedArtworks("ARTIST_UNAME", asc).ToPagedList(page ?? 1, 5);
+                    admin.Artworks = db.GetSortedProposedArtworks("ARTIST_UNAME", asc).ToPagedList(page ?? 1, 5);
                     return View(admin);
                 }
                 else if (Orderby == "Category")
                 {
-                    admin.Artworks = db.GetSortedArtworks("CATEGORY_NAME", asc).ToPagedList(page ?? 1, 5);
+                    admin.Artworks = db.GetSortedProposedArtworks("CATEGORY_NAME", asc).ToPagedList(page ?? 1, 5);
                     return View(admin);
                 }
                 else if (Orderby == "Title")
                 {
-                    admin.Artworks = db.GetSortedArtworks("TITLE", asc).ToPagedList(page ?? 1, 5);
+                    admin.Artworks = db.GetSortedProposedArtworks("TITLE", asc).ToPagedList(page ?? 1, 5);
                     return View(admin);
                 }
                 else if (Orderby == "Price")
                 {
-                    admin.Artworks = db.GetSortedArtworks("Price", asc).ToPagedList(page ?? 1, 5);
+                    admin.Artworks = db.GetSortedProposedArtworks("Price", asc).ToPagedList(page ?? 1, 5);
                     return View(admin);
                 }
                 else
                 {
-                    admin.Artworks = db.GetSortedArtworks("AW_CODE", asc).ToPagedList(page ?? 1, 5);
+                    admin.Artworks = db.GetSortedProposedArtworks("AW_CODE", asc).ToPagedList(page ?? 1, 5);
                     return View(admin);
                 }
             }
             else
             {
-                admin.Artworks = db.GetArtworksByArtist(Request.QueryString["table_search"]).ToPagedList(page ?? 1, 5);
+                admin.Artworks = db.GetProposedArtworksByArtist(Request.QueryString["table_search"]).ToPagedList(page ?? 1, 5);
                 return View(admin);
             }
+        }
+
+        public ActionResult ProposalsAction(int? code)
+        {
+            if (code == null)
+                return HttpNotFound();
+            admin.Artwork = db.GetArtworkWithCode((int)code);
+            if (admin.Artwork.ADMIN_ID != null)
+                return HttpNotFound();
+            else
+                return View(admin);
+        }
+        [HttpPost]
+        public ActionResult ProposalsAction(string code)
+        {
+            if (Request.Form["Approve"] != null)
+            {
+                //should be updated with admin code later
+                if (!db.ApproveArtwork(1, Convert.ToInt32(code), 1))
+                    return HttpNotFound();
+
+            }
+            else
+            {
+                if (!db.ApproveArtwork(1, Convert.ToInt32(code), 0))
+                    return HttpNotFound();
+
+            }
+            return RedirectToAction("Proposals");
         }
     }
 }
