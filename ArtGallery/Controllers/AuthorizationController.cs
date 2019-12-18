@@ -123,6 +123,11 @@ namespace ArtGallery.Controllers
         {
             return Json(db.UserNameAvailable(USER_NAME), JsonRequestBehavior.AllowGet);
         }
+        [AllowAnonymous]
+        public JsonResult IsEmailAvailable(string EMAIL)
+        {
+            return Json(db.EmailAvailable(EMAIL), JsonRequestBehavior.AllowGet);
+        }
 
         [HttpGet]
         [AllowAnonymous]

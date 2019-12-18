@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 using System.Web.Mvc;
 
 namespace ArtGallery.ViewModels
@@ -34,7 +35,7 @@ namespace ArtGallery.ViewModels
         [RegularExpression("^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$", ErrorMessage = "Please enter a valid user name")]
         public string USER_NAME { get; set; }
 
-
+        [Remote("IsEmailAvailable", "Authorization", ErrorMessage = "This Email already exists")]
         [Required(ErrorMessage = "Please enter your email")]
         [RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$", ErrorMessage = "Please enter a valid e-mail address")]
         public string EMAIL { get; set; }

@@ -77,6 +77,12 @@ namespace ArtGallery.DBaccess
             return (int)db.ExecuteScalar(query) == 0;
         }
 
+        public bool EmailAvailable(string Email)
+        {
+            string query = "select count(*) from [USER] where EMAIL ='" + Email + "'";
+            return (int)db.ExecuteScalar(query) == 0;
+        }
+
         public string ProfileImagePath(string Email)
         {
 
