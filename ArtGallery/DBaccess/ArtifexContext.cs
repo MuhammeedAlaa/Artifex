@@ -202,14 +202,14 @@ namespace ArtGallery.DBaccess
             else
                 orderDirection = "DESC";
 
-            string query = "SELECT * FROM Artwork WHERE ACCEPTED = 0  AND ADMIN_ID IS NULL ORDER BY " + criteria + " " + orderDirection;
+            string query = "SELECT * FROM Artwork WHERE ADMIN_ID IS NULL ORDER BY " + criteria + " " + orderDirection;
             return ConvertDataTable<Artwork>(db.ExecuteReader(query));
 
         }
 
         public List<Artwork> GetProposedArtworksByArtist(string name)
         {
-            string query = "SELECT * FROM Artwork WHERE ADMIN_ID IS NULL AND ARTIST_UNAME LIKE '%" + name + "%' AND ACCEPTED = 0";
+            string query = "SELECT * FROM Artwork WHERE ADMIN_ID IS NULL AND ARTIST_UNAME LIKE '%" + name + "%'";
             return ConvertDataTable<Artwork>(db.ExecuteReader(query));
         }
         public bool IsArtist(string email)
