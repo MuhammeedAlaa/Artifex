@@ -281,7 +281,13 @@ namespace ArtGallery.DBaccess
             string query = "UPDATE ARTWORK set ACCEPTED = "+ state +", ADMIN_ID = " + adminId + " where AW_CODE = " + code;
             return db.ExecuteNonQuery(query) != 0;
         }
-        
+        public bool CreateEvent(Event e)
+        {
+            string query = "INSERT INTO EVENT VALUES('" + e.TITLE + "', "+ e.ADMIN_ID+", '" + e.IMAGE + "', " + e.TICKET_PRICE + ", '" +
+            e.EVENTDATE + "', '" + e.LOCATION + "'," + e.TICKETS_NUM + ", '" + e.INFO + "')";
+            return db.ExecuteNonQuery(query) != 0;
+        }
+
     }
 
     

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.WebPages;
 using ArtGallery.DBaccess;
@@ -12,14 +14,15 @@ namespace ArtGallery.Controllers
     public class AdminController : Controller
     {
         
-        readonly AdminViewModel admin = new AdminViewModel();
+        AdminViewModel admin = new AdminViewModel();
 
-        readonly ArtifexContext db = new ArtifexContext();
+        ArtifexContext db = new ArtifexContext();
         // GET: Admin
 
         public ActionResult Index()
         {
             //hard coded temporarly
+            admin = new AdminViewModel();
             admin.Admin.Name = "nice man";
             return View(admin);
         }
@@ -147,6 +150,44 @@ namespace ArtGallery.Controllers
 
             }
             return RedirectToAction("Proposals");
+        }
+
+        public ActionResult Event()
+        {
+            //temporary
+            
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Event(Event e)
+        {
+            if (ModelState.IsValid)
+            {
+                //temporary for testing will not be hardcoded later
+                e.ADMIN_ID = 1;
+                if (e.imagefile != null)
+                {
+                    string imagefilename = Path.GetFileNameWithoutExtension(e.imagefile.FileName);
+                    string extension = Path.GetExtension(e.imagefile.FileName);
+                    imagefilename = imagefilename + DateTime.Now.ToString("yymmssfff") + extension;
+                    e.imagefile.SaveAs(Path.Combine(Server.MapPath("~/Images/"), imagefilename));
+                    e.IMAGE = "~/Images/" + imagefilename;
+                }
+                else
+                {
+                    e.IMAGE = "~/Images/defaul.png";
+                }
+                
+                if (db.CreateEvent(e))
+                    return RedirectToAction("Index");
+                else
+                    return HttpNotFound();
+            }
+            else
+            {
+                return View(e);
+            }
+
         }
     }
 }

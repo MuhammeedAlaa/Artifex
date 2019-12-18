@@ -48,7 +48,7 @@
                                 {
                                 <tr>
                                     <td>@evnt.TITLE</td>
-                                    <td><img src=@Url.Content(evnt.IMAGE) alt="event photo" height="100vh" width="120vw"/></td>
+                                    <td><img src="@Url.Content(@evnt.IMAGE)" alt="event photo" height="100vh" width="120vw" /></td>
                                     <td>@evnt.TICKET_PRICE</td>
                                     <td>@evnt.EVENTDATE.Date.ToString("dd/MM/yyyy")</td>
                                     <td>@evnt.LOCATION</td>

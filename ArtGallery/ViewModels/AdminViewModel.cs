@@ -14,6 +14,7 @@ namespace ArtGallery.ViewModels
         public IPagedList<Order> Orders;
         public IPagedList<Report> Reports;
         public IPagedList<Artwork> Artworks;
+        public Event Eve;
     }
 
     
