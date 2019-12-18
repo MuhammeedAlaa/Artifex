@@ -118,6 +118,7 @@ namespace ArtGallery.Controllers
         }
 
         //this is used to check whether the name is already taken when signing up with ajax reuquest
+        [AllowAnonymous]
         public JsonResult IsUserNameAvailable(string USER_NAME)
         {
             return Json(db.UserNameAvailable(USER_NAME), JsonRequestBehavior.AllowGet);
