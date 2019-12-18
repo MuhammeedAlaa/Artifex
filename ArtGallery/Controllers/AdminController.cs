@@ -13,7 +13,7 @@ namespace ArtGallery.Controllers
 {
     public class AdminController : Controller
     {
-        
+
         AdminViewModel admin = new AdminViewModel();
 
         ArtifexContext db = new ArtifexContext();
@@ -29,7 +29,8 @@ namespace ArtGallery.Controllers
 
         public ActionResult Orders(string Orderby, int? page, string sortdir)
         {
-            if (Request.QueryString["table_search"].IsNullOrWhiteSpace() || !Request.QueryString["table_search"].IsInt())
+            if (Request.QueryString["table_search"].IsNullOrWhiteSpace() ||
+                !Request.QueryString["table_search"].IsInt())
             {
                 sortdir = sortdir == "desc" ? "asc" : "desc";
                 bool asc = sortdir == "desc" ? true : false;
@@ -51,13 +52,16 @@ namespace ArtGallery.Controllers
             }
             else
             {
-                admin.Orders = db.GetOrderById(Convert.ToInt32(Request.QueryString["table_search"])).ToPagedList(page ?? 1, 5);
+                admin.Orders = db.GetOrderById(Convert.ToInt32(Request.QueryString["table_search"]))
+                    .ToPagedList(page ?? 1, 5);
                 return View(admin);
             }
         }
+
         public ActionResult Reports(string Orderby, int? page, string sortdir)
         {
-            if (Request.QueryString["table_search"].IsNullOrWhiteSpace() || !Request.QueryString["table_search"].IsInt())
+            if (Request.QueryString["table_search"].IsNullOrWhiteSpace() ||
+                !Request.QueryString["table_search"].IsInt())
             {
                 sortdir = sortdir == "desc" ? "asc" : "desc";
                 bool asc = sortdir == "desc" ? true : false;
@@ -79,7 +83,8 @@ namespace ArtGallery.Controllers
             }
             else
             {
-                admin.Reports = db.GetReportById(Convert.ToInt32(Request.QueryString["table_search"])).ToPagedList(page ?? 1, 5);
+                admin.Reports = db.GetReportById(Convert.ToInt32(Request.QueryString["table_search"]))
+                    .ToPagedList(page ?? 1, 5);
                 return View(admin);
             }
         }
@@ -118,7 +123,8 @@ namespace ArtGallery.Controllers
             }
             else
             {
-                admin.Artworks = db.GetProposedArtworksByArtist(Request.QueryString["table_search"]).ToPagedList(page ?? 1, 5);
+                admin.Artworks = db.GetProposedArtworksByArtist(Request.QueryString["table_search"])
+                    .ToPagedList(page ?? 1, 5);
                 return View(admin);
             }
         }
@@ -127,12 +133,13 @@ namespace ArtGallery.Controllers
         {
             if (code == null)
                 return HttpNotFound();
-            admin.Artwork = db.GetArtworkWithCode((int)code);
+            admin.Artwork = db.GetArtworkWithCode((int) code);
             if (admin.Artwork.ADMIN_ID != null)
                 return HttpNotFound();
             else
                 return View(admin);
         }
+
         [HttpPost]
         public ActionResult ProposalsAction(string code)
         {
@@ -149,15 +156,17 @@ namespace ArtGallery.Controllers
                     return HttpNotFound();
 
             }
+
             return RedirectToAction("Proposals");
         }
 
         public ActionResult Event()
         {
             //temporary
-            
+
             return View();
         }
+
         [HttpPost]
         public ActionResult Event(Event e)
         {
@@ -177,7 +186,7 @@ namespace ArtGallery.Controllers
                 {
                     e.IMAGE = "~/Images/defaul.png";
                 }
-                
+
                 if (db.CreateEvent(e))
                     return RedirectToAction("Index");
                 else
@@ -187,6 +196,54 @@ namespace ArtGallery.Controllers
             {
                 return View(e);
             }
+
+        }
+
+        public ActionResult EditEvent(string EventTitle)
+        {
+
+            Event e = db.GetEventInfo(EventTitle)[0];
+            return View(e);
+        }
+
+        [HttpPost]
+        [ActionName("EditEvent")]
+        public ActionResult editEvent(Event e, string old)
+        {
+
+            if (ModelState.IsValid)
+            {
+                //temporary for testing will not be hardcoded later
+                e.ADMIN_ID = 1;
+                if (e.imagefile != null)
+                {
+                    string imagefilename = Path.GetFileNameWithoutExtension(e.imagefile.FileName);
+                    string extension = Path.GetExtension(e.imagefile.FileName);
+                    imagefilename = imagefilename + DateTime.Now.ToString("yymmssfff") + extension;
+                    e.imagefile.SaveAs(Path.Combine(Server.MapPath("~/Images/"), imagefilename));
+                    e.IMAGE = "~/Images/" + imagefilename;
+                }
+                else
+                {
+                    e.IMAGE = "~/Images/defaul.png";
+                }
+
+                if (db.EditEvent(e, old))
+                    return RedirectToAction("Index");
+                else
+                    return HttpNotFound();
+            }
+            else
+            {
+                return View(e);
+            }
+
+        }
+
+        public ActionResult ViewEvents(int? page)
+        {
+            IPagedList<Event> events = db.GetEvents().ToPagedList(page ?? 1, 5);
+            return View(events);
 
         }
     }

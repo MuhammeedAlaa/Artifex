@@ -1,7 +1,7 @@
 ﻿@model ArtGallery.Models.Event
 
 @{
-    ViewBag.Title = "Event";
+    ViewBag.Title = "EditEvent";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
@@ -9,14 +9,15 @@
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
 <section class="content">
-    <h2>Event</h2>
-    @using (Html.BeginForm("Event", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    <h2>Edit Event</h2>
+    @using (Html.BeginForm("EditEvent", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
+        @Html.Hidden("old", Model.TITLE)
         <div class="row">
             <div class="col-md-12">
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">Add Event</h3>
+                        <h3 class="card-title">Edit Event</h3>
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                                 <i class="fas fa-minus"></i>
@@ -29,7 +30,7 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.TITLE, new { @class = "control-label col-md-2" })
 
-                            @Html.EditorFor(model => model.TITLE, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.TITLE, new { htmlAttributes = new { @class = "form-control", @value = Model.TITLE } })
                             @Html.ValidationMessageFor(model => model.TITLE, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group">
@@ -86,7 +87,7 @@
         <div class="row">
             <div class="col-12">
                 <a href="/admin" class="btn btn-secondary">Cancel</a>
-                <input type="submit" value="Create Event" class="btn btn-success float-right">
+                <input type="submit" value="Edit Event" class="btn btn-success float-right">
             </div>
         </div>
     }

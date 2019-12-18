@@ -236,6 +236,16 @@ namespace ArtGallery.DBaccess
 
         }
 
+        public bool EditEvent(Event e, string oldtitle)
+        {
+            
+            string query1 = "UPDATE EVENT SET TITLE = '" + e.TITLE + "', ADMIN_ID = " + e.ADMIN_ID + ", IMAGE = '" + e.IMAGE + "' Where TITLE = '" + oldtitle+"'";
+            string query2 = "update event set TICKET_PRICE = " + e.TICKET_PRICE + ", EVENTDATE = '" + e.EVENTDATE + 
+                            "', LOCATION = '" + e.LOCATION + "', TICKETS_NUM = " + e.TICKETS_NUM + ", INFO = '" + e.INFO + "' Where TITLE = '" + oldtitle+"'";
+            db.ExecuteNonQuery(query1);
+            return (db.ExecuteNonQuery(query2) != null);
+
+        }
         public List<Event> GetEvents()
         {
             string query = "SELECT * FROM EVENT WHERE EVENTDATE >='"+ DateTime.Now.Date+"'";

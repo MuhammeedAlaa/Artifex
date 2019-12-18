@@ -1,0 +1,87 @@
+﻿@using ArtGallery.ViewModels
+@using PagedList
+@using PagedList.Mvc
+@model IPagedList<ArtGallery.Models.Event>
+@{
+    ViewBag.Title = "ViewEvents";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+
+<link href="~/Content/paging.css" rel="stylesheet" />
+<style>
+    table > tr > td {
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    td {
+        text-align: center;
+    }
+
+    th {
+        text-align: center
+    }
+
+    .pagination li {
+        display: table-cell;
+    }
+</style>
+<section class="content" style="padding-top: 1vh">
+    <div class="container-fluid">
+
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <!-- /.card-header -->
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-hover customtbl">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Event Photo</th>
+                                    <th>Ticket Price</th>
+                                    <th>Date</th>
+                                    <th>Location</th>
+                                    <th>Tickets Left</th>
+                                    <th>More info</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var evnt in Model)
+                                {
+                                    <tr>
+                                        <td>@evnt.TITLE</td>
+                                        <td><img src="@Url.Content(@evnt.IMAGE)" alt="event photo" height="100vh" width="120vw" /></td>
+                                        <td>@evnt.TICKET_PRICE</td>
+                                        <td>@evnt.EVENTDATE.Date.ToString("dd/MM/yyyy")</td>
+                                        <td>@evnt.LOCATION</td>
+                                        <td>@evnt.TICKETS_NUM</td>
+                                        <td>@Html.ActionLink("Edit details", "EditEvent", "Admin", new { EventTitle = @evnt.TITLE, old = @evnt.TITLE }, null)</td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+        <!-- /.row -->
+        <div class="pagination">
+            @Html.PagedListPager(Model, page => Url.Action("ViewEvents",
+                new
+                {
+                    page
+                }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+        </div>
+    </div><!-- /.container-fluid -->
+
+</section>
+
