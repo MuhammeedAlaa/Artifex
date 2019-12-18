@@ -14,6 +14,7 @@ using System.Web.Security;
 using ArtGallery.App_Start;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Security.Cryptography;
 
 namespace ArtGallery.Controllers
 {
@@ -210,7 +211,7 @@ namespace ArtGallery.Controllers
                 }
                 else if (newuser.imagefile != null)
                     newuser.imagefile.SaveAs(path);
-
+                db.InsertBillingInfo(b, newuser.USER_NAME);
                 ModelState.Clear();
                 System.Web.Security.FormsAuthentication.SetAuthCookie(newuser.EMAIL, false);
                 return RedirectToAction("Index", "Home");
@@ -246,7 +247,7 @@ namespace ArtGallery.Controllers
             string Email = User.Identity.Name;
             db.InsertArtist(Email, a.BIO, a.BYEAR,a.START_SALARY,a.END_SALARY);
 
-            return RedirectToAction("index","manage");
+            return RedirectToAction("index","home");
         }
         [HttpGet]
         [Authorize]
@@ -268,7 +269,7 @@ namespace ArtGallery.Controllers
         {
             string Email = User.Identity.Name;
             db.InsertExpert(Email, e.BIO, e.QUALIFICATIONS, e.BYEAR);
-            return RedirectToAction("index", "manage");
+            return RedirectToAction("index", "home");
         }
 
         protected override void Dispose(bool disposing)

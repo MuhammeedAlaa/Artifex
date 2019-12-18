@@ -81,7 +81,7 @@ namespace ArtGallery.Controllers
             string Email = User.Identity.Name;
             ViewBag.exp = null;
             ViewBag.artist = null;
-            if (Email == "" && Uname == "")
+            if (Email == "" && Uname == null)
                 return RedirectToAction("SignIn", "Authorization");
             string un = db.GetUserName(Email);
             if (Email != "" && Uname == "" || (Email == Uname))

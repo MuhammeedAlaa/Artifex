@@ -20,7 +20,6 @@ namespace ArtGallery.Models
         public int? BYEAR { get; set; }
 
         [Required(ErrorMessage = "Please enter your start salary ")]
-        [RegularExpression(" ^[0 - 1000]$", ErrorMessage = "Enter a number between 0 and 1000 ")]
         public int START_SALARY { get; set; }
 
         public int END_SALARY { get; set; }
