@@ -21,6 +21,7 @@ namespace ArtGallery.ViewModels
 
         [Required(ErrorMessage = "Please enter your password")]
         [DataType(DataType.Password)]
+        [RegularExpression("^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$", ErrorMessage = "Invalid password format")]
         public string password { get; set; }
 
 
