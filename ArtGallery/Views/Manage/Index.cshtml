@@ -8,7 +8,6 @@
 }
 
 @section AddToHead{
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Home.css")" rel="stylesheet" type="text/css" />
 }
 
@@ -64,7 +63,7 @@
                         }
                         @if (a != null && (a.ARTIST_UNAME == ViewBag.title))
                         {
-                            <a class="btn btn-default" href='@Url.Action("UplodeArt", "Manage", new {Username = a.ARTIST_UNAME})'>Uplode</a>
+                            <a class="btn btn-default" href='@Url.Action("UploadArt", "Manage", new {Username = a.ARTIST_UNAME})'>Upload Artwork</a>
                         }
                         @if (User.Identity.GetUserName() != "")
                         {

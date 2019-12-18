@@ -133,7 +133,7 @@ namespace ArtGallery.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult UplodeArt(Artwork a) 
+        public ActionResult UploadArt(Artwork a) 
         {
             string imagefilename = "";
             if (ModelState.IsValid)
@@ -155,7 +155,7 @@ namespace ArtGallery.Controllers
             return View(a);
         }
         [Authorize]
-        public ActionResult UplodeArt(string Username)
+        public ActionResult UploadArt(string Username)
         {
 
             ViewBag.Uname = Username;
