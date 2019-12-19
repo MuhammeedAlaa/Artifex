@@ -1,6 +1,9 @@
 ﻿@using ArtGallery.Models
 @using ArtGallery.ViewModels
 @using Microsoft.AspNet.Identity
+@using PagedList
+@using PagedList.Mvc
+@model IPagedList<ArtGallery.Models.Artwork>
 @{
     Artist a = ViewBag.artist;
     ExpertViewModel e = ViewBag.exp;
@@ -10,6 +13,25 @@
 @section AddToHead{
     <link href="@Url.Content("~/Content/Home.css")" rel="stylesheet" type="text/css" />
 }
+<link href="~/Content/paging.css" rel="stylesheet" />
+<style>
+    table > tr > td {
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    td {
+        text-align: center;
+    }
+
+    th {
+        text-align: center
+    }
+
+    .pagination li {
+        display: table-cell;
+    }
+</style>
 
 <div class="container bootstrap snippet">
     <div class="profile card">
@@ -69,6 +91,7 @@
                         {
                             <a class="btn btn-default" href='@Url.Action("CustomOrder", "Manage")'>Create Custom Order </a>
                         }
+
                     </div>
                 </div>
             </div>
@@ -79,37 +102,89 @@
 {
     @Html.ActionLink("Change yours password", "ChangePassword", "Manage", null, null)
 }
-<div class="jumbotron">
-    <div class="row">
-        <div class="column">
-            <h3 style="color:darkblue">Contact</h3>
-            <br />
-            <p> +20 115 543 1271</p>
-            <br />
-            <p> Atrifex@gmail.com</p>
-        </div>
-        <div class="column">
-            <h3 style="color:darkblue">Services </h3>
-            <br />
-            <p> Contact Us</p>
-            <br />
-            <p> Ordering & Payment</p>
-            <br />
-            <p> Shipping</p>
-            <br />
-            <p> FAQ</p>
-        </div>
-        <div class="column">
-            <h3 style="color:darkblue"> Information</h3>
-            <br />
-            <p> Work With Us</p>
-            <br />
-            <p> Privacy Policy</p>
-            <br />
-            <p> Terms & Conditions</p>
-        </div>
-    </div>
-</div>
+@if (a != null)
+{
+
+    <section class="content" style="padding-top: 1vh">
+        <div class="container-fluid">
+
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <!-- /.card-header -->
+                        <div class="card-body table-responsive p-0">
+                            <table class="table table-hover customtbl">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Photo</th>
+                                        <th>Price</th>
+                                        <th>More info</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var artwork in Model)
+                                    {
+                                        <tr>
+                                            <td>@artwork.TITLE</td>
+                                            <td><img src="@Url.Content(artwork.PHOTO)" alt="event photo" height="100vh" width="120vw" /></td>
+                                            
+                                            <td>@artwork.PRICE</td>
+                                            <td>@Html.ActionLink("More details", "ArtViwer", "Manage", new { Code = @artwork.AW_CODE }, null)</td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+            </div>
+            <!-- /.row -->
+            <div class="pagination">
+                @Html.PagedListPager(Model, page => Url.Action("Index",
+                    new
+                    {
+                        page
+                    }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+            </div>
+            </div>
+        </section>
+            }
+            <div class="jumbotron">
+                <div class="row">
+                    <div class="column">
+                        <h3 style="color:darkblue">Contact</h3>
+                        <br />
+                        <p> +20 115 543 1271</p>
+                        <br />
+                        <p> Atrifex@gmail.com</p>
+                    </div>
+                    <div class="column">
+                        <h3 style="color:darkblue">Services </h3>
+                        <br />
+                        <p> Contact Us</p>
+                        <br />
+                        <p> Ordering & Payment</p>
+                        <br />
+                        <p> Shipping</p>
+                        <br />
+                        <p> FAQ</p>
+                    </div>
+                    <div class="column">
+                        <h3 style="color:darkblue"> Information</h3>
+                        <br />
+                        <p> Work With Us</p>
+                        <br />
+                        <p> Privacy Policy</p>
+                        <br />
+                        <p> Terms & Conditions</p>
+                    </div>
+                </div>
+            </div>
 
 
 

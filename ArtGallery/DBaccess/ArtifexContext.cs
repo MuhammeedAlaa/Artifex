@@ -228,6 +228,12 @@ namespace ArtGallery.DBaccess
             return ConvertDataTable<Event>(db.ExecuteReader(query));
         
         }
+        public List<Artwork> GetArtWorkInfo(int code)
+        {
+            string query = "SELECT * FROM ARTWORK WHERE AW_CODE=" + code + ";";
+            return ConvertDataTable<Artwork>(db.ExecuteReader(query));
+
+        }
 
         public void UpdateEvent(string title)
         {
@@ -250,6 +256,11 @@ namespace ArtGallery.DBaccess
         {
             string query = "SELECT * FROM EVENT WHERE EVENTDATE >='"+ DateTime.Now.Date+"'";
             return ConvertDataTable<Event>(db.ExecuteReader(query));
+        }
+        public List<Artwork> GetArtWorks(Artist A)
+        {
+            string query = "SELECT * FROM ARTWORK WHERE ARTIST_UNAME='" + A.ARTIST_UNAME + "'";
+            return ConvertDataTable<Artwork>(db.ExecuteReader(query));
         }
         public void InsertArtwork(Artwork a) 
         {

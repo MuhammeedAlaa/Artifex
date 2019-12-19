@@ -13,6 +13,7 @@ using ArtGallery.Models;
 using ArtGallery.ViewModels;
 using System.Data;
 using System.IO;
+using PagedList;
 
 namespace ArtGallery.Controllers
 {
@@ -76,11 +77,12 @@ namespace ArtGallery.Controllers
         //
         // GET: /Manage/Index
         [Route("Manage/Index/{Uname?}")]
-        public ActionResult Index(string Uname)
+        public ActionResult Index(int? page,string Uname)
         {
             string Email = User.Identity.Name;
             ViewBag.exp = null;
             ViewBag.artist = null;
+            IPagedList<Artwork> AW = null;
             if (Email == "" && Uname == null)
                 return RedirectToAction("SignIn", "Authorization");
             string un = db.GetUserName(Email);
@@ -97,14 +99,18 @@ namespace ArtGallery.Controllers
                 else
                     ViewBag.exp = null;
                 if (a != null)
+                {
                     ViewBag.artist = a;
+                    AW = db.GetArtWorks(a).ToPagedList(page ?? 1, 5);
+                }
                 else
                     ViewBag.artist = null;
-
-
                 if (ViewBag.imagepath == "")
                     ViewBag.imagepath = "/Images/def.png";
-                return View();
+                if (a != null)
+                    return View(AW);
+                else
+                    return View();
             }
             else //if(Email == null && Uname != "" || (Email != null && Uname != "") )
             {
@@ -133,12 +139,9 @@ namespace ArtGallery.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult UploadArt(Artwork a) 
+        public ActionResult UArt(Artwork a) 
         {
-            string imagefilename = "";
-            if (ModelState.IsValid)
-            {
-
+             string imagefilename = "";
                 if (a.imagefile != null)
                 {
                     imagefilename = Path.GetFileNameWithoutExtension(a.imagefile.FileName);
@@ -151,10 +154,9 @@ namespace ArtGallery.Controllers
                 a.ARTIST_UNAME = db.GetUserName(User.Identity.Name);
                 db.InsertArtwork(a);
                 return RedirectToAction("Index", "Home");
-            }
-            return View(a);
         }
         [Authorize]
+        [Route("Manage/UploadArt/{Username?}")]
         public ActionResult UploadArt(string Username)
         {
 
@@ -171,6 +173,25 @@ namespace ArtGallery.Controllers
             return View();
         }
 
+        [Authorize]
+        [Route("Manage/ArtViwer/{Code?}")]
+        public ActionResult ArtViwer(string Code)
+        {
+            List<Artwork> a = db.GetArtWorkInfo(Convert.ToInt32(Code));
+            ViewBag.image = a[0].PHOTO;
+            ViewBag.info = a[0].CATEGORY_NAME;
+            ViewBag.loc = a[0].DEPTH;
+            ViewBag.Title = a[0].TITLE;
+            ViewBag.price = a[0].PRICE;
+            ViewBag.depth = a[0].DEPTH;
+            ViewBag.description = a[0].DESCRIPTION;
+            ViewBag.height = a[0].HEIGHT;
+            ViewBag.material = a[0].MATERIAL;
+            ViewBag.subject = a[0].SUBJECT;
+            ViewBag.width = a[0].WIDTH;
+            ViewBag.year = a[0].YEAR;
+            return View();
+        }
 
 
 
