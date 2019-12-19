@@ -314,6 +314,30 @@ namespace ArtGallery.DBaccess
             return db.ExecuteNonQuery(query) != 0;
         }
 
+        public List<Artist> GetArtists()
+        {
+            string query = "select * from Artist";
+            
+            var lst =  ConvertDataTable<Artist>(db.ExecuteReader(query));
+            foreach (var obj in lst)
+            {
+                obj.Selected = "";
+            }
+            return lst;
+        }
+
+        public bool InviteArtist(string EventTitle, string[] artists)
+        {
+            foreach (var artist in artists)
+            {
+                string query = "INSERT INTO INVITED VALUES('" + EventTitle + "' ,'" + artist + "')";
+                if (db.ExecuteNonQuery(query) == 0)
+                    return false;
+            }
+
+            return true;
+        }
+
 
     }
 

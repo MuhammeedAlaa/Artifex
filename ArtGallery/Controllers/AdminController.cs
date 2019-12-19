@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Web;
 using System.Web.Mvc;
@@ -173,6 +174,7 @@ namespace ArtGallery.Controllers
             if (ModelState.IsValid)
             {
                 //temporary for testing will not be hardcoded later
+                e.SelectedArtists = (string[])Session["selected"];
                 e.ADMIN_ID = 1;
                 if (e.imagefile != null)
                 {
@@ -187,7 +189,7 @@ namespace ArtGallery.Controllers
                     e.IMAGE = "~/Images/defaul.png";
                 }
 
-                if (db.CreateEvent(e))
+                if (db.CreateEvent(e) && db.InviteArtist(e.TITLE, e.SelectedArtists))
                     return RedirectToAction("Index");
                 else
                     return HttpNotFound();
@@ -245,6 +247,17 @@ namespace ArtGallery.Controllers
             IPagedList<Event> events = db.GetEvents().ToPagedList(page ?? 1, 5);
             return View(events);
 
+        }
+
+        public ActionResult LoadData()
+        {
+            var data = db.GetArtists();
+            return Json(new{data = data}, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult SaveSelected(string[] list)
+        {
+            Session["selected"] = list;
+            return Json(TempData["selected"]);
         }
     }
 }

@@ -43,5 +43,7 @@ namespace ArtGallery.Models
         [StringLength(200, ErrorMessage = "Max length = 200 characters")]
         [RegularExpression("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", ErrorMessage = "Only letters are allowed")]
         public string INFO { get; set; }
+
+        public string[] SelectedArtists { get; set; }
     }
 }

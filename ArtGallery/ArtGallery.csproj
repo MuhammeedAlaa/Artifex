@@ -609,6 +609,9 @@
     <Content Include="lte\plugins\datatables-buttons\js\buttons.print.min.js" />
     <Content Include="lte\plugins\datatables-buttons\js\dataTables.buttons.js" />
     <Content Include="lte\plugins\datatables-buttons\js\dataTables.buttons.min.js" />
+    <Content Include="lte\plugins\datatables-checkboxes\css\dataTables.checkboxes.css" />
+    <Content Include="lte\plugins\datatables-checkboxes\js\dataTables.checkboxes.js" />
+    <Content Include="lte\plugins\datatables-checkboxes\js\dataTables.checkboxes.min.js" />
     <Content Include="lte\plugins\datatables-colreorder\css\colReorder.bootstrap4.css" />
     <Content Include="lte\plugins\datatables-colreorder\css\colReorder.bootstrap4.min.css" />
     <Content Include="lte\plugins\datatables-colreorder\js\colReorder.bootstrap4.js" />

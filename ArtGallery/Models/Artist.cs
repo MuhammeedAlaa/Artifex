@@ -23,5 +23,7 @@ namespace ArtGallery.Models
         public int START_SALARY { get; set; }
 
         public int END_SALARY { get; set; }
+
+        public string Selected { get; set; }
     }
 }
