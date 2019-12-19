@@ -2348,7 +2348,7 @@
     <Content Include="Views\Authorization\IsExpert.cshtml" />
     <Content Include="Views\Home\EventViwer.cshtml" />
     <Content Include="Views\Home\Events.cshtml" />
-    <Content Include="Views\Manage\UplodeArt.cshtml" />
+    <Content Include="Views\Manage\UploadArt.cshtml" />
     <Content Include="Views\Manage\CustomOrder.cshtml" />
     <Content Include="Views\Admin\ProposalsAction.cshtml" />
     <Content Include="Views\Admin\Event.cshtml" />
