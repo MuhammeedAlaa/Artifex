@@ -79,15 +79,15 @@
                             <br />
                             <p>@e.QUALIFICATIONS</p>
                         }
-                        @if (e != null && (e.EXPERT_UNAME == ViewBag.title))
+                        @if (e != null && ViewBag.same)
                         {
                             <h1>This will be handled late when add survey</h1>
                         }
-                        @if (a != null && (a.ARTIST_UNAME == ViewBag.title))
+                        @if (a != null && ViewBag.same)
                         {
                             <a class="btn btn-default" href='@Url.Action("UploadArt", "Manage", new {Username = a.ARTIST_UNAME})'>Upload Artwork</a>
                         }
-                        @if (User.Identity.GetUserName() != "")
+                        @if (User.Identity.GetUserName() != "" && ViewBag.same )
                         {
                             <a class="btn btn-default" href='@Url.Action("CustomOrder", "Manage")'>Create Custom Order </a>
                         }

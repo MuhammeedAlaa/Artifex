@@ -83,11 +83,13 @@ namespace ArtGallery.Controllers
             ViewBag.exp = null;
             ViewBag.artist = null;
             IPagedList<Artwork> AW = null;
+            ViewBag.same = false;
             if (Email == "" && Uname == null)
                 return RedirectToAction("SignIn", "Authorization");
             string un = db.GetUserName(Email);
             if (Email != "" && Uname == null || (Email == Uname))
             {
+                ViewBag.same = true;
                 ViewBag.title = un;
                 ExpertViewModel e = db.GetExpert(Email);
 
@@ -115,7 +117,7 @@ namespace ArtGallery.Controllers
             else //if(Email == null && Uname != "" || (Email != null && Uname != "") )
             {
                 Email = Uname;
-                ViewBag.title = Uname;
+                ViewBag.title = db.GetUserName(Email);
 
                 ExpertViewModel e = db.GetExpert(Email);
 
