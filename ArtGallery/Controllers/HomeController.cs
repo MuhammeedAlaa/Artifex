@@ -98,7 +98,7 @@ namespace ArtGallery.Controllers
             db.UpdateEvent(title);
             return RedirectToAction("Index", "Home");
         }
-
+        [Authorize]
            public ActionResult ExploreArtworks(int? page)
         {
              ViewBag.Message = "Explore Artworks";
