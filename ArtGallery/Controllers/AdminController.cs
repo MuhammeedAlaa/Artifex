@@ -60,6 +60,32 @@ namespace ArtGallery.Controllers
             }
         }
 
+        public ActionResult OrderDetails(int? orderid)
+        {
+            OrderInfoViewModel o = new OrderInfoViewModel();
+            o.Companies = db.GetCompanies();
+            if (orderid.HasValue)
+                o.OrderInfo = db.GetOrderInfo((int) orderid);
+            else
+            {
+                RedirectToAction("Orders");
+            }
+            //hardcoded for now
+            o.Order = db.GetOrderById((int)orderid)[0];
+            o.Admin_id = 1;
+            o.OrderInfo.ADMIN_ID = o.Admin_id;
+            o.Artwork = db.GetArtworkWithCode(o.OrderInfo.AW_CODE);
+            return View(o);
+        }
+        [HttpPost]
+        public ActionResult OrderDetails(OrderInfoViewModel o)
+        {
+            if(ModelState.IsValid)
+                if (db.AssignOrder(o.OrderInfo))
+                    return View("Index");
+            return HttpNotFound();
+        }
+
         public ActionResult Reports(string Orderby, int? page, string sortdir)
         {
             if (Request.QueryString["table_search"].IsNullOrWhiteSpace() ||

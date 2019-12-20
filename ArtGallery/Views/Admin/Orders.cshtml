@@ -46,8 +46,9 @@
                                             @if (Request.QueryString["Orderby"] == "STATUS")
                                              {
                                                  <i class="fas fa-sort-amount-up" style="color: #007bff"></i>
-                                             }</th>
-                                        <th>@Html.ActionLink("OrderDate", "Orders", "Admin", new {Orderby = "OrderDate", sortdir = "asc"}, null)
+                                             }
+                                    </th>
+                                    <th>@Html.ActionLink("OrderDate", "Orders", "Admin", new {Orderby = "OrderDate", sortdir = "asc"}, null)
                                             @if (Request.QueryString["Orderby"] == "OrderDate")
                                             {
                                                 <i class="fas fa-sort-amount-up" style="color: #007bff"></i>
@@ -87,16 +88,25 @@
                                 <tr>
                                     <td>@order.ORDER_ID</td>
                                     @if (order.STATUS == true)
-                            {
-                                        <td>Delivered</td>
-                            }
-                            else
-                            {
+                                    {
+                                        <td>Sent</td>
+                                    }
+                                    else
+                                    {
                                         <td>Pending</td>
-                            }
-                                    <td>@order.ORDER_DATE</td>
-                                    <td>@order.DELIVERY_DATE</td>
-                                    <td>@Html.ActionLink("More details", "Index", "Order")</td>
+                                    }
+                                <td>@order.ORDER_DATE.ToString("MM/dd/yyyy")</td>
+                                    @if (order.DELIVERY_DATE == null)
+                                    {
+                                        <td>@order.DELIVERY_DATE</td>
+                                    }
+                                    else
+                                    {
+                                        DateTime t = ((DateTime) order.DELIVERY_DATE);
+                                        <td>@t.ToString("MM/dd/yyyy")</td>
+                                    }
+
+                                    <td>@Html.ActionLink("More details", "OrderDetails", "Admin", new { orderid = order.ORDER_ID }, null)</td>
                                 </tr>
                                 }
 

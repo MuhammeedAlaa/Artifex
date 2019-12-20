@@ -1,0 +1,170 @@
+﻿@model ArtGallery.ViewModels.OrderInfoViewModel
+@{
+    ViewBag.Title = "OrderDetails";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<section class="content">
+    @using (Html.BeginForm("OrderDetails", "Admin", FormMethod.Post, new {enctype = "multipart/form-data", id = "form1"}))
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Order Information</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                <div class="card-body">
+
+                    <div class="form-horizontal">
+                        <h4>Artwork</h4>
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Artwork.CATEGORY_NAME, "CATEGORY", new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.Label(Model.Artwork.CATEGORY_NAME, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Artwork.TITLE, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.Label(Model.Artwork.TITLE, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Artwork.DESCRIPTION, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.Label(Model.Artwork.DESCRIPTION, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Artwork.WIDTH, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.Label(Model.Artwork.WIDTH.ToString(), new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Artwork.HEIGHT, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.Label(Model.Artwork.HEIGHT.ToString(), new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Artwork.DEPTH, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.Label(Model.Artwork.DEPTH.ToString(), new { @class = "form-control" })
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Artwork.PRICE, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.Label(Model.Artwork.PRICE.ToString(), new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Artwork.MATERIAL, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.Label(Model.Artwork.MATERIAL, new { @class = "form-control" })
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Artwork.MEDIUM, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.Label(Model.Artwork.MEDIUM, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Artwork.SUBJECT, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.Label(Model.Artwork.SUBJECT, new { @class = "form-control" })
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Artwork.YEAR, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.Label(Model.Artwork.YEAR.ToString(), new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Artwork.PHOTO, "Artwork Photo", new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                <img src="@Url.Content(Model.Artwork.PHOTO)" alt="Artwork photo" height="100%" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Order.ORDER_DATE, "Order date", new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.Label(Model.Order.ORDER_DATE.ToString("MM/dd/yyyy"), new { @class = "form-control" })
+                            </div>
+                        </div>
+                        
+                    @{
+                        if (Model.Order.DELIVERY_DATE == null)
+                        {
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Companies, "Choose a Company for delivery", htmlAttributes: new {@class = "control-label col-md-5"})
+                                <div class="col-md-10">
+                                    @Html.DropDownListFor(model => model.OrderInfo.SHIPPING_NAME, new SelectList(Model.Companies, "name", "name"), htmlAttributes: new {@class = "form-control"})
+                                    @Html.ValidationMessageFor(model => model.OrderInfo.SHIPPING_NAME, "", new {@class = "text-danger"})
+
+                                </div>
+                            </div>
+                        }
+                    }
+
+
+                        @Html.HiddenFor(model => model.OrderInfo.AW_CODE, Model.Artwork.AW_CODE)
+                        @Html.HiddenFor(model => model.OrderInfo.ADMIN_ID, Model.OrderInfo.ADMIN_ID)
+                        @Html.HiddenFor(model => model.OrderInfo.ORDER_ID, Model.Order.ORDER_ID)
+                        @Html.HiddenFor(model => model.OrderInfo.USER_NAME, Model.OrderInfo.USER_NAME)
+
+
+
+
+
+
+
+                        <div class="btn-group col-md-10">
+                            <div class="col-md-offset-2 col-md-4">
+                                <input type="submit" value="Cancel" name="Cancel" class="btn btn-block btn-default" />
+                            </div>
+                            @{ if (Model.Order.DELIVERY_DATE == null)
+                                {
+
+                                    <div class="col-md-4" style="right: 0px; position: absolute;">
+                                        <input type="submit" value="Ship" name="Ship" class="btn btn-block btn-success" />
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+
+
+                </div>
+                </div>
+            </div>
+        </div>
+    }
+</section>
+
+
