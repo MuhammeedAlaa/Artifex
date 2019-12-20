@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.WebPages;
 using ArtGallery.DBaccess;
@@ -115,6 +113,36 @@ namespace ArtGallery.Controllers
                     .ToPagedList(page ?? 1, 5);
                 return View(admin);
             }
+        }
+
+        public ActionResult ReportAction(int? reportid)
+        {
+            ReportViewModel r = new ReportViewModel();
+            if (reportid.HasValue)
+            {
+                r.Report = db.GetReportById((int)reportid)[0];
+                r.OrderInfo = db.GetOrderInfo(r.Report.ORDER_ID);
+                r.Order = db.GetOrderById(r.Report.ORDER_ID)[0];
+                //hardcoded for now
+                r.Adminid = 1;
+            }
+            else
+            {
+                RedirectToAction("Reports");
+            }
+
+            return View(r);
+        }
+
+        [HttpPost]
+        public ActionResult ReportAction()
+        {
+            Report r = new Report();
+            r.ADMIN_ID = (int)Session["adminid"];
+            r.REPORT_ID = (int)Session["reportid"];
+            if (ModelState.IsValid)
+                db.SolveReport(r);
+            return RedirectToAction("Reports");
         }
 
         public ActionResult Proposals(string Orderby, int? page, string sortdir)
