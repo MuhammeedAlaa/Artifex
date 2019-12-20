@@ -86,7 +86,7 @@ namespace ArtGallery.Controllers
             if (Email == "" && Uname == null)
                 return RedirectToAction("SignIn", "Authorization");
             string un = db.GetUserName(Email);
-            if (Email != "" && Uname == "" || (Email == Uname))
+            if (Email != "" && Uname == null || (Email == Uname))
             {
                 ViewBag.title = un;
                 ExpertViewModel e = db.GetExpert(Email);
@@ -127,12 +127,15 @@ namespace ArtGallery.Controllers
                 else
                     ViewBag.exp = null;
                 if (a != null)
+                {
+                    AW = db.GetArtWorks(a).ToPagedList(page ?? 1, 5);
                     ViewBag.artist = a;
+                }
                 else
                     ViewBag.artist = null;
                 if (ViewBag.imagepath == "")
                     ViewBag.imagepath = "/Images/def.png";
-                return View();
+                return View(AW);
             }
 
         }

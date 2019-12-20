@@ -42,9 +42,9 @@
                         <img class="img-thumbnail md-margin-bottom-10" src=@Url.Content(ViewBag.imagepath != null ? ViewBag.imagepath: "~/Images/default.png") alt="Profile pic" style="width: 100%" />
                     </div>
                     <div class="col-md-7">
-                        @if (User.Identity.GetUserName() != "")
+                        @if (ViewBag.title != null)
                         {
-                            <h2>@User.Identity.GetUserName() </h2>
+                        <h2>@ViewBag.title </h2>
                         }
                         @if (a != null && e == null)
                         {
