@@ -40,19 +40,19 @@ namespace ArtGallery.Models
         public string DESCRIPTION { get; set; }
 
         [Required(ErrorMessage ="Please enter the width ")]
-        [RegularExpression(" ^[20 - 150]$",ErrorMessage ="Enter a number between 20 and 150 ")]
+        [Range(20, 150)]
         public int WIDTH { get; set; }
 
         [Required(ErrorMessage = "Please enter the heigth ")]
-        [RegularExpression(" ^[20 - 150]$", ErrorMessage = "Enter a number between 20 and 150 ")]
+        [Range(20, 150)]
         public int HEIGHT { get; set; }
 
         [Required(ErrorMessage = "Please enter the depth ")]
-        [RegularExpression(" ^[2 - 10]$", ErrorMessage = "Enter a number between 2 and 10 ")]
+        [Range(2, 10)]
         public int DEPTH { get; set; }
 
         [Required(ErrorMessage = "Please enter the price ")]
-        [RegularExpression(" ^[50 - 3000]$", ErrorMessage = "Enter a number between 50 and 3000 ")]
+        [Range(20, 10000)]
         public int PRICE { get; set; }
 
         [Required(ErrorMessage = "Please entet the material ")]

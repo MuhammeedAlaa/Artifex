@@ -28,6 +28,7 @@ namespace ArtGallery.Controllers
             return View(admin);
         }
 
+
         public ActionResult Orders(string Orderby, int? page, string sortdir)
         {
             if (Request.QueryString["table_search"].IsNullOrWhiteSpace() ||
@@ -258,6 +259,40 @@ namespace ArtGallery.Controllers
         {
             Session["selected"] = list;
             return Json(TempData["selected"]);
+        }
+
+        public ActionResult ShippingCompany()
+        {
+            return View();
+        }
+
+        public ActionResult LoadShipping()
+        {
+            var data = db.GetCompanies();
+            return Json(new {data = data}, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult deleteCompany(string[] list)
+        {
+            if(list != null)
+                foreach (var company in list)
+                {
+                    db.deleteCompany(company);
+                }
+            return RedirectToAction("ShippingCompany");
+        }
+
+        [HttpPost]
+        public ActionResult ShippingCompany(ShippingCompany s)
+        {
+
+            if (db.Addcompany(s))
+                return RedirectToAction("ShippingCompany");
+            else
+                return HttpNotFound();
+
+
         }
     }
 }

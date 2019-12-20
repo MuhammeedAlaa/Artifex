@@ -349,7 +349,23 @@ namespace ArtGallery.DBaccess
             return true;
         }
 
+        public List<ShippingCompany> GetCompanies()
+        {
+            string query = "SELECT * FROM SHIPPING_COMPANY";
+            return ConvertDataTable<ShippingCompany>(db.ExecuteReader(query));
+        }
 
+        public bool Addcompany(ShippingCompany C)
+        {
+            string query = "INSERT INTO SHIPPING_COMPANY VALUES('" +C.NAME+"', '"+C.EMAIL + "', '" + C.PHONE+ "', "+C.SHIPPING_FEES  +")";
+            return (db.ExecuteNonQuery(query) != 0);
+        }
+
+        public bool deleteCompany(string C)
+        {
+            string query = "DELETE FROM SHIPPING_COMPANY WHERE NAME = '" + C + "'";
+            return (db.ExecuteNonQuery(query) != 0);
+        }
     }
 
     
