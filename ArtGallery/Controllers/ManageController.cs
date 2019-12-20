@@ -230,20 +230,8 @@ namespace ArtGallery.Controllers
         [Route("Manage/ArtViwer/{Code?}")]
         public ActionResult ArtViwer(string Code)
         {
-            List<Artwork> a = db.GetArtWorkInfo(Convert.ToInt32(Code));
-            ViewBag.image = a[0].PHOTO;
-            ViewBag.info = a[0].CATEGORY_NAME;
-            ViewBag.loc = a[0].DEPTH;
-            ViewBag.Title = a[0].TITLE;
-            ViewBag.price = a[0].PRICE;
-            ViewBag.depth = a[0].DEPTH;
-            ViewBag.description = a[0].DESCRIPTION;
-            ViewBag.height = a[0].HEIGHT;
-            ViewBag.material = a[0].MATERIAL;
-            ViewBag.subject = a[0].SUBJECT;
-            ViewBag.width = a[0].WIDTH;
-            ViewBag.year = a[0].YEAR;
-            return View();
+            Artwork a = db.GetArtWorkInfo(Convert.ToInt32(Code))[0];
+            return View(a);
         }
         [Authorize]
         [Route("Manage/SurveyRequestAction/{Code?}")]
