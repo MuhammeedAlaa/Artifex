@@ -301,7 +301,7 @@ namespace ArtGallery.DBaccess
             Parameters.Add("@Email", email);
             return (int)db.ExecuteScalar_proc(StoredProcedureName, Parameters) != 0;
         }
-        public List<Artwork> GetArtworkInfo(string title)
+        public List<Artwork> GetArtworkInfo2(string title)
         {
             string StoredProcedureName = StoredProcedures.GetArtworkInfo;
             Dictionary<string, object> Parameters = new Dictionary<string, object>();
@@ -511,7 +511,6 @@ namespace ArtGallery.DBaccess
                     "' WHERE ORDER_ID = " + o.ORDER_ID;
             return (db.ExecuteNonQuery(query) != 0);
         }
-<<<<<<< HEAD
         public List<Artwork> GetArtworkInfo(string title)
         {
             string query = "SELECT * FROM Artwork WHERE TITLE='" + title + "';";
@@ -519,11 +518,6 @@ namespace ArtGallery.DBaccess
 
         }
         public void rateArtwork(int rating,int code,string uname) {
-=======
-     
-    }
->>>>>>> 9b5872042377b655813e34851e9b2b7eedb1738a
-
             string query = "INSERT INTO RATE_AW VALUES('" + uname + "'," + code + "," + rating + ");";
             db.ExecuteNonQuery(query);
             query = "UPDATE ARTWORK SET STATUS =0 WHERE AW_CODE=" + code + ";";
