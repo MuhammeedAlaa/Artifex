@@ -439,6 +439,7 @@
     <Compile Include="ViewModels\CustomOrderUserViewModel.cs" />
     <Compile Include="ViewModels\ExpertViewModel.cs" />
     <Compile Include="ViewModels\OrderInfoViewModel.cs" />
+    <Compile Include="ViewModels\ReportViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
@@ -2379,6 +2380,7 @@
     <Content Include="Views\Home\ArtworkView.cshtml" />
     <Content Include="Views\Home\ExploreArtworks.cshtml" />
     <Content Include="Views\Admin\OrderDetails.cshtml" />
+    <Content Include="Views\Admin\ReportAction.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

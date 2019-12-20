@@ -170,6 +170,12 @@ namespace ArtGallery.DBaccess
             return ConvertDataTable<Report>(db.ExecuteReader(query));
 
         }
+
+        public bool SolveReport(Report r)
+        {
+            string query = "UPDATE REPORT SET ADMIN_ID = " + r.ADMIN_ID + "WHERE REPORT_ID = " + r.REPORT_ID;
+            return (db.ExecuteNonQuery(query) != 0);
+        }
         public string GetUserName(string Email) 
         {
             string query = "SELECT USER_NAME FROM [dbo].[USER] WHERE EMAIL ='" + Email + "';";
