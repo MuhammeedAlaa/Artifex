@@ -10,7 +10,6 @@ namespace ArtGallery.Models
     {
         public int SURVEY_ID { get; set; }
 
-
         public string EXPERT_UNAME { get; set; }
         public string USER_NAME { get; set; }
 

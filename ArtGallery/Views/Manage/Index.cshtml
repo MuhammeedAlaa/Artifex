@@ -163,7 +163,7 @@
     </section>
 }
 
-@if (e != null)
+@if (e != null && ViewBag.same)
 {
 
     <section class="content" style="padding-top: 1vh">
@@ -180,7 +180,6 @@
                                     <tr>
                                         <th>USER_NAME</th>
                                         <th>BUDGET</th>
-                                        <th>ORIENTATION</th>
                                         <th>More info</th>
                                         <th>Requests</th>
                                     </tr>
@@ -191,8 +190,6 @@
                                         <tr>
                                             <td>@request.USER_NAME</td>
                                             <td>@request.BUDGET</td>
-
-                                            <td>@request.ORIENTATION</td>
                                             <td>@request.MORE_INFO</td>
                                             <td>@Html.ActionLink("More details", "SurveyRequestAction", "Manage", new { Code = request.SURVEY_ID }, null)</td>
                                         </tr>

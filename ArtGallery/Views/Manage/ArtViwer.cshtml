@@ -7,9 +7,6 @@
 
 <section class="content" style="padding-top: 1vh">
     <div class="container-fluid">
-
-        @using (Html.BeginForm("ProposalsAction", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
-        {
             @Html.AntiForgeryToken()
             @Html.Hidden("code", Model.AW_CODE)
 
@@ -99,7 +96,6 @@
                     </div>
                 </div>
             </div>
-        }
 
     </div>
 

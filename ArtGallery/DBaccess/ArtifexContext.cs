@@ -217,6 +217,12 @@ namespace ArtGallery.DBaccess
             Parameters.Add("@asc", asc);
             return ConvertDataTable<Report>(db.ExecuteReader_proc(StoredProcedureName, Parameters));
         }
+
+        public bool SolveReport(Report r)
+        {
+            string query = "UPDATE REPORT SET ADMIN_ID = " + r.ADMIN_ID + "WHERE REPORT_ID = " + r.REPORT_ID;
+            return (db.ExecuteNonQuery(query) != 0);
+        }
         public string GetUserName(string Email) 
         {
             string StoredProcedureName = StoredProcedures.UserName_BY_EMAIL;
@@ -440,6 +446,19 @@ namespace ArtGallery.DBaccess
             string query = "select * from Artist";
             
             var lst =  ConvertDataTable<Artist>(db.ExecuteReader(query));
+            foreach (var obj in lst)
+            {
+                obj.Selected = "";
+            }
+            return lst;
+        }
+
+
+        public List<Artwork> GetArtworksforrecommanded()
+        {
+            string query = "select * from ARTWORK";
+
+            var lst = ConvertDataTable<Artwork>(db.ExecuteReader(query));
             foreach (var obj in lst)
             {
                 obj.Selected = "";

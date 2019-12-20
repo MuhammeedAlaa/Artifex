@@ -204,9 +204,7 @@ namespace ArtGallery.Controllers
         [Route("Manage/AddSurvey/{Username?}")]
         public ActionResult AddSurvey(string Username)
         {
-
             ViewBag.Uname = Username;
-            
             return View();
         }
 
@@ -220,8 +218,6 @@ namespace ArtGallery.Controllers
             s.EXPERT_UNAME = Username;
             s.USER_NAME = db.GetUserName(User.Identity.Name);
             db.InsertSurveyRequest(s);
-            
-
             return RedirectToAction("Index","Home");
         }
 
@@ -271,6 +267,18 @@ namespace ArtGallery.Controllers
                 );
             }
             return View();
+        }
+
+
+        public ActionResult LoadData()
+        {
+            var data = db.GetArtworksforrecommanded();
+            return Json(new { data = data }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult SaveSelected(string[] list)
+        {
+            Session["selected"] = list;
+            return Json(TempData["selected"]);
         }
         protected override void Dispose(bool disposing)
         {
