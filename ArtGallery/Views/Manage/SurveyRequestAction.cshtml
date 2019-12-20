@@ -3,3 +3,162 @@
 @{
     ViewBag.Title = "RequestedSurveys";
 }
+
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<!-- DataTables -->
+<link rel="stylesheet" href="~/lte/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+<section class="content" style="padding-top: 1vh">
+    <div class="container-fluid">
+
+        @using (Html.BeginForm("RespondeSurvey", "Manage", FormMethod.Post ,new { id = "form1" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.Hidden("id", Model.SURVEY_ID)
+
+            <div class="form-horizontal">
+                <h4>Survey</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.USER_NAME, "UserName", new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.Label(Model.USER_NAME, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MORE_INFO, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.Label(Model.MORE_INFO, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.BUDGET, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.Label(Model.BUDGET.ToString(), new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Select Recommanded artworks</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Artist UserName</th>
+                                <th>Title</th>
+                                <th>Category</th>
+                                <th>Description</th>
+                                <th>Price</th>
+                                <th>Width</th>
+                                <th>Height</th>
+                                <th>Depth</th>
+                                <th>Material</th>
+                                <th>Medium</th>
+                                <th>Subject</th>
+                                <th>Photo</th>
+                                <th>Year</th>
+                                <th>checked</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        }
+
+    </div>
+
+</section>
+
+
+@section Scripts{
+    <script src="~/lte/plugins/jquery/jquery.min.js"></script>
+    <!-- bs-custom-file-input -->
+    <script src="~/lte/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+
+    <!-- Bootstrap 4 -->
+    <script src="~/lte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- DataTables -->
+    <link href="~/lte/plugins/datatables-checkboxes/css/dataTables.checkboxes.css" rel="stylesheet" />
+    <script src="~/lte/plugins/datatables-checkboxes/js/dataTables.checkboxes.min.js"></script>
+    <script src="~/lte/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/lte/plugins/datatables-select/js/dataTables.select.min.js"></script>
+    <script src="~/lte/plugins/datatables-select/js/select.bootstrap4.min.js"></script>
+    <link href="~/lte/plugins/datatables-select/css/select.bootstrap4.min.css" rel="stylesheet" />
+    <link href="~/lte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <script src="~/lte/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+    <!-- page script -->
+    <script type="text/javascript">
+        var list = [];
+        $(document).ready(function () {
+
+            $('#example1').DataTable({
+                "ajax": {
+                    "url": "/Manage/LoadData",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "columns": [
+                    { "data": "ARTIST_UNAME", "autowidth": true},
+                    { "data": "TITLE", "autowidth": true },
+                    { "data": "CATEGORY_NAME", "autowidth": true },
+                    { "data": "DESCRIPTION", "autowidth": true },
+                    { "data": "PRICE", "autowidth": true },
+                    { "data": "WIDTH", "autowidth": true },
+                    { "data": "HEIGHT", "autowidth": true },
+                    { "data": "DEPTH", "autowidth": true },
+                    { "data": "MATERIAL", "autowidth": true },
+                    { "data": "MEDIUM", "autowidth": true },
+                    { "data": "SUBJECT", "autowidth": true },
+                    { "data": "PHOTO", "autowidth": true },
+                    { "data": "YEAR", "autowidth": true },
+                    {
+                        defaultContent: '',
+                        'targets': 0,
+                        'checkboxes': { 'selectRow': true },
+                        className: 'select-checkbox'
+                    }
+                ],
+                'select': {
+                    'style': 'multi'
+                },
+                'order': [[1, 'asc']]
+            });
+        });
+        // Handle form submission event
+        $('#form1').on('submit',
+            function (e) {
+                var form = this;
+                var list = [];
+                // Iterate over all selected checkboxes
+        //        $('.selected .ArtistUserName').each(function (i, obj) {
+            //        list.push($(this).text());
+          //      });
+                $.ajax({
+                    type: "POST",
+                    url: "/Manage/SaveSelected",
+                    data: JSON.stringify({ 'list': list }),
+                    success: function (data) {
+                        console.log(data);
+                    },
+                    async: false,
+                    contentType: "application/json",
+                    traditional: true
+                });
+            });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            bsCustomFileInput.init();
+        });
+    </script>
+}

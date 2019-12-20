@@ -363,6 +363,19 @@ namespace ArtGallery.DBaccess
             return lst;
         }
 
+
+        public List<Artwork> GetArtworksforrecommanded()
+        {
+            string query = "select * from ARTWORK";
+
+            var lst = ConvertDataTable<Artwork>(db.ExecuteReader(query));
+            foreach (var obj in lst)
+            {
+                obj.Selected = "";
+            }
+            return lst;
+        }
+
         public bool InviteArtist(string EventTitle, string[] artists)
         {
             foreach (var artist in artists)

@@ -77,5 +77,6 @@ namespace ArtGallery.Models
         public string PHOTO { get; set; }
         [Required]
         public HttpPostedFileBase imagefile { get; set; }
+        public string Selected { get; set; }
     }
 }
