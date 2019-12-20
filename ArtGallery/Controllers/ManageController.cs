@@ -91,14 +91,14 @@ namespace ArtGallery.Controllers
             {
                 ViewBag.same = true;
                 ViewBag.title = un;
-                ExpertViewModel e = db.GetExpert(Email);
+                List<ExpertViewModel> e = db.GetExpert(Email);
 
                 ViewBag.imagepath = db.ProfileImagePath(Email);
 
                 Artist a = db.GetArtist(Email);
                 if (e != null)
                 {
-                    ViewBag.reqlist = db.GetRequestedSurvey(e).ToPagedList(page2 ?? 1, 5);
+                    ViewBag.reqlist = db.GetRequestedSurvey(e[0]).ToPagedList(page2 ?? 1, 5);
                     ViewBag.exp = e;
                 }
                 else
@@ -122,14 +122,14 @@ namespace ArtGallery.Controllers
                 Email = Uname;
                 ViewBag.title = db.GetUserName(Email);
 
-                ExpertViewModel e = db.GetExpert(Email);
+                List<ExpertViewModel> e = db.GetExpert(Email);
 
                 ViewBag.imagepath = db.ProfileImagePath(Email);
 
                 Artist a = db.GetArtist(Email);
                 if (e != null)
                 {
-                    ViewBag.reqlist = db.GetRequestedSurvey(e).ToPagedList(page2 ?? 1, 5);
+                    ViewBag.reqlist = db.GetRequestedSurvey(e[0]).ToPagedList(page2 ?? 1, 5);
                     ViewBag.exp = e;
                 }
                 else

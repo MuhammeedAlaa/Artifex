@@ -6,7 +6,7 @@
 @model IPagedList<ArtGallery.Models.Artwork>
 @{
     Artist a = ViewBag.artist;
-    ExpertViewModel e = ViewBag.exp;
+    List<ExpertViewModel> e = ViewBag.exp;
     IPagedList<Survey> s = ViewBag.reqlist;
 
 
@@ -75,20 +75,21 @@
                         }
                         @if (e != null)
                         {
-                            <p>@e.BIO</p>
+                            <p>@e[0].BIO</p>
                             <hr>
                             <h1>QUALIFICATIONS</h1>
                             <br />
-                            <p>@e.QUALIFICATIONS</p>
+                            for (int i = 0; i < e.Count; i++)
+                            {<p>@e[i].QUALIFICATIONS</p>}
 
                         }
                         @if (e != null && ViewBag.same)
                         {
-                            <a class="btn btn-default" href='@Url.Action("AddQual", "Manage", new {Username = e.EXPERT_UNAME})'>Add Qualifications</a>
+                            <a class="btn btn-default" href='@Url.Action("AddQual", "Manage", new {Username = e[0].EXPERT_UNAME})'>Add Qualifications</a>
                         }
                         @if (e != null && !ViewBag.same && User.Identity.Name != "")
                         {
-                            <a class="btn btn-default" href='@Url.Action("AddSurvey", "Manage", new {Username = e.EXPERT_UNAME})'>Add Survey</a>
+                            <a class="btn btn-default" href='@Url.Action("AddSurvey", "Manage", new {Username = e[0].EXPERT_UNAME})'>Add Survey</a>
                         }
                         @if (a != null && ViewBag.same)
                         {

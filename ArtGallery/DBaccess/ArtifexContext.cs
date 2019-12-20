@@ -127,13 +127,13 @@ namespace ArtGallery.DBaccess
                 return null;
         }
 
-        public ExpertViewModel GetExpert(string Email)
+        public List<ExpertViewModel> GetExpert(string Email)
         {
 
             string query = "SELECT E.*,ES.QUALIFICATIONS FROM EXPERT E JOIN[dbo].[USER] U ON U.USER_NAME = E.EXPERT_UNAME join EXP_QUALIFICATIONS ES on E.EXPERT_UNAME = ES.EXPERT_UNAME  WHERE U.EMAIL = '" + Email + "'; ";
             DataTable d = db.ExecuteReader(query);
             if (d != null)
-                return (ConvertDataTable<ExpertViewModel>(d))[0];
+                return (ConvertDataTable<ExpertViewModel>(d));
             else
                 return null;
         }
