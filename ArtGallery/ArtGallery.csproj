@@ -19,7 +19,8 @@
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <Use64BitIISExpress>false</Use64BitIISExpress>
+    <Use64BitIISExpress>
+    </Use64BitIISExpress>
     <IISExpressSSLPort>44331</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -438,6 +439,7 @@
     <Compile Include="ViewModels\ChangePasswordViewModel.cs" />
     <Compile Include="ViewModels\CustomOrderUserViewModel.cs" />
     <Compile Include="ViewModels\ExpertViewModel.cs" />
+    <Compile Include="ViewModels\OrderInfoViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
@@ -449,9 +451,27 @@
     <Content Include="Content\bootstrap3.4.1.min.css" />
     <Content Include="Content\paging.css" />
     <Content Include="Content\temp.css" />
+    <Content Include="explore.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\Asset 2191350690.png" />
+    <Content Include="Images\Def.png" />
+    <Content Include="Images\defaul.png" />
+    <Content Include="Images\default.jpg" />
+    <Content Include="Images\default.png" />
+    <Content Include="Images\explore.jpg" />
+    <Content Include="Images\FineArt194252912.jpg" />
+    <Content Include="Images\image2.jpg" />
+    <Content Include="Images\image3.jpg" />
+    <Content Include="Images\MohamedAlaa192420206.jpg" />
+    <Content Include="Images\MohamedAlaa194209887.jpg" />
+    <Content Include="Images\MohamedAlaa194819161.jpg" />
+    <Content Include="Images\nature194029013.jpg" />
+    <Content Include="Images\SNES - Chrono Trigger - Gate194724187.png" />
+    <Content Include="Images\SNES - Chrono Trigger - Gate194814159.png" />
+    <Content Include="Images\tank193307705.bmp" />
+    <Content Include="Images\Xbox - Egg Mania Eggstreme Madness - Ghost191544690.png" />
     <Content Include="lte\dist\css\adminlte.css" />
     <Content Include="lte\dist\css\adminlte.min.css" />
     <Content Include="lte\dist\css\alt\adminlte.components.css" />
@@ -2359,6 +2379,7 @@
     <Content Include="Views\Manage\AddQual.cshtml" />
     <Content Include="Views\Home\ArtworkView.cshtml" />
     <Content Include="Views\Home\ExploreArtworks.cshtml" />
+    <Content Include="Views\Admin\OrderDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

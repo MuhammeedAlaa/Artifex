@@ -412,6 +412,22 @@ namespace ArtGallery.DBaccess
             return ConvertDataTable<Artwork>(db.ExecuteReader(query));
         }
 
+        public OrderInfo GetOrderInfo(int id)
+        {
+            string query = "SELECT * FROM ORDER_INFO WHERE ORDER_ID = " + id;
+            return ConvertDataTable<OrderInfo>(db.ExecuteReader(query))[0];
+        }
+
+        public bool AssignOrder(OrderInfo o)
+        {
+            string query = "UPDATE ORDER_INFO SET ADMIN_ID = " + o.ADMIN_ID + ", SHIPPING_NAME = '" + o.SHIPPING_NAME +
+                           "' WHERE ORDER_ID = "+ o.ORDER_ID;
+            if (db.ExecuteNonQuery(query) == 0)
+                return false;
+            query = "UPDATE [ORDER] SET STATUS = 1, DELIVERY_DATE = '" + DateTime.Now.AddDays(10).ToString("MM/dd/yyyy") +
+                    "' WHERE ORDER_ID = " + o.ORDER_ID;
+            return (db.ExecuteNonQuery(query) != 0);
+        }
         public List<Artwork> GetArtworkInfo(string title)
         {
             string query = "SELECT * FROM Artwork WHERE TITLE='" + title + "';";
