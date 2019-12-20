@@ -184,6 +184,23 @@ namespace ArtGallery.Controllers
             return View();
         }
         [Authorize]
+        [Route("Manage/AddQual/{Username ?}")]
+        public ActionResult AddQual(string Username)
+        {
+            ViewBag.Uname = Username;
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        
+        public ActionResult InsertQual( ExpertViewModel e)
+        {
+            e.EXPERT_UNAME = (string)TempData["expert"];
+            db.InsertQual(e);
+            return RedirectToAction("Index","Home");
+        }
+        [Authorize]
         [Route("Manage/AddSurvey/{Username?}")]
         public ActionResult AddSurvey(string Username)
         {

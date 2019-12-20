@@ -102,6 +102,11 @@ namespace ArtGallery.DBaccess
             query = "INSERT INTO EXP_QUALIFICATIONS VALUES('" + username+ "','" + qul + "');";
             db.ExecuteNonQuery(query);
         }
+        public void InsertQual(ExpertViewModel e)
+        {
+            string query = "INSERT INTO EXP_QUALIFICATIONS VALUES('" + e.EXPERT_UNAME + "','" + e.QUALIFICATIONS + "');";
+            db.ExecuteNonQuery(query);
+        }
 
         public void InsertArtist(string Email, string bio, int? Byear, int START_SALARY, int END_SALARY)
         {

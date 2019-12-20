@@ -2357,6 +2357,7 @@
     <Content Include="Views\Admin\ShippingCompany.cshtml" />
     <Content Include="Views\Manage\AddSurvey.cshtml" />
     <Content Include="Views\Manage\SurveyRequestAction.cshtml" />
+    <Content Include="Views\Manage\AddQual.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

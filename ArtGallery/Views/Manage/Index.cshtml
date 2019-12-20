@@ -80,6 +80,11 @@
                             <h1>QUALIFICATIONS</h1>
                             <br />
                             <p>@e.QUALIFICATIONS</p>
+
+                        }
+                        @if (e != null && ViewBag.same)
+                        {
+                            <a class="btn btn-default" href='@Url.Action("AddQual", "Manage", new {Username = e.EXPERT_UNAME})'>Add Qualifications</a>
                         }
                         @if (e != null && !ViewBag.same && User.Identity.Name != "")
                         {
