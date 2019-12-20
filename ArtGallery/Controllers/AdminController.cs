@@ -68,10 +68,7 @@ namespace ArtGallery.Controllers
             {
                 RedirectToAction("Orders");
             }
-            //hardcoded for now
             o.Order = db.GetOrderById((int)orderid)[0];
-            o.Admin_id = 1;
-            o.OrderInfo.ADMIN_ID = o.Admin_id;
             o.Artwork = db.GetArtworkWithCode(o.OrderInfo.AW_CODE);
             return View(o);
         }
@@ -79,8 +76,13 @@ namespace ArtGallery.Controllers
         public ActionResult OrderDetails(OrderInfoViewModel o)
         {
             if(ModelState.IsValid)
+            {
+                //hardcoded for now
+                o.OrderInfo.ADMIN_ID = 1;
                 if (db.AssignOrder(o.OrderInfo))
                     return View("Index");
+
+            }
             return HttpNotFound();
         }
 

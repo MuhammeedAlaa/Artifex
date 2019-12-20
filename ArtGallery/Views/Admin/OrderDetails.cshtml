@@ -119,7 +119,7 @@
                         </div>
                         
                     @{
-                        if (Model.Order.DELIVERY_DATE == null)
+                        if (!Model.OrderInfo.ADMIN_ID.HasValue)
                         {
                             <div class="form-group">
                                 @Html.LabelFor(model => model.Companies, "Choose a Company for delivery", htmlAttributes: new {@class = "control-label col-md-5"})
@@ -134,7 +134,6 @@
 
 
                         @Html.HiddenFor(model => model.OrderInfo.AW_CODE, Model.Artwork.AW_CODE)
-                        @Html.HiddenFor(model => model.OrderInfo.ADMIN_ID, Model.OrderInfo.ADMIN_ID)
                         @Html.HiddenFor(model => model.OrderInfo.ORDER_ID, Model.Order.ORDER_ID)
                         @Html.HiddenFor(model => model.OrderInfo.USER_NAME, Model.OrderInfo.USER_NAME)
 
@@ -145,7 +144,7 @@
 
 
                         <div class="btn-group col-md-10">
-                            @{ if (Model.Order.DELIVERY_DATE == null)
+                            @{ if (!Model.OrderInfo.ADMIN_ID.HasValue)
                                 {
 
                                     <div class="col-md-offset-2 col-md-4">
