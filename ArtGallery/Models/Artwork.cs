@@ -78,5 +78,6 @@ namespace ArtGallery.Models
         [Required]
         public HttpPostedFileBase imagefile { get; set; }
         public string Selected { get; set; }
+        public string STS { get; set; }
     }
 }

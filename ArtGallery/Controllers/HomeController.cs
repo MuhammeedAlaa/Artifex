@@ -54,8 +54,17 @@ namespace ArtGallery.Controllers
         }
 
         public ActionResult Index()
-        {
+        {            
             return View();
+        }
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult rate(int rating) {
+            Artwork a = (Artwork)TempData["buyartwork"];
+            db.rateArtwork(rating,a.AW_CODE,db.GetUserName(User.Identity.Name));
+
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult About()
@@ -98,8 +107,9 @@ namespace ArtGallery.Controllers
             db.UpdateEvent(title);
             return RedirectToAction("Index", "Home");
         }
+        
         [Authorize]
-           public ActionResult ExploreArtworks(int? page)
+        public ActionResult ExploreArtworks(int? page)
         {
              ViewBag.Message = "Explore Artworks";
             
@@ -110,24 +120,22 @@ namespace ArtGallery.Controllers
         public ActionResult ArtworkView(string ArtworkTitle)
         {
             List<Artwork> e = db.GetArtworkInfo(ArtworkTitle);
-            ViewBag.image = e[0].PHOTO;
-            ViewBag.category = e[0].CATEGORY_NAME;
-            ViewBag.ArtistUName = e[0].ARTIST_UNAME;
-            ViewBag.name = e[0].TITLE;
-            ViewBag.discription = e[0].DESCRIPTION;
-            ViewBag.width = e[0].WIDTH;
-            ViewBag.height = e[0].HEIGHT;
-            ViewBag.depth = e[0].DEPTH;
-            ViewBag.price = e[0].PRICE;
-            ViewBag.medium = e[0].MEDIUM;
-            ViewBag.subject = e[0].SUBJECT;
-            ViewBag.material = e[0].MATERIAL;
-            ViewBag.year = e[0].YEAR;
             if (!e[0].STATUS)
                 ViewBag.status = "Sold";
             else
                 ViewBag.status = "Available";
-            return View();
+            e[0].STS = ViewBag.status;
+            return View(e[0]);
+        }
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult fav() 
+        {
+            Artwork a = (Artwork)TempData["buyartwork"];
+            db.addFav(a.AW_CODE, db.GetUserName(User.Identity.Name));
+
+            return RedirectToAction("index", "home");
         }
 
 

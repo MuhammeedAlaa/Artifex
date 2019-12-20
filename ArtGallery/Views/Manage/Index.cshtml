@@ -82,7 +82,7 @@
                             for (int i = 0; i < e.Count; i++)
                             {<p>@e[i].QUALIFICATIONS</p>}
 
-                        }
+                    }
                         @if (e != null && ViewBag.same)
                         {
                             <a class="btn btn-default" href='@Url.Action("AddQual", "Manage", new {Username = e[0].EXPERT_UNAME})'>Add Qualifications</a>
@@ -98,6 +98,7 @@
                         @if (User.Identity.GetUserName() != "" && ViewBag.same)
                         {
                             <a class="btn btn-default" href='@Url.Action("CustomOrder", "Manage")'>Create Custom Order </a>
+                            <a class="btn btn-default" href='@Url.Action("Favourite", "Manage")'>Favourite Artworks</a>
                         }
 
                     </div>

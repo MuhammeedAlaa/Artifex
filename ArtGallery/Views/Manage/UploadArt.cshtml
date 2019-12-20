@@ -20,7 +20,7 @@
         <div class="col-md-10">
             @if (ViewBag.cat != null)
             {
-                @Html.DropDownListFor(model => model.CATEGORY_NAME, new SelectList(ViewBag.cat, "NAME", "NAME"), htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.CATEGORY_NAME, new SelectList(ViewBag.cat, "NAME", "NAME"),"Select Category", htmlAttributes: new { @class = "form-control" })
             }
         </div>
     </div>

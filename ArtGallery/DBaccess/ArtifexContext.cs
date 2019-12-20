@@ -440,10 +440,26 @@ namespace ArtGallery.DBaccess
             return ConvertDataTable<Artwork>(db.ExecuteReader(query));
 
         }
+        public void rateArtwork(int rating,int code,string uname) {
+
+            string query = "INSERT INTO RATE_AW VALUES('" + uname + "'," + code + "," + rating + ");";
+            db.ExecuteNonQuery(query);
+            query = "UPDATE ARTWORK SET STATUS =0 WHERE AW_CODE=" + code + ";";
+            db.ExecuteNonQuery(query);
+        }
+        public void addFav(int code, string uname)
+        {
+            string query = "INSERT INTO FAV_AW VALUES(" + code + ",'" + uname  + "');";
+            db.ExecuteNonQuery(query);
+        }
+        public List<Artwork> GetFavourite(string email)
+        {
+            string query = "SELECT * FROM FAV_AW FA JOIN ARTWORK A ON FA.AW_CODE = A.AW_CODE JOIN [dbo].[USER] U ON FA.USER_NAME = U.USER_NAME" +
+                " WHERE U.EMAIL ='" + email + "';";
+           return ConvertDataTable<Artwork>(db.ExecuteReader(query));
+        }
+        
+
     }
-
-    
-    
-
 }
 

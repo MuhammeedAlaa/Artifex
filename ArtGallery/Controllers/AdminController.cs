@@ -2,6 +2,7 @@
 using System.IO;
 using System.Web.Mvc;
 using System.Web.WebPages;
+using ArtGallery.Authorize;
 using ArtGallery.DBaccess;
 using ArtGallery.Models;
 using ArtGallery.ViewModels;
@@ -10,6 +11,7 @@ using PagedList;
 
 namespace ArtGallery.Controllers
 {
+    //[CustomAuthorizeAttribte(Users="")]
     public class AdminController : Controller
     {
 

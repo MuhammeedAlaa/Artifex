@@ -1,0 +1,88 @@
+﻿
+@using PagedList
+@using PagedList.Mvc
+@model IPagedList<ArtGallery.Models.Artwork>
+@{
+    ViewBag.Title = "Favourite";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+</style>
+<link href="~/Content/paging.css" rel="stylesheet" />
+
+<h2>Favourites</h2>
+
+
+
+
+<link href="~/Content/paging.css" rel="stylesheet" />
+<style>
+    table > tr > td {
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    td {
+        text-align: center;
+    }
+
+    th {
+        text-align: center
+    }
+
+    .pagination li {
+        display: table-cell;
+    }
+</style>
+<section class="content" style="padding-top: 1vh">
+    <div class="container-fluid">
+
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <!-- /.card-header -->
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-hover customtbl">
+                            <thead>
+                                <tr>
+                                    <th>Photo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var AW in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            <a href=@Url.Action("ArtworkView", "Home", new { ArtworkTitle = @AW.TITLE })>
+                                                <img src=@Url.Content(AW.PHOTO) alt="Artwork Photo" height="300" width="400" />
+
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+        <!-- /.row -->
+        <div class="pagination">
+            @Html.PagedListPager(Model, page => Url.Action("Events",
+                new
+                {
+                    page
+                }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+        </div>
+    </div><!-- /.container-fluid -->
+
+</section>

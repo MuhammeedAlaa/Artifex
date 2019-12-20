@@ -268,7 +268,14 @@ namespace ArtGallery.Controllers
             }
             return View();
         }
+        [Authorize]
+        public ActionResult Favourite(int? page)
+        {
+            ViewBag.Message = "Favourite Artworks";
 
+            IPagedList<Artwork> ArtWorks = db.GetFavourite(User.Identity.Name).ToPagedList(page ?? 1, 5);
+            return View(ArtWorks);
+        }
 
         public ActionResult LoadData()
         {
