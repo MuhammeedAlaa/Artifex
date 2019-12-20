@@ -99,6 +99,38 @@ namespace ArtGallery.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+           public ActionResult ExploreArtworks(int? page)
+        {
+             ViewBag.Message = "Explore Artworks";
+            
+            IPagedList<Artwork> ArtWorks = db.GetArtworks().ToPagedList(page ?? 1, 5);
+            return View(ArtWorks);
+        }
+
+        public ActionResult ArtworkView(string ArtworkTitle)
+        {
+            List<Artwork> e = db.GetArtworkInfo(ArtworkTitle);
+            ViewBag.image = e[0].PHOTO;
+            ViewBag.category = e[0].CATEGORY_NAME;
+            ViewBag.ArtistUName = e[0].ARTIST_UNAME;
+            ViewBag.name = e[0].TITLE;
+            ViewBag.discription = e[0].DESCRIPTION;
+            ViewBag.width = e[0].WIDTH;
+            ViewBag.height = e[0].HEIGHT;
+            ViewBag.depth = e[0].DEPTH;
+            ViewBag.price = e[0].PRICE;
+            ViewBag.medium = e[0].MEDIUM;
+            ViewBag.subject = e[0].SUBJECT;
+            ViewBag.material = e[0].MATERIAL;
+            ViewBag.year = e[0].YEAR;
+            if (!e[0].STATUS)
+                ViewBag.status = "Sold";
+            else
+                ViewBag.status = "Available";
+            return View();
+        }
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

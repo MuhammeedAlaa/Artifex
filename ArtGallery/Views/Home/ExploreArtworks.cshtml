@@ -1,0 +1,33 @@
+﻿@using ArtGallery.ViewModels
+@using PagedList
+@using PagedList.Mvc
+@model IPagedList<ArtGallery.Models.Artwork>
+@{
+    ViewBag.Title = "ExploreArtworks";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+ul{ list-style-type: none;
+  margin: 0;
+  padding: 0;}
+</style>
+<link href="~/Content/paging.css" rel="stylesheet" />
+
+<h2>ExploreArtworks</h2>
+
+
+<ul>
+
+    @foreach (var AW in Model)
+    {
+    <li>
+        <a href=@Url.Action("ArtworkView", "Home", new { ArtworkTitle = @AW.TITLE })>
+            <img src=@Url.Content(AW.PHOTO) alt="Artwork Photo" height="300" width="400" />
+      
+        </a>
+    </li>
+    }
+
+
+</ul>

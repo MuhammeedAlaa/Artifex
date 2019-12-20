@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "ArtworkView";
+}
+
+<style>
+b{color:#330000}
+</style>
+
+
+<h2>Artwork</h2>
+<div class="jumbotron">
+    <div class="image-container" style="width: 80vw">
+        <img class="img-thumbnail md-margin-bottom-10" src=@Url.Content(ViewBag.image) alt="Profile pic" style="width: 70vw; height: 70vh; margin: auto;" />
+    </div>
+    <p>   <b>Tittle : </b>@ViewBag.name  </p>
+    <p>   <b>Description : </b>@ViewBag.discription </p>
+    <p>   <b>Dimensions : </b> @ViewBag.width x @ViewBag.height x @ViewBag.depth </p>
+    <p>   <b>Material : </b>@ViewBag.material</p>
+    <p>   <b>Subject : </b>@ViewBag.subject</p>
+    <p>   <b>Medium : </b>@ViewBag.medium</p>
+    <p>   <b>Price :</b> @ViewBag.price L.E</p>
+    <p>   <b>Status :</b>@ViewBag.status</p>
+    <br />
+
+
+    <a class="btn btn-default" href='@Url.Action("Add To Cart", "Home", new {title = ViewBag.Title})'>Buy</a>
+</div>

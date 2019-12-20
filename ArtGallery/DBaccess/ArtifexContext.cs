@@ -23,6 +23,7 @@ namespace ArtGallery.DBaccess
 
         public int SignUp(RegisterViewModel u)
         {
+
             string query = "insert into [USER] values ('" + u.USER_NAME + "', '" + u.EMAIL + "','" +
                            u.PASSWORD + "', '" + u.FNAME + "', '" + u.MINIT + "', '" + u.LNAME + "', '" +
                            u.PHONE + "', '" + u.PROFILE_PIC + "')";
@@ -64,11 +65,11 @@ namespace ArtGallery.DBaccess
         }
         public DataTable SignIn(LoginViewModel u)
         {
-            string query = "SELECT*" +
-                "FROM[dbo].[USER]" +
-                "WHERE EMAIL = '" + u.email +
-                "' AND PASSWORD = '" + u.password + "';";
-            return db.ExecuteReader(query);
+            string StoredProcedureName = StoredProcedures.SignIn;
+            Dictionary<string, object> Parameters = new Dictionary<string, object>();
+            Parameters.Add("@EMAIL", u.email);
+            Parameters.Add("@PASSWORD", u.password);
+            return db.ExecuteReader_proc(StoredProcedureName, Parameters);
         }
 
         public bool UserNameAvailable(string Username)
@@ -222,6 +223,7 @@ namespace ArtGallery.DBaccess
             string query = "SELECT COUNT(*) FROM ARTIST JOIN [dbo].[USER] ON ARTIST_UNAME = USER_NAME WHERE EMAIL ='" + email + "';";
             return (int)db.ExecuteScalar(query) != 0;
         }
+   
         public bool IsExpert(string email) 
         {
             string query = "SELECT COUNT(*) FROM Expert JOIN [dbo].[USER] ON EXPERT_UNAME = USER_NAME WHERE EMAIL ='" + email + "';";
@@ -389,6 +391,19 @@ namespace ArtGallery.DBaccess
         {
             string query = "DELETE FROM SHIPPING_COMPANY WHERE NAME = '" + C + "'";
             return (db.ExecuteNonQuery(query) != 0);
+        }
+
+        public List<Artwork> GetArtworks()
+        {
+            string query = "SELECT * FROM Artwork";
+            return ConvertDataTable<Artwork>(db.ExecuteReader(query));
+        }
+
+        public List<Artwork> GetArtworkInfo(string title)
+        {
+            string query = "SELECT * FROM Artwork WHERE TITLE='" + title + "';";
+            return ConvertDataTable<Artwork>(db.ExecuteReader(query));
+
         }
     }
 
