@@ -145,12 +145,12 @@
 
 
                         <div class="btn-group col-md-10">
-                            <div class="col-md-offset-2 col-md-4">
-                                <input type="submit" value="Cancel" name="Cancel" class="btn btn-block btn-default" />
-                            </div>
                             @{ if (Model.Order.DELIVERY_DATE == null)
                                 {
 
+                                    <div class="col-md-offset-2 col-md-4">
+                                        <input type="submit" value="Cancel" name="Cancel" class="btn btn-block btn-default" />
+                                    </div>
                                     <div class="col-md-4" style="right: 0px; position: absolute;">
                                         <input type="submit" value="Ship" name="Ship" class="btn btn-block btn-success" />
                                     </div>
