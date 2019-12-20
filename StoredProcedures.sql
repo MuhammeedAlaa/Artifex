@@ -24,13 +24,19 @@ CREATE PROCEDURE SignUp
 	@MINIT CHAR(1) ,
 	@LNAME VARCHAR(20) ,
 	@PHONE VARCHAR(13),
-	@PROFILE_PIC VARCHAR(max) 
+	@PROFILE_PIC VARCHAR(max)=null
+	
 AS
 BEGIN
 
 	SET NOCOUNT ON;
+	BEGIN
     INSERT INTO [USER] VALUES (@USER_NAME,@EMAIL,@PASSWORD,@FNAME,@MINIT,@LNAME,@PHONE,@PROFILE_PIC)
-	
+	END
+	IF (@PROFILE_PIC=NULL)
+	BEGIN 
+	Update dbo.[USER] Set PROFILE_PIC= '~/Images/def.png' where EMAIL=@EMAIL
+    END
 END
 GO
 /********************************************/
@@ -101,13 +107,13 @@ GO
 
 /*********************************************/
 CREATE PROCEDURE GetArtworkInfo
-	@Tittle VARCHAR(20)
+	@Title VARCHAR(20)
 AS
 BEGIN
 	
 	SET NOCOUNT ON;
 	SELECT * FROM ARTWORK
-	WHERE TITLE=@Tittle
+	WHERE TITLE=@Title
 END
 GO
 /*************************************/

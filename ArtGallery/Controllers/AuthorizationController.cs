@@ -82,7 +82,7 @@ namespace ArtGallery.Controllers
 
         public ActionResult SignUp(RegisterViewModel newuser)
         {
-            string imagefilename = "";
+            string imagefilename = " ";
             if (ModelState.IsValid)
             {
 
@@ -94,6 +94,8 @@ namespace ArtGallery.Controllers
                     newuser.PROFILE_PIC = "~/Images/" + imagefilename;
                     imagefilename = Path.Combine(Server.MapPath("~/Images/"), imagefilename);
                 }
+               
+               
                 RegisterViewModel u = new RegisterViewModel
                 {
                     USER_NAME = newuser.USER_NAME,
