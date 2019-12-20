@@ -2355,6 +2355,8 @@
     <Content Include="Views\Admin\ViewEvents.cshtml" />
     <Content Include="Views\Manage\ArtViwer.cshtml" />
     <Content Include="Views\Admin\ShippingCompany.cshtml" />
+    <Content Include="Views\Manage\AddSurvey.cshtml" />
+    <Content Include="Views\Manage\SurveyRequestAction.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -7,6 +7,8 @@
 @{
     Artist a = ViewBag.artist;
     ExpertViewModel e = ViewBag.exp;
+    IPagedList<Survey> s = ViewBag.reqlist;
+
 
 }
 
@@ -44,7 +46,7 @@
                     <div class="col-md-7">
                         @if (ViewBag.title != null)
                         {
-                        <h2>@ViewBag.title </h2>
+                            <h2>@ViewBag.title </h2>
                         }
                         @if (a != null && e == null)
                         {
@@ -79,15 +81,15 @@
                             <br />
                             <p>@e.QUALIFICATIONS</p>
                         }
-                        @if (e != null && ViewBag.same)
+                        @if (e != null && !ViewBag.same && User.Identity.Name != "")
                         {
-                            <h1>This will be handled late when add survey</h1>
+                            <a class="btn btn-default" href='@Url.Action("AddSurvey", "Manage", new {Username = e.EXPERT_UNAME})'>Add Survey</a>
                         }
                         @if (a != null && ViewBag.same)
                         {
                             <a class="btn btn-default" href='@Url.Action("UploadArt", "Manage", new {Username = a.ARTIST_UNAME})'>Upload Artwork</a>
                         }
-                        @if (User.Identity.GetUserName() != "" && ViewBag.same )
+                        @if (User.Identity.GetUserName() != "" && ViewBag.same)
                         {
                             <a class="btn btn-default" href='@Url.Action("CustomOrder", "Manage")'>Create Custom Order </a>
                         }
@@ -98,7 +100,7 @@
         </div>
     </div>
 </div>
-@if (User.Identity.GetUserName() != "")
+@if (User.Identity.GetUserName() != "" && ViewBag.same)
 {
     @Html.ActionLink("Change yours password", "ChangePassword", "Manage", null, null)
 }
@@ -129,7 +131,7 @@
                                         <tr>
                                             <td>@artwork.TITLE</td>
                                             <td><img src="@Url.Content(artwork.PHOTO)" alt="event photo" height="100vh" width="120vw" /></td>
-                                            
+
                                             <td>@artwork.PRICE</td>
                                             <td>@Html.ActionLink("More details", "ArtViwer", "Manage", new { Code = @artwork.AW_CODE }, null)</td>
                                         </tr>
@@ -151,40 +153,95 @@
                         page
                     }), PagedListRenderOptions.ClassicPlusFirstAndLast)
             </div>
-            </div>
-        </section>
-            }
-            <div class="jumbotron">
-                <div class="row">
-                    <div class="column">
-                        <h3 style="color:darkblue">Contact</h3>
-                        <br />
-                        <p> +20 115 543 1271</p>
-                        <br />
-                        <p> Atrifex@gmail.com</p>
+        </div>
+    </section>
+}
+
+@if (e != null)
+{
+
+    <section class="content" style="padding-top: 1vh">
+        <div class="container-fluid">
+
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <!-- /.card-header -->
+                        <div class="card-body table-responsive p-0">
+                            <table class="table table-hover customtbl">
+                                <thead>
+                                    <tr>
+                                        <th>USER_NAME</th>
+                                        <th>BUDGET</th>
+                                        <th>ORIENTATION</th>
+                                        <th>More info</th>
+                                        <th>Requests</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var request in s)
+                                    {
+                                        <tr>
+                                            <td>@request.USER_NAME</td>
+                                            <td>@request.BUDGET</td>
+
+                                            <td>@request.ORIENTATION</td>
+                                            <td>@request.MORE_INFO</td>
+                                            <td>@Html.ActionLink("More details", "SurveyRequestAction", "Manage", new { Code = request.SURVEY_ID }, null)</td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
                     </div>
-                    <div class="column">
-                        <h3 style="color:darkblue">Services </h3>
-                        <br />
-                        <p> Contact Us</p>
-                        <br />
-                        <p> Ordering & Payment</p>
-                        <br />
-                        <p> Shipping</p>
-                        <br />
-                        <p> FAQ</p>
-                    </div>
-                    <div class="column">
-                        <h3 style="color:darkblue"> Information</h3>
-                        <br />
-                        <p> Work With Us</p>
-                        <br />
-                        <p> Privacy Policy</p>
-                        <br />
-                        <p> Terms & Conditions</p>
-                    </div>
+                    <!-- /.card -->
                 </div>
             </div>
+            <!-- /.row -->
+            <div class="pagination">
+                @Html.PagedListPager(Model, page => Url.Action("Index",
+                    new
+                    {
+                        page
+                    }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+            </div>
+        </div>
+    </section>
+}
+<div class="jumbotron">
+    <div class="row">
+        <div class="column">
+            <h3 style="color:darkblue">Contact</h3>
+            <br />
+            <p> +20 115 543 1271</p>
+            <br />
+            <p> Atrifex@gmail.com</p>
+        </div>
+        <div class="column">
+            <h3 style="color:darkblue">Services </h3>
+            <br />
+            <p> Contact Us</p>
+            <br />
+            <p> Ordering & Payment</p>
+            <br />
+            <p> Shipping</p>
+            <br />
+            <p> FAQ</p>
+        </div>
+        <div class="column">
+            <h3 style="color:darkblue"> Information</h3>
+            <br />
+            <p> Work With Us</p>
+            <br />
+            <p> Privacy Policy</p>
+            <br />
+            <p> Terms & Conditions</p>
+        </div>
+    </div>
+</div>
 
 
 

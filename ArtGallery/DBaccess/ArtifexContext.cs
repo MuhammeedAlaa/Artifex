@@ -275,6 +275,25 @@ namespace ArtGallery.DBaccess
             string query = "SELECT NAME FROM CATEGORY";
             return db.ExecuteReader(query);
         }
+        public List<Survey> GetRequestedSurvey(ExpertViewModel e)
+        {
+            string query = "SELECT * FROM SURVEY WHERE EXPERT_UNAME='" + e.EXPERT_UNAME + "'";
+            return ConvertDataTable<Survey>(db.ExecuteReader(query));
+        }
+        public Survey GetSurveyInfo(int code)
+        {
+            string query = "SELECT * FROM SURVEY WHERE SURVEY_ID='" + code + "'";
+            return ConvertDataTable<Survey>(db.ExecuteReader(query))[0];
+        }
+        
+
+        public void InsertSurveyRequest(Survey s)
+        {
+            string query = "INSERT INTO SURVEY VALUES('"+s.EXPERT_UNAME + "','" + s.USER_NAME +"'," + s.BUDGET +
+                ",'" + s.ORIENTATION +"','" + s.MORE_INFO + "',null)";
+             db.ExecuteNonQuery(query);
+        }
+        
         public void InsertCustomOrder(CustomOrderUserViewModel c)
         {
             string query = "SELECT ARTIST_UNAME FROM ARTIST WHERE START_SALARY <=" + c.Budget;

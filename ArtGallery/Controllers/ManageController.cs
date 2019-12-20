@@ -77,7 +77,7 @@ namespace ArtGallery.Controllers
         //
         // GET: /Manage/Index
         [Route("Manage/Index/{Uname?}")]
-        public ActionResult Index(int? page,string Uname)
+        public ActionResult Index(int? page, int? page2, string Uname)
         {
             string Email = User.Identity.Name;
             ViewBag.exp = null;
@@ -97,7 +97,10 @@ namespace ArtGallery.Controllers
 
                 Artist a = db.GetArtist(Email);
                 if (e != null)
+                {
+                    ViewBag.reqlist = db.GetRequestedSurvey(e).ToPagedList(page2 ?? 1, 5);
                     ViewBag.exp = e;
+                }
                 else
                     ViewBag.exp = null;
                 if (a != null)
@@ -125,7 +128,10 @@ namespace ArtGallery.Controllers
 
                 Artist a = db.GetArtist(Email);
                 if (e != null)
+                {
+                    ViewBag.reqlist = db.GetRequestedSurvey(e).ToPagedList(page2 ?? 1, 5);
                     ViewBag.exp = e;
+                }
                 else
                     ViewBag.exp = null;
                 if (a != null)
@@ -177,6 +183,31 @@ namespace ArtGallery.Controllers
             }
             return View();
         }
+        [Authorize]
+        [Route("Manage/AddSurvey/{Username?}")]
+        public ActionResult AddSurvey(string Username)
+        {
+
+            ViewBag.Uname = Username;
+            
+            return View();
+        }
+
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Route("Manage/InsertSurvey/{Username?}")]
+        public ActionResult InsertSurvey(Survey s,string Username)
+        {
+            s.EXPERT_UNAME = Username;
+            s.USER_NAME = db.GetUserName(User.Identity.Name);
+            db.InsertSurveyRequest(s);
+            
+
+            return RedirectToAction("Index","Home");
+        }
+
 
         [Authorize]
         [Route("Manage/ArtViwer/{Code?}")]
@@ -197,6 +228,14 @@ namespace ArtGallery.Controllers
             ViewBag.year = a[0].YEAR;
             return View();
         }
+        [Authorize]
+        [Route("Manage/SurveyRequestAction/{Code?}")]
+        public ActionResult SurveyRequestAction(string Code)
+        {
+            Survey s  = db.GetSurveyInfo(Convert.ToInt32(Code));
+            return View(s);
+        }
+        
 
 
 

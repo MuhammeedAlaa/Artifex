@@ -1,0 +1,55 @@
+﻿@model ArtGallery.Models.Survey
+
+@{
+    ViewBag.Title = "AddSurvey";
+}
+
+<h2>AddSurvey</h2>
+
+
+@using (Html.BeginForm("InsertSurvey","Manage", new { Expert = ViewBag.Uname}))
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <h4>Survey</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.BUDGET, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.BUDGET, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.BUDGET, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ORIENTATION, "Orientation", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("Orintation", new List<SelectListItem> {
+           new SelectListItem() {Text="Portrait", Value="Portrait" , Selected=true}
+           , new SelectListItem() { Text="Landscape", Value=" Landscape"}}, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ORIENTATION, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.MORE_INFO, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.MORE_INFO, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.MORE_INFO, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
