@@ -1,58 +1,53 @@
-﻿
-<h2>Event</h2>
-<div class="jumbotron">
+﻿@model ArtGallery.Models.Event
+@{
+    ViewBag.Title = "Events";
+    TempData["buyartwork"] = Model;
+    <link rel="stylesheet" type="text/css" src="rating.css" />
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="rating.js"></script>
+}
+
+<style>
+    b {
+        color: #330000
+    }
+</style>
+
+<h2>Events</h2>
+@Html.Hidden("id", Model.ADMIN_ID)
+<div class="form-horizontal">
+
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
     <div class="image-container" style="width: 80vw">
-        <img class="img-thumbnail md-margin-bottom-10" src="@Url.Content(ViewBag.image)" alt="Profile pic" style="width: 70vw; height: 70vh; margin: auto;" />
+        <img class="img-thumbnail md-margin-bottom-10" src="@Url.Content(Model.IMAGE)" alt="Profile pic" style="width: 70vw; height: 70vh; margin: auto;" />
     </div>
-    <h1>Title: </h1>
-    <p>@ViewBag.title</p>
-    <br/>
-    <h1>Informations: </h1>
-    <p>@ViewBag.info</p>
-    <br/>
-    <h1>Location: </h1>
-    <p>@ViewBag.loc</p>
-    <br/>
-    <h1>Price: </h1>
-    <p>@ViewBag.price</p>
-    <br/>
-    <a class="btn btn-default" href='@Url.Action("Buy", "Home", new {title = ViewBag.Title})'>Buy</a>
-</div>
 
-
-
-    <div class="jumbotron">
-        <div class="row">
-            <div class="column">
-                <h3 style="color:darkblue">Contact</h3>
-                <br />
-                <p> +20 115 543 1271</p>
-                <br />
-                <p> Atrifex@gmail.com</p>
-            </div>
-
-            <div class="column">
-                <h3 style="color:darkblue">Services </h3>
-                <br />
-                <p> Contact Us</p>
-                <br />
-                <p> Ordering & Payment</p>
-                <br />
-                <p> Shipping</p>
-                <br />
-                <p> FAQ</p>
-            </div>
-
-            <div class="column">
-                <h3 style="color:darkblue"> Information</h3>
-
-                <br />
-                <p> Work With Us</p>
-                <br />
-                <p> Privacy Policy</p>
-                <br />
-                <p> Terms & Conditions</p>
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.TITLE, "TITLE:", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.Label(Model.TITLE, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.INFO, "More info:", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.Label(Model.TITLE, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.LOCATION, "Location:", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.Label(Model.LOCATION, new { @class = "form-control" })
         </div>
     </div>
 
+    <div class="form-group">
+        @Html.LabelFor(model => model.TICKET_PRICE, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.Label(Model.TICKET_PRICE.ToString(), new { @class = "form-control" })
+        </div>
+    </div>
+</div>
+<a class="btn btn-default" href='@Url.Action("Buy", "Home", new {title = ViewBag.Title})'>Buy</a>

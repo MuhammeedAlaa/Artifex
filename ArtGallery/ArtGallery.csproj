@@ -440,6 +440,7 @@
     <Compile Include="ViewModels\ChangePasswordViewModel.cs" />
     <Compile Include="ViewModels\CustomOrderUserViewModel.cs" />
     <Compile Include="ViewModels\ExpertViewModel.cs" />
+    <Compile Include="ViewModels\ListExpViewModel.cs" />
     <Compile Include="ViewModels\OrderInfoViewModel.cs" />
     <Compile Include="ViewModels\ReportViewModel.cs" />
   </ItemGroup>
@@ -2382,6 +2383,7 @@
     <Content Include="Views\Admin\OrderDetails.cshtml" />
     <Content Include="Views\Admin\ReportAction.cshtml" />
     <Content Include="Views\Manage\Favourite.cshtml" />
+    <Content Include="Views\Home\Experts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

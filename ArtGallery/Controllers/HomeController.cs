@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ArtGallery.ViewModels;
 using PagedList;
 
 namespace ArtGallery.Controllers
@@ -94,12 +95,7 @@ namespace ArtGallery.Controllers
         public ActionResult EventViwer(string EventTitle)
         {
             List<Event> e = db.GetEventInfo(EventTitle);
-            ViewBag.image = e[0].IMAGE;
-            ViewBag.info = e[0].INFO;
-            ViewBag.loc = e[0].LOCATION;
-            ViewBag.Title = e[0].TITLE;
-            ViewBag.price = e[0].TICKET_PRICE;
-            return View();
+            return View(e[0]);
         }
         [Authorize]
         public ActionResult Buy(string title) {
@@ -138,7 +134,13 @@ namespace ArtGallery.Controllers
             return RedirectToAction("index", "home");
         }
 
-
+        public ActionResult Experts(int? page)
+        {
+            ListExpViewModel ex = new ListExpViewModel();
+            ex.Experts = db.GetExperts().ToPagedList(page ?? 1, 10);
+            ex.Emails = db.GetExpertMails();
+            return View(ex);
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

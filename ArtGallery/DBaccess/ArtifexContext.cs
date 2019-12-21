@@ -10,6 +10,7 @@ using System.Web;
 using ArtGallery.Models;
 using ArtGallery.ViewModels;
 using db_access;
+using PagedList;
 
 namespace ArtGallery.DBaccess
 {
@@ -387,7 +388,7 @@ namespace ArtGallery.DBaccess
         public void InsertSurveyRequest(Survey s)
         {
             string query = "INSERT INTO SURVEY VALUES('"+s.EXPERT_UNAME + "','" + s.USER_NAME +"'," + s.BUDGET +
-                ",'" + s.ORIENTATION +"','" + s.MORE_INFO + "',null)";
+                ",'" + s.MORE_INFO + "',null)";
              db.ExecuteNonQuery(query);
         }
         
@@ -533,6 +534,18 @@ namespace ArtGallery.DBaccess
             string query = "SELECT * FROM FAV_AW FA JOIN ARTWORK A ON FA.AW_CODE = A.AW_CODE JOIN [dbo].[USER] U ON FA.USER_NAME = U.USER_NAME" +
                 " WHERE U.EMAIL ='" + email + "';";
            return ConvertDataTable<Artwork>(db.ExecuteReader(query));
+        }
+
+        public List<Expert> GetExperts()
+        {
+            string query = "SELECT * FROM EXPERT";
+            return ConvertDataTable<Expert>(db.ExecuteReader(query));
+        }
+
+        public List<string> GetExpertMails()
+        {
+            string query = "SELECT EMAIL FROM [USER] JOIN EXPERT ON EXPERT_UNAME = USER_NAME";
+            return db.ExecuteReader(query).AsEnumerable().Select(x => x[0].ToString()).ToList();
         }
         
 
