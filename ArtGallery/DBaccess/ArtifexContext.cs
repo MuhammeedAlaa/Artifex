@@ -479,7 +479,7 @@ namespace ArtGallery.DBaccess
 
         public List<Artwork> GetArtworksforrecommanded()
         {
-            string query = "select * from ARTWORK";
+            string query = "select * from ARTWORK WHERE PRIVACY=0";
 
             var lst = ConvertDataTable<Artwork>(db.ExecuteReader(query));
             foreach (var obj in lst)

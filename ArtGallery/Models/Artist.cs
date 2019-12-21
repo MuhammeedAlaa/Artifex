@@ -8,7 +8,7 @@ namespace ArtGallery.Models
 {
     public class Artist
     {
-        [Required(ErrorMessage = "Please enter your user name")]
+        //[Required(ErrorMessage = "Please enter your user name")]
         [StringLength(20, ErrorMessage = "Max length = 20 characters")]
         [RegularExpression("^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$", ErrorMessage = "Please enter a valid user name")]
         public string ARTIST_UNAME { get; set; }
