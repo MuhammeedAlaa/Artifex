@@ -12,11 +12,11 @@
         color: #330000
     }
     .glyphicon {
-        font-size: xx-large;
+        font-size: 2.5em;
     }
     .rating {
         margin: 0px;
-        margin-top: 20px;
+        margin-top: 20vh;
         padding: 0px;
         display: inline;
         margin-left: 15vw;
@@ -142,6 +142,8 @@
                 @Html.Label(Model.STS, new { @class = "form-control" })
             </div>
         </div>
+        <br/>
+
         @if (Model.STS == "Available")
         {
             <div onmouseout="CRateSlected()" class="form-group rating">
@@ -154,8 +156,8 @@
             <div class="hidden">
                 <input type="hidden" id="lblRating" name="rating" value="0" />
             </div>
-            <div class="submit-button">
-                <input type="submit" class="btn btn-primary active" name="Buy" value="Buy" />
+            <div class="submit-button col-md-2">
+                <input type="submit" class="btn btn-primary active col-md-12" name="Buy" value="Buy" />
             </div>
         }
     </div>
@@ -180,8 +182,8 @@
             <input type="hidden" id="lblRating" name="rating" value="0" required />
         </div>
 
-        <div class="submit-button">
-            <input type="submit" class="btn btn-primary active" name="add Fav" value="Add Fav" />
+        <div class="submit-button col-md-2">
+            <input type="submit" class="btn btn-primary active col-md-12" name="add Fav" value="Add Fav" />
         </div>
         }
     }
