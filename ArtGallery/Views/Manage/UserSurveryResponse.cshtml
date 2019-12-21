@@ -1,0 +1,118 @@
+﻿
+@{
+    ViewBag.Title = "UserSurveryResponse";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<!-- DataTables -->
+<link rel="stylesheet" href="~/lte/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+
+<style>
+    table {
+        text-align: center;
+    }
+
+    th {
+        text-align: center
+    }
+    img {
+        height: 70px;
+    }
+</style>
+<section class="content" style="padding-top: 1vh">
+    <div class="container-fluid">
+
+        <div class="form-horizontal">
+            <h4>Survey Response</h4>
+            <hr />
+
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Expert Recommendations</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Artist</th>
+                            <th>ArtCode</th>
+                            <th>Title</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Year</th>
+                            <th>Photo</th>
+                            <th>link</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+
+
+
+    </div>
+
+</section>
+
+
+@section Scripts{
+    <script src="~/lte/plugins/jquery/jquery.min.js"></script>
+    <!-- bs-custom-file-input -->
+    <script src="~/lte/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+
+    <!-- Bootstrap 4 -->
+    <script src="~/lte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- DataTables -->
+    <script src="~/lte/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/lte/plugins/datatables-select/js/dataTables.select.min.js"></script>
+    <script src="~/lte/plugins/datatables-select/js/select.bootstrap4.min.js"></script>
+    <link href="~/lte/plugins/datatables-select/css/select.bootstrap4.min.css" rel="stylesheet" />
+    <link href="~/lte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <script src="~/lte/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+    <!-- page script -->
+    <script type="text/javascript">
+        var list = [];
+        $(document).ready(function() {
+
+            $('#example1').DataTable({
+                "ajax": {
+                    "url": "/Manage/LoadRecommended",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "columns": [
+                    { "data": "ARTIST_UNAME", "autowidth": true },
+                    { "data": "AW_CODE", "autowidth": true},
+                    { "data": "TITLE", "autowidth": true },
+                    { "data": "CATEGORY_NAME", "autowidth": true },
+                    { "data": "PRICE", "autowidth": true },
+                    { "data": "YEAR", "autowidth": true },
+                    { "data": "PHOTO",
+                        "render": function (data, type, JsonResultRow, meta) {
+                            return '<img src="' + JsonResultRow.PHOTO + '">';
+                        }
+                    },
+                    {
+                        "data": "TITLE", "width": "5%",
+                        "render": function(data, type, row, meta) {
+                            if (type === 'display') {
+                                data = '<a href = "/Home/ArtworkView?ArtworkTitle=' + data + '">'+ '<i class="material-icons">link</i></a>';
+                            }
+                            return data;
+                        }
+                    },
+                ],
+
+                'order': [[1, 'asc']]
+            });
+        });
+
+    </script>
+}

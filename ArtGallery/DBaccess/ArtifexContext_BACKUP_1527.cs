@@ -350,13 +350,19 @@ namespace ArtGallery.DBaccess
 
         public void UpdateEvent(string title)
         {
-
+<<<<<<< HEAD
             //string query = "UPDATE EVENT SET TICKETS_NUM=TICKETS_NUM - 1 WHERE TITLE = '"+ title+"'";
             //db.ExecuteNonQuery(query);
             string StoredProcedureName = StoredProcedures.SellTicket;
             Dictionary<string, object> Parameters = new Dictionary<string, object>();
             Parameters.Add("@title", title);
             db.ExecuteNonQuery_proc(StoredProcedureName,Parameters);
+           
+=======
+            string query = "UPDATE EVENT SET TICKETS_NUM=TICKETS_NUM - 1 WHERE TITLE = '" + title + "'";
+            db.ExecuteNonQuery(query);
+
+>>>>>>> 6bfd8f19b76160cf5394ed21169861da14d932bf
         }
 
         public List<Event> GetEventInfo(string title)
@@ -370,7 +376,7 @@ namespace ArtGallery.DBaccess
 
         public bool EditEvent(Event e, string oldtitle)
         {
-
+<<<<<<< HEAD
             string storedProcedureName = StoredProcedures.EditEvent;
             Dictionary<string, object> Parameters = new Dictionary<string, object>();
             
@@ -385,18 +391,31 @@ namespace ArtGallery.DBaccess
             Parameters.Add("@oldtitle", oldtitle);
 
             return (db.ExecuteNonQuery_proc(storedProcedureName, Parameters) != null);
+=======
+
+            string query1 = "UPDATE EVENT SET TITLE = '" + e.TITLE + "', ADMIN_ID = " + e.ADMIN_ID + ", IMAGE = '" +
+                            e.IMAGE + "' Where TITLE = '" + oldtitle + "'";
+            string query2 = "update event set TICKET_PRICE = " + e.TICKET_PRICE + ", EVENTDATE = '" + e.EVENTDATE +
+                            "', LOCATION = '" + e.LOCATION + "', TICKETS_NUM = " + e.TICKETS_NUM + ", INFO = '" +
+                            e.INFO + "' Where TITLE = '" + oldtitle + "'";
+            db.ExecuteNonQuery(query1);
+            return (db.ExecuteNonQuery(query2) != null);
+>>>>>>> 6bfd8f19b76160cf5394ed21169861da14d932bf
 
         }
 
         public List<Event> GetEvents()
         {
-
+<<<<<<< HEAD
             string storedProcedureName = StoredProcedures.GetEvents;
             Dictionary<string, object> Parameters = new Dictionary<string, object>();
             
             Parameters.Add("@NowDate", DateTime.Now.Date);
             return ConvertDataTable<Event>(db.ExecuteReader_proc(storedProcedureName, Parameters));
-
+=======
+            string query = "SELECT * FROM EVENT WHERE EVENTDATE >='" + DateTime.Now.Date + "'";
+            return ConvertDataTable<Event>(db.ExecuteReader(query));
+>>>>>>> 6bfd8f19b76160cf5394ed21169861da14d932bf
         }
 
         public List<Artwork> GetArtWorks(Artist A)
@@ -411,7 +430,7 @@ namespace ArtGallery.DBaccess
 
         public void InsertArtwork(Artwork a)
         {
-
+<<<<<<< HEAD
             string storedProcedureName = StoredProcedures.InsertArtwork;
             Dictionary<string, object> Parameters = new Dictionary<string, object>();
 
@@ -432,7 +451,15 @@ namespace ArtGallery.DBaccess
             Parameters.Add("@YEAR", a.YEAR);
 
             db.ExecuteNonQuery_proc(storedProcedureName, Parameters);
-
+=======
+            //category is a foreign key get it from the user with drop down list
+            string query = "INSERT INTO ARTWORK VALUES('" + a.CATEGORY_NAME + "','" + a.ARTIST_UNAME + "'," + "null"
+                           + ",'" + a.TITLE + "',0,'" + a.PRIVACY + "',1,'" + a.DESCRIPTION + "'," + a.WIDTH + "," +
+                           a.HEIGHT
+                           + "," + a.DEPTH + "," + a.PRICE + ",'" + a.MATERIAL + "','" + a.MEDIUM + "','" + a.SUBJECT +
+                           "','" + a.PHOTO + "'," + a.YEAR + ")";
+            db.ExecuteNonQuery(query);
+>>>>>>> 6bfd8f19b76160cf5394ed21169861da14d932bf
         }
 
         public DataTable GetCategories()
@@ -452,13 +479,14 @@ namespace ArtGallery.DBaccess
 
         }
 
-
+<<<<<<< HEAD
+=======
         public List<Recommend> GetRecommended(int surveyId)
         {
             string query = "SELECT * FROM RECOMMEND WHERE SURVEY_ID = " + surveyId;
             return ConvertDataTable<Recommend>(db.ExecuteReader(query));
         }
-
+>>>>>>> 6bfd8f19b76160cf5394ed21169861da14d932bf
 
         public Survey GetSurveyInfo(int code)
         {
@@ -475,7 +503,7 @@ namespace ArtGallery.DBaccess
 
         public void InsertSurveyRequest(Survey s)
         {
-
+<<<<<<< HEAD
             string storedProcedureName = StoredProcedures.InsertSurveyRequest;
             Dictionary<string, object> Parameters = new Dictionary<string, object>();
 
@@ -486,7 +514,11 @@ namespace ArtGallery.DBaccess
             Parameters.Add("@MORE_INFO", s.MORE_INFO);
 
             db.ExecuteNonQuery_proc(storedProcedureName, Parameters);
-
+=======
+            string query = "INSERT INTO SURVEY VALUES('" + s.EXPERT_UNAME + "','" + s.USER_NAME + "'," + s.BUDGET +
+                           ",'" + s.MORE_INFO + "',null)";
+            db.ExecuteNonQuery(query);
+>>>>>>> 6bfd8f19b76160cf5394ed21169861da14d932bf
         }
 
         public List<Survey> GetUserSurveys(string username)

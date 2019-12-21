@@ -14,10 +14,9 @@ using PagedList;
 
 namespace ArtGallery.DBaccess
 {
-    public class ArtifexContext : DbContext
+    public class ArtifexContext: DbContext
     {
         private DBManager db = new DBManager();
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
@@ -38,7 +37,6 @@ namespace ArtGallery.DBaccess
 
             return db.ExecuteNonQuery_proc(StoredProcedureName, Parameters);
         }
-
         private static List<T> ConvertDataTable<T>(DataTable dt)
         {
             if (dt == null)
@@ -49,10 +47,8 @@ namespace ArtGallery.DBaccess
                 T item = GetItem<T>(row);
                 data.Add(item);
             }
-
             return data;
         }
-
         private static T GetItem<T>(DataRow dr)
         {
             Type temp = typeof(T);
@@ -73,10 +69,8 @@ namespace ArtGallery.DBaccess
                         continue;
                 }
             }
-
             return obj;
         }
-
         public DataTable SignIn(LoginViewModel u)
         {
             string StoredProcedureName = StoredProcedures.SignIn;
@@ -91,8 +85,8 @@ namespace ArtGallery.DBaccess
             string StoredProcedureName = StoredProcedures.UserNameAvailable;
             Dictionary<string, object> Parameters = new Dictionary<string, object>();
             Parameters.Add("@Username", Username);
-            return (int) db.ExecuteScalar_proc(StoredProcedureName, Parameters) == 0;
-
+            return (int)db.ExecuteScalar_proc(StoredProcedureName, Parameters)==0;
+        
         }
 
         public bool EmailAvailable(string Email)
@@ -100,7 +94,7 @@ namespace ArtGallery.DBaccess
             string StoredProcedureName = StoredProcedures.EmailAvailable;
             Dictionary<string, object> Parameters = new Dictionary<string, object>();
             Parameters.Add("@Email", Email);
-            return (int) db.ExecuteScalar_proc(StoredProcedureName, Parameters) == 0;
+            return (int)db.ExecuteScalar_proc(StoredProcedureName, Parameters) == 0;
         }
 
         public string ProfileImagePath(string Email)
@@ -109,64 +103,62 @@ namespace ArtGallery.DBaccess
             Dictionary<string, object> Parameters = new Dictionary<string, object>();
             Parameters.Add("@email", Email);
             object result = db.ExecuteScalar_proc(StoredProcedureName, Parameters);
-            return (result == DBNull.Value) ? string.Empty : result.ToString();
+            return (result== DBNull.Value) ? string.Empty : result.ToString();
         }
 
 
-        public void InsertExpert(string Email, string bio, string qul, int? Byear)
+        public void InsertExpert(string Email, string bio, string qul, int? Byear ) 
         {
             string StoredProcedureName = StoredProcedures.UserName_BY_EMAIL;
-            Dictionary<string, object> Parameters = new Dictionary<string, object>();
-            Parameters.Add("@Email", Email);
-            string username = (string) db.ExecuteReader_proc(StoredProcedureName, Parameters).Rows[0]["USER_NAME"];
+            Dictionary<string, object>  Parameters = new Dictionary<string, object>();
+             Parameters.Add("@Email", Email);
+            string username = (string)db.ExecuteReader_proc(StoredProcedureName, Parameters).Rows[0]["USER_NAME"];
 
             StoredProcedureName = StoredProcedures.InsertExpert;
-            Parameters = new Dictionary<string, object>();
-            Parameters.Add("@USER_NAME", username);
-            Parameters.Add("@Bio", bio);
-            Parameters.Add("@BYEAR", Byear);
-            db.ExecuteNonQuery_proc(StoredProcedureName, Parameters);
+             Parameters = new Dictionary<string, object>();
+             Parameters.Add("@USER_NAME",username);
+             Parameters.Add("@Bio", bio);
+             Parameters.Add("@BYEAR", Byear);
+            db.ExecuteNonQuery_proc(StoredProcedureName,  Parameters);
 
             StoredProcedureName = StoredProcedures.InsertQualifications;
-            Parameters = new Dictionary<string, object>();
-            Parameters.Add("@USERNAME", username);
-            Parameters.Add("@QUALI", qul);
-            db.ExecuteNonQuery_proc(StoredProcedureName, Parameters);
+             Parameters = new Dictionary<string, object>();
+             Parameters.Add("@USERNAME", username);
+             Parameters.Add("@QUALI", qul);
+            db.ExecuteNonQuery_proc(StoredProcedureName,  Parameters);
 
         }
-
         public void InsertQual(ExpertViewModel e)
         {
             string StoredProcedureName = StoredProcedures.InsertQualifications;
-            Dictionary<string, object> Parameters = new Dictionary<string, object>();
-            Parameters.Add("@USERNAME", e.EXPERT_UNAME);
-            Parameters.Add("@QUALI", e.QUALIFICATIONS);
-            db.ExecuteNonQuery_proc(StoredProcedureName, Parameters);
+            Dictionary<string, object>  Parameters = new Dictionary<string, object>();
+             Parameters.Add("@USERNAME", e.EXPERT_UNAME);
+             Parameters.Add("@QUALI", e.QUALIFICATIONS);
+            db.ExecuteNonQuery_proc(StoredProcedureName,  Parameters);
 
         }
 
         public void InsertArtist(string Email, string bio, int? Byear, int START_SALARY, int END_SALARY)
         {
             string StoredProcedureName = StoredProcedures.UserName_BY_EMAIL;
-            Dictionary<string, object> Parameters = new Dictionary<string, object>();
+            Dictionary<string, object>  Parameters = new Dictionary<string, object>();
             Parameters.Add("@Email", Email);
-            string username = (string) db.ExecuteReader_proc(StoredProcedureName, Parameters).Rows[0]["USER_NAME"];
+            string username = (string)db.ExecuteReader_proc(StoredProcedureName,Parameters).Rows[0]["USER_NAME"];
 
             StoredProcedureName = StoredProcedures.InsertArtist;
-            Parameters = new Dictionary<string, object>();
-            Parameters.Add("@UserName", username);
-            Parameters.Add("@Bio", bio);
-            Parameters.Add("@BrithYear", Byear);
-            Parameters.Add("@StrSalary", START_SALARY);
-            Parameters.Add("@EndSalary", END_SALARY);
-            db.ExecuteNonQuery_proc(StoredProcedureName, Parameters);
+             Parameters = new Dictionary<string, object>();
+             Parameters.Add("@UserName", username);
+             Parameters.Add("@Bio", bio);
+             Parameters.Add("@BrithYear", Byear);
+             Parameters.Add("@StrSalary", START_SALARY);
+             Parameters.Add("@EndSalary", END_SALARY);
+            db.ExecuteNonQuery_proc(StoredProcedureName,  Parameters);
         }
-
-        public Artist GetArtist(string Email)
+        public Artist GetArtist(string Email) 
         {
             string StoredProcedureName = StoredProcedures.GetArtist;
-            Dictionary<string, object> Parameters = new Dictionary<string, object>();
-            Parameters.Add("@Email", Email);
+            Dictionary<string, object>  Parameters = new Dictionary<string, object>();
+             Parameters.Add("@Email", Email);
             DataTable d = db.ExecuteReader_proc(StoredProcedureName, Parameters);
 
             if (d != null)
@@ -181,7 +173,7 @@ namespace ArtGallery.DBaccess
             Dictionary<string, object> Parameters = new Dictionary<string, object>();
             Parameters.Add("@Email", Email);
             DataTable d = db.ExecuteReader_proc(StoredProcedureName, Parameters);
-
+            
             if (d != null)
                 return (ConvertDataTable<ExpertViewModel>(d));
             else
@@ -200,7 +192,7 @@ namespace ArtGallery.DBaccess
             string StoredProcedureName = StoredProcedures.GetSortedOrders;
             Dictionary<string, object> Parameters = new Dictionary<string, object>();
             Parameters.Add("@Criteria", criteria);
-            Parameters.Add("@asc", orderDirection);
+            Parameters.Add("@asc",orderDirection);
             return ConvertDataTable<Order>(db.ExecuteReader_proc(StoredProcedureName, Parameters));
         }
 
@@ -212,7 +204,6 @@ namespace ArtGallery.DBaccess
             return ConvertDataTable<Order>(db.ExecuteReader_proc(StoredProcedureName, Parameters));
 
         }
-
         public List<Report> GetSortedReports(string criteria, bool asc)
         {
             string orderDirection;
@@ -224,7 +215,7 @@ namespace ArtGallery.DBaccess
             string StoredProcedureName = StoredProcedures.GetSortedReports;
             Dictionary<string, object> Parameters = new Dictionary<string, object>();
             Parameters.Add("@Criteria", criteria);
-            Parameters.Add("@asc", orderDirection);
+            Parameters.Add("@asc",orderDirection);
             return ConvertDataTable<Report>(db.ExecuteReader_proc(StoredProcedureName, Parameters));
         }
 
@@ -233,13 +224,12 @@ namespace ArtGallery.DBaccess
             string query = "UPDATE REPORT SET ADMIN_ID = " + r.ADMIN_ID + "WHERE REPORT_ID = " + r.REPORT_ID;
             return (db.ExecuteNonQuery(query) != 0);
         }
-
-        public string GetUserName(string Email)
+        public string GetUserName(string Email) 
         {
             string StoredProcedureName = StoredProcedures.UserName_BY_EMAIL;
             Dictionary<string, object> Parameters = new Dictionary<string, object>();
             Parameters.Add("@Email", Email);
-            return (string) db.ExecuteScalar_proc(StoredProcedureName, Parameters);
+            return (string)db.ExecuteScalar_proc(StoredProcedureName, Parameters);
         }
 
         public string GetEmail(string Uname)
@@ -247,14 +237,14 @@ namespace ArtGallery.DBaccess
             string StoredProcedureName = StoredProcedures.GetEmail;
             Dictionary<string, object> Parameters = new Dictionary<string, object>();
             Parameters.Add("@UserName", Uname);
-            return (string) db.ExecuteScalar_proc(StoredProcedureName, Parameters);
+            return (string)db.ExecuteScalar_proc(StoredProcedureName, Parameters);
         }
 
         public List<Report> GetReportById(int id)
         {
             string StoredProcedureName = StoredProcedures.GetReportById;
             Dictionary<string, object> Parameters = new Dictionary<string, object>();
-            Parameters.Add("@Id", id);
+            Parameters.Add("@Id",id);
             return ConvertDataTable<Report>(db.ExecuteReader_proc(StoredProcedureName, Parameters));
         }
 
@@ -297,23 +287,21 @@ namespace ArtGallery.DBaccess
             Parameters.Add("@NAME", name);
             return ConvertDataTable<Artwork>(db.ExecuteReader_proc(StoredProcedureName, Parameters));
         }
-
         public bool IsArtist(string email)
         {
             string StoredProcedureName = StoredProcedures.IsArtist;
             Dictionary<string, object> Parameters = new Dictionary<string, object>();
             Parameters.Add("@Email", email);
-            return (int) db.ExecuteScalar_proc(StoredProcedureName, Parameters) != 0;
+            return (int)db.ExecuteScalar_proc(StoredProcedureName, Parameters) != 0;
         }
-
-        public bool IsExpert(string email)
+   
+        public bool IsExpert(string email) 
         {
             string StoredProcedureName = StoredProcedures.IsExpert;
             Dictionary<string, object> Parameters = new Dictionary<string, object>();
             Parameters.Add("@Email", email);
-            return (int) db.ExecuteScalar_proc(StoredProcedureName, Parameters) != 0;
+            return (int)db.ExecuteScalar_proc(StoredProcedureName, Parameters) != 0;
         }
-
         public List<Artwork> GetArtworkInfo2(string title)
         {
             string StoredProcedureName = StoredProcedures.GetArtworkInfo;
@@ -335,7 +323,7 @@ namespace ArtGallery.DBaccess
         public List<Artwork> GetArtworks()
         {
             string StoredProcedureName = StoredProcedures.GetArtworks;
-            return ConvertDataTable<Artwork>(db.ExecuteReader_proc(StoredProcedureName, null));
+            return ConvertDataTable<Artwork>(db.ExecuteReader_proc(StoredProcedureName,null));
         }
 
         public bool AddAdmin(Admin a)
@@ -350,13 +338,13 @@ namespace ArtGallery.DBaccess
 
         public void UpdateEvent(string title)
         {
-
             //string query = "UPDATE EVENT SET TICKETS_NUM=TICKETS_NUM - 1 WHERE TITLE = '"+ title+"'";
             //db.ExecuteNonQuery(query);
             string StoredProcedureName = StoredProcedures.SellTicket;
             Dictionary<string, object> Parameters = new Dictionary<string, object>();
             Parameters.Add("@title", title);
             db.ExecuteNonQuery_proc(StoredProcedureName,Parameters);
+           
         }
 
         public List<Event> GetEventInfo(string title)
@@ -370,7 +358,6 @@ namespace ArtGallery.DBaccess
 
         public bool EditEvent(Event e, string oldtitle)
         {
-
             string storedProcedureName = StoredProcedures.EditEvent;
             Dictionary<string, object> Parameters = new Dictionary<string, object>();
             
@@ -387,18 +374,14 @@ namespace ArtGallery.DBaccess
             return (db.ExecuteNonQuery_proc(storedProcedureName, Parameters) != null);
 
         }
-
         public List<Event> GetEvents()
         {
-
             string storedProcedureName = StoredProcedures.GetEvents;
             Dictionary<string, object> Parameters = new Dictionary<string, object>();
             
             Parameters.Add("@NowDate", DateTime.Now.Date);
             return ConvertDataTable<Event>(db.ExecuteReader_proc(storedProcedureName, Parameters));
-
         }
-
         public List<Artwork> GetArtWorks(Artist A)
         {
             string storedProcedureName = StoredProcedures.GetArtWorksByArtist;
@@ -408,10 +391,8 @@ namespace ArtGallery.DBaccess
 
             return ConvertDataTable<Artwork>(db.ExecuteReader_proc(storedProcedureName, Parameters));
         }
-
-        public void InsertArtwork(Artwork a)
+        public void InsertArtwork(Artwork a) 
         {
-
             string storedProcedureName = StoredProcedures.InsertArtwork;
             Dictionary<string, object> Parameters = new Dictionary<string, object>();
 
@@ -432,9 +413,7 @@ namespace ArtGallery.DBaccess
             Parameters.Add("@YEAR", a.YEAR);
 
             db.ExecuteNonQuery_proc(storedProcedureName, Parameters);
-
         }
-
         public DataTable GetCategories()
         {
             string storedProcedureName = StoredProcedures.GetCategories;
@@ -443,20 +422,12 @@ namespace ArtGallery.DBaccess
             return db.ExecuteReader_proc(storedProcedureName, Parameters);
 
         }
-
         public List<Survey> GetRequestedSurvey(ExpertViewModel e)
         {
             string query = "SELECT * FROM SURVEY AS S WHERE EXPERT_UNAME='" + e.EXPERT_UNAME +
                            "' AND S.SURVEY_ID NOT IN(SELECT R.SURVEY_ID FROM RECOMMEND AS R)";
             return ConvertDataTable<Survey>(db.ExecuteReader(query));
 
-        }
-
-
-        public List<Recommend> GetRecommended(int surveyId)
-        {
-            string query = "SELECT * FROM RECOMMEND WHERE SURVEY_ID = " + surveyId;
-            return ConvertDataTable<Recommend>(db.ExecuteReader(query));
         }
 
 
@@ -471,11 +442,10 @@ namespace ArtGallery.DBaccess
 
             //return ConvertDataTable<Survey>(db.ExecuteReader_proc(storedProcedureName, Parameters))[0];
         }
-
+        
 
         public void InsertSurveyRequest(Survey s)
         {
-
             string storedProcedureName = StoredProcedures.InsertSurveyRequest;
             Dictionary<string, object> Parameters = new Dictionary<string, object>();
 
@@ -486,16 +456,9 @@ namespace ArtGallery.DBaccess
             Parameters.Add("@MORE_INFO", s.MORE_INFO);
 
             db.ExecuteNonQuery_proc(storedProcedureName, Parameters);
-
         }
-
-        public List<Survey> GetUserSurveys(string username)
-        {
-            string query = "SELECT * FROM SURVEY WHERE USER_NAME = '" + username +"'";
-            return ConvertDataTable<Survey>(db.ExecuteReader(query));
-        }
-
-    public void InsertCustomOrder(CustomOrderUserViewModel c)
+        
+        public void InsertCustomOrder(CustomOrderUserViewModel c)
         {
             //ArtistsBelowBudget
             string query = "SELECT ARTIST_UNAME FROM ARTIST WHERE START_SALARY <=" + c.Budget;
