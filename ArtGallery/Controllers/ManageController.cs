@@ -239,7 +239,15 @@ namespace ArtGallery.Controllers
             Survey s  = db.GetSurveyInfo(Convert.ToInt32(Code));
             return View(s);
         }
-        
+        [Authorize]
+        [HttpPost]
+        public ActionResult SurveyResponse(string Code)
+        {
+            int surveyid = (int)Session["ID"];
+            string[] x = (string[])Session["selected"];
+            Survey s = db.GetSurveyInfo(Convert.ToInt32(Code));
+            return View(s);
+        }
 
 
 

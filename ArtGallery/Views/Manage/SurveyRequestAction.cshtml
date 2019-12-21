@@ -18,12 +18,14 @@
 <section class="content" style="padding-top: 1vh">
     <div class="container-fluid">
 
-        @using (Html.BeginForm("RespondeSurvey", "Manage", FormMethod.Post ,new { id = "form1" }))
+        @using (Html.BeginForm("SurveyResponse", "Manage", FormMethod.Post ,new { id = "form1" }))
         {
             @Html.AntiForgeryToken()
             @Html.Hidden("id", Model.SURVEY_ID)
+            Session["ID"] = Model.SURVEY_ID;
+            
 
-            <div class="form-horizontal">
+        <div class=}"form-horizontal">
                 <h4>Survey</h4>
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -57,24 +59,30 @@
                 <div class="card-body">
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
-                            <tr>
-                                <th>Artist UserName</th>
-                                <th>Title</th>
-                                <th>Category</th>
-                                <th>Description</th>
-                                <th>Price</th>
-                                <th>Width</th>
-                                <th>Height</th>
-                                <th>Depth</th>
-                                <th>Material</th>
-                                <th>Medium</th>
-                                <th>Subject</th>
-                                <th>Photo</th>
-                                <th>Year</th>
-                                <th>checked</th>
-                            </tr>
+                        <tr>
+                            <th>Artist UserName</th>
+                            <th>Artwork Code</th>
+                            <th>Title</th>
+                            <th>Category</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                            <th>Width</th>
+                            <th>Height</th>
+                            <th>Depth</th>
+                            <th>Material</th>
+                            <th>Medium</th>
+                            <th>Subject</th>
+                            <th>Photo</th>
+                            <th>Year</th>
+                            <th>checked</th>
+                        </tr>
                         </thead>
                     </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <input type="submit" value="Submit" class="btn btn-success float-right">
                 </div>
             </div>
         }
@@ -113,6 +121,7 @@
                 },
                 "columns": [
                     { "data": "ARTIST_UNAME", "autowidth": true },
+                    { "data": "AW_CODE", "autowidth": true, "className": 'AW_CODE'  },
                     { "data": "TITLE", "autowidth": true },
                     { "data": "CATEGORY_NAME", "autowidth": true },
                     { "data": "DESCRIPTION", "autowidth": true },
@@ -149,9 +158,9 @@
                 var form = this;
                 var list = [];
                 // Iterate over all selected checkboxes
-                //        $('.selected .ArtistUserName').each(function (i, obj) {
-                //        list.push($(this).text());
-                //      });
+                        $('.selected .AW_CODE').each(function (i, obj) {
+                        list.push($(this).text());
+                      });
                 $.ajax({
                     type: "POST",
                     url: "/Manage/SaveSelected",
