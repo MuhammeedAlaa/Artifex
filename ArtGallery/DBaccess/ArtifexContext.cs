@@ -456,7 +456,11 @@ namespace ArtGallery.DBaccess
         public List<Recommend> GetRecommended(int surveyId)
         {
             string query = "SELECT * FROM RECOMMEND WHERE SURVEY_ID = " + surveyId;
-            return ConvertDataTable<Recommend>(db.ExecuteReader(query));
+            DataTable dt = db.ExecuteReader(query);
+            if(dt != null)
+                return ConvertDataTable<Recommend>(dt);
+            else 
+                return new System.Collections.Generic.List<Recommend>();
         }
 
 
