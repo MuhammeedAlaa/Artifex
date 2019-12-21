@@ -1,6 +1,18 @@
 USE ARTIFEX
 GO 
 
+
+CREATE PROCEDURE AddAdmin 
+	@EMAIL VARCHAR(50) ,
+	@PASSWORD VARCHAR(70) ,
+	@SALARY INT
+AS
+BEGIN
+	INSERT INTO [ADMIN] VALUES (@EMAIL,HASHBYTES('SHA1',@PASSWORD),@SALARY)
+END
+GO
+
+/**************************************************************/
 CREATE PROCEDURE SignIn
 	
    @EMAIL VARCHAR(50) ,

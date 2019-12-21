@@ -326,6 +326,16 @@ namespace ArtGallery.DBaccess
             return ConvertDataTable<Artwork>(db.ExecuteReader_proc(StoredProcedureName,null));
         }
 
+        public bool AddAdmin(Admin a)
+        {
+            string StoredProcedureName = StoredProcedures.AddAdmin;
+            Dictionary<string, object> Parameters = new Dictionary<string, object>();
+            Parameters.Add("@Email", a.EMAIL);
+            Parameters.Add("@PASSWORD", a.PASSWORD);
+            Parameters.Add("@SALARY", a.SALARY);
+            return db.ExecuteNonQuery_proc(StoredProcedureName, Parameters) != 0;
+        }
+
         public void UpdateEvent(string title)
         {
             string query = "UPDATE EVENT SET TICKETS_NUM=TICKETS_NUM - 1 WHERE TITLE = '"+ title+"'";

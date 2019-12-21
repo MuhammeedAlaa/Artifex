@@ -25,12 +25,8 @@ namespace ArtGallery.Models
 
 
         [Required(ErrorMessage = "Please enter the salary ")]
-        [RegularExpression(" ^[0 - 5000]$", ErrorMessage = "Enter a number between 0 and 5000 ")]
+        [Range(10, 5000)]
         public int SALARY { get; set; }
 
-        // No name in admin
-        public string Name { get; set; }
-        [Column("PROFILE_PICTURE")]
-        public string ProfilePic { get; set; }
     }
 }
