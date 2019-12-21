@@ -15,6 +15,7 @@ using ArtGallery.App_Start;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Security.Cryptography;
+using Microsoft.EntityFrameworkCore;
 
 namespace ArtGallery.Controllers
 {
@@ -108,6 +109,7 @@ namespace ArtGallery.Controllers
                     PROFILE_PIC = newuser.PROFILE_PIC,
                     imagefile = newuser.imagefile
                 };
+                Session["usernm"] = newuser.USER_NAME; 
                 TempData["User"] = u;
                 TempData["imagepath"] = imagefilename;
                 return RedirectToAction("BillingForm", "Authorization");
@@ -206,10 +208,13 @@ namespace ArtGallery.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult BillingForm(BillingInfo b) 
+        public ActionResult BillingForm(BillingInfo b)
         {
-                RegisterViewModel newuser = (RegisterViewModel)TempData["User"];
-                string path = (string)TempData["imagepath"];
+            b.USER_NAME = (string)Session["usernm"];
+            if (ModelState.IsValid)
+            {
+                RegisterViewModel newuser = (RegisterViewModel) TempData["User"];
+                string path = (string) TempData["imagepath"];
                 if (db.SignUp(newuser) == 0)
                 {
                     ModelState.AddModelError("", "Invalid signup attempt.");
@@ -217,10 +222,13 @@ namespace ArtGallery.Controllers
                 }
                 else if (newuser.imagefile != null)
                     newuser.imagefile.SaveAs(path);
+
                 db.InsertBillingInfo(b, newuser.USER_NAME);
                 ModelState.Clear();
                 System.Web.Security.FormsAuthentication.SetAuthCookie(newuser.EMAIL, false);
                 return RedirectToAction("Index", "Home");
+            }
+            else return View(b);
         }
         [HttpGet]
         [AllowAnonymous]
@@ -249,9 +257,14 @@ namespace ArtGallery.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ApplyArtist(Artist a)
         {
+            if(ModelState.IsValid)
+            { 
                 string Email = User.Identity.Name;
                 db.InsertArtist(Email, a.BIO, a.BYEAR, a.START_SALARY, a.END_SALARY);
                 return RedirectToAction("index", "home");
+            }
+
+            return View(a);
         }
         [HttpGet]
         [Authorize]
