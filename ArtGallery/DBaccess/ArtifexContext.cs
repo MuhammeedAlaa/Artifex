@@ -404,8 +404,9 @@ namespace ArtGallery.DBaccess
             query = "INSERT INTO ARTWORK VALUES('" + c.Category + "','" + uname + "'," + "null"
                 + ",'" + c.TITLE + "',0,1,1,'" + c.DESCRIPTION + "'," + c.WIDTH + "," + c.HEIGHT
                 + "," + c.DEPTH + "," + c.Budget + ",'" + c.MATERIAL + "','" + c.MEDIUM + "','" + "null" + "','" + "null" + "'," + "null" + ")";
-            db.ExecuteNonQuery(query);
-            query = "INSERT INTO dbo.[ORDER] VALUES(1,'" + DateTime.Now.ToShortTimeString().Substring(0,9)
+            if (db.ExecuteNonQuery(query) == 0)
+                return;
+            query = "INSERT INTO dbo.[ORDER] VALUES(1,'" + DateTime.Now.ToString("mm/dd/yyyy")
             +"','" + c.Deadline.ToString().Substring(0,9) +"');";
             db.ExecuteNonQuery(query);
         }
