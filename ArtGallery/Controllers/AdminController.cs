@@ -350,7 +350,6 @@ namespace ArtGallery.Controllers
             else
                 return HttpNotFound();
 
-
         }
     }
 }
