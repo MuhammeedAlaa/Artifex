@@ -31,5 +31,8 @@ namespace ArtGallery.DBaccess
         public static string IsExpert = "IsExpert";
         public static string GetPassword = "GetPassword";
         public static string UpdatePassword = "UpdatePassword";
+       
+      
+
     }
 }

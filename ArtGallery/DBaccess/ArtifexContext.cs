@@ -191,7 +191,7 @@ namespace ArtGallery.DBaccess
             string StoredProcedureName = StoredProcedures.GetSortedOrders;
             Dictionary<string, object> Parameters = new Dictionary<string, object>();
             Parameters.Add("@Criteria", criteria);
-            Parameters.Add("@asc", asc);
+            Parameters.Add("@asc",orderDirection);
             return ConvertDataTable<Order>(db.ExecuteReader_proc(StoredProcedureName, Parameters));
         }
 
@@ -214,7 +214,7 @@ namespace ArtGallery.DBaccess
             string StoredProcedureName = StoredProcedures.GetSortedReports;
             Dictionary<string, object> Parameters = new Dictionary<string, object>();
             Parameters.Add("@Criteria", criteria);
-            Parameters.Add("@asc", asc);
+            Parameters.Add("@asc",orderDirection);
             return ConvertDataTable<Report>(db.ExecuteReader_proc(StoredProcedureName, Parameters));
         }
 
@@ -275,7 +275,7 @@ namespace ArtGallery.DBaccess
             string StoredProcedureName = StoredProcedures.GetSortedProposedArtworks;
             Dictionary<string, object> Parameters = new Dictionary<string, object>();
             Parameters.Add("@Criteria", criteria);
-            Parameters.Add("@asc", asc);
+            Parameters.Add("@asc", orderDirection);
             return ConvertDataTable<Artwork>(db.ExecuteReader_proc(StoredProcedureName, Parameters));
         }
 
@@ -305,7 +305,7 @@ namespace ArtGallery.DBaccess
         {
             string StoredProcedureName = StoredProcedures.GetArtworkInfo;
             Dictionary<string, object> Parameters = new Dictionary<string, object>();
-            Parameters.Add("@Tittle", title);
+            Parameters.Add("@Title", title);
             return ConvertDataTable<Artwork>(db.ExecuteReader_proc(StoredProcedureName, Parameters));
 
         }

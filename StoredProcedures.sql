@@ -316,3 +316,84 @@ BEGIN
 
 END
 GO
+/*****************Start from here*******************************/
+CREATE PROCEDURE SellTicket
+      @title VARCHAR(20) 
+AS
+BEGIN
+
+	SET NOCOUNT ON;
+	UPDATE [dbo].[EVENT] SET TICKETS_NUM=TICKETS_NUM -1
+	WHERE TITLE=@title
+
+END
+GO
+/***********************************************/
+CREATE PROCEDURE GetEventInfo
+      @title VARCHAR(20) 
+AS
+BEGIN
+
+	SET NOCOUNT ON;
+	SELECT * FROM dbo.[EVENT]
+	WHERE TITLE=@title
+
+END
+GO
+/*****************************************************/
+CREATE PROCEDURE EditEvent
+    @title VARCHAR(20) ,
+	@ADMIN_ID INT,
+	@IMAGE VARCHAR(MAX),
+	@TICKET_PRICE INT,
+	@EVENTDATE DATE,
+	@LOCATION VARCHAR(20),
+	@TICKETS_NUM INT,
+	@INFO VARCHAR(200),
+	@oldtitle VARCHAR(20)
+AS
+BEGIN
+
+	SET NOCOUNT ON;
+	UPDATE dbo.[EVENT] SET
+	TITLE=@title,ADMIN_ID=@ADMIN_ID,[IMAGE]=@IMAGE,TICKET_PRICE=@TICKET_PRICE,
+	EVENTDATE=@EVENTDATE,LOCATION=@LOCATION,TICKETS_NUM=@TICKETS_NUM,INFO=@INFO
+	WHERE TITLE=@oldtitle
+
+END
+GO
+/********************************************************/
+CREATE PROCEDURE GetEvents
+     @NowDate Date 
+AS
+BEGIN
+
+	SET NOCOUNT ON;
+	SELECT * FROM dbo.[EVENT]
+	WHERE EVENTDATE>=@NowDate
+
+END
+GO
+/*********************************************************/
+CREATE PROCEDURE GetArtWorksByArtist
+     @Artist_UName VARCHAR(20)
+AS
+BEGIN
+
+	SET NOCOUNT ON;
+	SELECT * FROM ARTWORK
+	WHERE ARTIST_UNAME=@Artist_UName
+
+END
+GO
+/********************************************************/
+CREATE PROCEDURE GetCategories
+   
+AS
+BEGIN
+
+	SET NOCOUNT ON;
+	SELECT NAME FROM CATEGORY
+
+END
+GO
