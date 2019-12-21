@@ -55,7 +55,11 @@ namespace ArtGallery.Controllers
         }
 
         public ActionResult Index()
-        {            
+        {
+            int result;
+            int.TryParse(User.Identity.Name.ToString(), out result);
+            if (result != 0)
+             return   RedirectToAction("index", "admin");
             return View();
         }
         [Authorize]
