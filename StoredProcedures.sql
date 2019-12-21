@@ -397,3 +397,223 @@ BEGIN
 
 END
 GO
+/********************************************************/
+CREATE PROCEDURE InsertArtwork
+--CATEGORY_NAME /\ ARTIST_UNAME /\ ADMIN_ID-NULL /\ TITLE /\ ACCEPTED-0 /\ PRIVACY /\ STATUS-1
+--DESCRIPTION /\ WIDTH /\ HEIGHT /\ DEPTH /\ PRICE /\ MATERIAL /\ MEDIUM  /\ SUBJECT /\ PHOTO /\ YEAR
+@CATEGORY_NAME VARCHAR(10),
+@ARTIST_UNAME VARCHAR(20),
+--@ADMIN_ID INT,
+@TITLE VARCHAR(20),
+--@ACCEPTED BIT,
+@PRIVACY BIT,
+--@STATUS BIT,
+@DESCRIPTION VARCHAR(100),
+@WIDTH INT,
+@HEIGHT INT,
+@DEPTH INT,
+@PRICE INT,
+@MATERIAL VARCHAR(10),
+@MEDIUM VARCHAR(10),
+@SUBJECT VARCHAR(10),
+@PHOTO VARCHAR(MAX),
+@YEAR INT
+AS
+BEGIN
+
+	SET NOCOUNT ON;
+	INSERT INTO ARTWORK VALUES
+	(@CATEGORY_NAME,@ARTIST_UNAME,NULL,@TITLE,0,@PRIVACY,1,@DESCRIPTION,@WIDTH,@HEIGHT,@DEPTH,@PRICE,@MATERIAL,@MEDIUM,@SUBJECT,@PHOTO,@YEAR);
+
+END
+GO
+/********************************************************/
+CREATE PROCEDURE GetRequestedSurvey
+@EXPERT_UNAME VARCHAR(20)
+AS
+BEGIN
+	SET NOCOUNT ON
+	SELECT * FROM SURVEY WHERE EXPERT_UNAME= @EXPERT_UNAME
+END
+GO
+/********************************************************/
+CREATE PROCEDURE GetSurveyInfo
+@code INT 
+AS
+BEGIN
+	SET NOCOUNT ON
+		SELECT * FROM SURVEY WHERE SURVEY_ID = @code
+	END
+GO
+/********************************************************/
+CREATE PROCEDURE InsertSurveyRequest
+ --EXPERT_UNAME /\ USER_NAME /\ BUDGET /\ MORE_INFO /\ [RATING-NULL]
+ @EXPERT_UNAME VARCHAR(20),
+ @USER_NAME VARCHAR(20),
+ @BUDGET INT,
+ @MORE_INFO VARCHAR(200)
+AS
+BEGIN
+	SET NOCOUNT ON
+		INSERT INTO SURVEY VALUES
+		(@EXPERT_UNAME,@USER_NAME,@BUDGET,@MORE_INFO,NULL);
+	END
+GO
+/********************************************************/
+CREATE PROCEDURE GetArtworkWithCode
+@code INT  
+AS
+BEGIN
+	SET NOCOUNT ON
+		SELECT * FROM Artwork WHERE AW_CODE = @code	
+	END
+GO
+/********************************************************/
+CREATE PROCEDURE InsertBillingInfo
+--CARD_NUM /\ uname /\ STREET /\ CITY /\ CARD_HOLDER_NAME /\ CVV /\ EXPIRY_DATE
+@CARD_NUM VARCHAR(18),
+@uname VARCHAR(20),
+@STREET VARCHAR(20),
+@CITY VARCHAR(10),
+@CARD_HOLDER_NAME VARCHAR(20),
+@CVV INT,
+@EXPIRY_DATE DATE
+AS
+BEGIN
+	SET NOCOUNT ON
+	INSERT INTO BILLING_INFO VALUES
+	(@CARD_NUM,@uname,@STREET,@CITY,@CARD_HOLDER_NAME,@CVV,@EXPIRY_DATE);
+	END
+GO
+/********************************************************/
+CREATE PROCEDURE ApproveArtwork
+@state BIT,
+@adminId INT,
+@code INT
+AS
+BEGIN
+	SET NOCOUNT ON
+		UPDATE ARTWORK 
+		SET ACCEPTED = @state , ADMIN_ID = @adminId
+		WHERE AW_CODE = @code
+END
+GO
+/*********************************************************/
+CREATE PROCEDURE CreateEvent
+--TITLE ADMIN_ID IMAGE TICKET_PRICE EVENTDATE LOCATION TICKETS_NUM INFO
+@TITLE VARCHAR(20),
+@ADMIN_ID INT,
+@IMAGE VARCHAR(MAX),
+@TICKET_PRICE INT,
+@EVENTDATE DATE,
+@LOCATION VARCHAR(20),
+@TICKETS_NUM INT,
+@INFO VARCHAR(200)
+AS
+BEGIN
+	SET NOCOUNT ON
+		INSERT INTO EVENT VALUES
+		(@TITLE,@ADMIN_ID,@IMAGE,@TICKET_PRICE,@EVENTDATE,@LOCATION,@TICKETS_NUM,@INFO);
+END
+GO
+/*********************************************************/
+CREATE PROCEDURE GetArtists
+
+AS
+BEGIN
+	SELECT * FROM ARTIST
+END
+GO
+/*********************************************************/
+CREATE PROCEDURE InviteArtist
+@EventTitle VARCHAR(20),
+@artist VARCHAR(20)
+AS
+BEGIN
+	SET NOCOUNT ON
+		INSERT INTO INVITED VALUES
+		(@EventTitle,@artist);
+END
+GO
+/**********************************************************/
+CREATE PROCEDURE GetCompanies
+
+AS
+BEGIN
+	SET NOCOUNT ON
+	SELECT * FROM SHIPPING_COMPANY
+END
+GO
+/***********************************************************/
+CREATE PROCEDURE Addcompany
+-- NAME /\ EMAIL /\ PHONE /\ SHIPPING_FEES
+@NAME VARCHAR(20),
+@EMAIL VARCHAR(50),
+@PHONE VARCHAR(13),
+@SHIPPING_FEES INT
+AS
+BEGIN
+	SET NOCOUNT ON
+	INSERT INTO SHIPPING_COMPANY VALUES
+	(@NAME,@EMAIL,@PHONE,@SHIPPING_FEES);
+END
+GO
+/*************************************************************/
+CREATE PROCEDURE deleteCompany
+@Shipping_name VARCHAR(20)
+AS
+BEGIN
+	SET NOCOUNT ON
+	DELETE FROM SHIPPING_COMPANY WHERE NAME = @Shipping_name
+END 
+GO
+/*************************************************************/
+CREATE PROCEDURE GetOrderInfo
+@ORDER_ID INT
+AS
+BEGIN 
+	SET NOCOUNT ON
+	SELECT * FROM ORDER_INFO WHERE ORDER_ID = @ORDER_ID
+END
+GO
+/*************************************************************/
+CREATE PROCEDURE addFav
+@code INT,
+@uname VARCHAR(20)
+AS
+BEGIN 
+	INSERT INTO FAV_AW VALUES
+	(@code,@uname);
+END
+GO
+/***************************************************************/
+CREATE PROCEDURE GetFavourite
+@EMAIL VARCHAR(50)
+AS
+BEGIN
+	SET NOCOUNT ON
+	SELECT * 
+	FROM FAV_AW FA JOIN ARTWORK A ON FA.AW_CODE = A.AW_CODE JOIN [dbo].[USER] U ON FA.USER_NAME = U.USER_NAME
+	WHERE U.EMAIL = @EMAIL
+END
+GO
+/****************************************************************/
+CREATE PROCEDURE GetExperts
+
+AS
+BEGIN
+	SET NOCOUNT ON
+	SELECT * FROM EXPERT
+END
+GO
+/*****************************************************************/
+CREATE PROCEDURE GetExpertMails
+
+AS
+BEGIN
+	SET NOCOUNT ON
+	SELECT EMAIL FROM [USER] JOIN EXPERT ON EXPERT_UNAME = USER_NAME
+END
+GO
+
+
