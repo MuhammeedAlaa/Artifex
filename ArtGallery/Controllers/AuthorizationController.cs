@@ -232,9 +232,11 @@ namespace ArtGallery.Controllers
         public ActionResult ApplyArtist() 
         {
             string Email = User.Identity.Name;
+            Artist a = new Artist();
+            a.ARTIST_UNAME = db.GetUserName(Email);
             if (db.IsArtist(Email))
                 return RedirectToAction("IsArtist", "Authorization");
-            return View();
+            return View(a);
         }
 
         [HttpGet]
@@ -242,20 +244,26 @@ namespace ArtGallery.Controllers
         public ActionResult ApplyExpert()
         {
             string Email = User.Identity.Name;
+            ExpertViewModel e = new ExpertViewModel();
+            e.EXPERT_UNAME = db.GetUserName(Email);
             if (db.IsExpert(Email))
                 return RedirectToAction("IsExpert", "Authorization");
-            return View();
+            return View(e);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult ApplyArtist(Artist a)
         {
-            
 
-            string Email = User.Identity.Name;
-            db.InsertArtist(Email, a.BIO, a.BYEAR,a.START_SALARY,a.END_SALARY);
+            if (ModelState.IsValid)
+            {
+                string Email = User.Identity.Name;
+                db.InsertArtist(Email, a.BIO, a.BYEAR, a.START_SALARY, a.END_SALARY);
 
-            return RedirectToAction("index","home");
+                return RedirectToAction("index", "home");
+            }
+
+            return View(a);
         }
         [HttpGet]
         [Authorize]
@@ -275,9 +283,14 @@ namespace ArtGallery.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ApplyExpert(ExpertViewModel e)
         {
-            string Email = User.Identity.Name;
-            db.InsertExpert(Email, e.BIO, e.QUALIFICATIONS, e.BYEAR);
-            return RedirectToAction("index", "home");
+            if(ModelState.IsValid)
+            { 
+                string Email = User.Identity.Name;
+                db.InsertExpert(Email, e.BIO, e.QUALIFICATIONS, e.BYEAR);
+                return RedirectToAction("index", "home");
+            }
+
+            return View(e);
         }
 
         protected override void Dispose(bool disposing)
