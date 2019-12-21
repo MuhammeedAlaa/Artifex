@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ArtGallery.ViewModels;
 using PagedList;
 
 namespace ArtGallery.Controllers
@@ -133,7 +134,13 @@ namespace ArtGallery.Controllers
             return RedirectToAction("index", "home");
         }
 
-
+        public ActionResult Experts(int? page)
+        {
+            ListExpViewModel ex = new ListExpViewModel();
+            ex.Experts = db.GetExperts().ToPagedList(page ?? 1, 10);
+            ex.Emails = db.GetExpertMails();
+            return View(ex);
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
