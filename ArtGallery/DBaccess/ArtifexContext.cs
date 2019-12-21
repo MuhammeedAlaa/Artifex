@@ -387,7 +387,7 @@ namespace ArtGallery.DBaccess
         public void InsertSurveyRequest(Survey s)
         {
             string query = "INSERT INTO SURVEY VALUES('"+s.EXPERT_UNAME + "','" + s.USER_NAME +"'," + s.BUDGET +
-                ",'" + s.ORIENTATION +"','" + s.MORE_INFO + "',null)";
+                ",'" + s.MORE_INFO + "',null)";
              db.ExecuteNonQuery(query);
         }
         

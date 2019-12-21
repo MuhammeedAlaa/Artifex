@@ -94,12 +94,7 @@ namespace ArtGallery.Controllers
         public ActionResult EventViwer(string EventTitle)
         {
             List<Event> e = db.GetEventInfo(EventTitle);
-            ViewBag.image = e[0].IMAGE;
-            ViewBag.info = e[0].INFO;
-            ViewBag.loc = e[0].LOCATION;
-            ViewBag.Title = e[0].TITLE;
-            ViewBag.price = e[0].TICKET_PRICE;
-            return View();
+            return View(e[0]);
         }
         [Authorize]
         public ActionResult Buy(string title) {
