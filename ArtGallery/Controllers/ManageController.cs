@@ -82,7 +82,10 @@ namespace ArtGallery.Controllers
             string Email = User.Identity.Name;
             ViewBag.exp = null;
             ViewBag.artist = null;
-            IPagedList<Artwork> AW = null;
+            IPagedList<Artwork> AW;
+            ViewBag.artist = null;
+            List<Artwork> temp = new List<Artwork>();
+            AW = temp.ToPagedList(page ?? 1, 5);
             ViewBag.same = false;
             if (Email == "" && Uname == null)
                 return RedirectToAction("SignIn", "Authorization");
