@@ -15,6 +15,7 @@ namespace ArtGallery.ViewModels
 
         [Range(1940, 1995)]
         public int? BYEAR { get; set; }
+        [Required]
         public string QUALIFICATIONS { get; set; }
     }
 }

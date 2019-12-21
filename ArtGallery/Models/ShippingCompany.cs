@@ -11,7 +11,7 @@ namespace ArtGallery.Models
     {
         [DisplayName("Name")]
         [Required(ErrorMessage = "Please enter the shipping company name")]
-        [StringLength(20, ErrorMessage = "Max length = 20 characters")]
+        [StringLength(40, ErrorMessage = "Max length = 40 characters")]
         [RegularExpression("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", ErrorMessage = "Only letters are allowed")]
         public string NAME { get; set; }
 

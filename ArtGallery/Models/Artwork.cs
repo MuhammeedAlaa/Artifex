@@ -40,15 +40,15 @@ namespace ArtGallery.Models
         public string DESCRIPTION { get; set; }
 
         [Required(ErrorMessage ="Please enter the width ")]
-        [Range(20, 150)]
+        [Range(20, 200)]
         public int WIDTH { get; set; }
 
         [Required(ErrorMessage = "Please enter the heigth ")]
-        [Range(20, 150)]
+        [Range(20, 200)]
         public int HEIGHT { get; set; }
 
         [Required(ErrorMessage = "Please enter the depth ")]
-        [Range(2, 10)]
+        [Range(2, 15)]
         public int DEPTH { get; set; }
 
         [Required(ErrorMessage = "Please enter the price ")]
@@ -56,22 +56,19 @@ namespace ArtGallery.Models
         public int PRICE { get; set; }
 
         [Required(ErrorMessage = "Please entet the material ")]
-        [StringLength(10, ErrorMessage = "Max length = 10 characters")]
+        [StringLength(20, ErrorMessage = "Max length = 20 characters")]
         [RegularExpression("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", ErrorMessage = "Only letters are allowed")]
         public string MATERIAL { get; set; }
 
         [Required(ErrorMessage = "Please entet the medium ")]
-        [StringLength(10, ErrorMessage = "Max length = 10 characters")]
+        [StringLength(20, ErrorMessage = "Max length = 20 characters")]
         [RegularExpression("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", ErrorMessage = "Only letters are allowed")]
         public string MEDIUM { get; set; }
 
         [Required(ErrorMessage = "Please entet the subject")]
-        [StringLength(10, ErrorMessage = "Max length = 10 characters")]
+        [StringLength(20, ErrorMessage = "Max length = 20 characters")]
         [RegularExpression("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", ErrorMessage = "Only letters are allowed")]
         public string SUBJECT { get; set; }
-
-       // [Required(ErrorMessage = "Please enter the year ")]
-       // [RegularExpression(" ^(19|20)\d{2}$", ErrorMessage = "Enter a year between 1950 and 2019 ")]
         public int YEAR { get; set; }
         
         public string PHOTO { get; set; }

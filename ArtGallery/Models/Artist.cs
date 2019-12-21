@@ -22,6 +22,7 @@ namespace ArtGallery.Models
         [Required(ErrorMessage = "Please enter your start salary ")]
         public int START_SALARY { get; set; }
 
+        [Required(ErrorMessage = "Please enter your end salary ")]
         public int END_SALARY { get; set; }
 
         public string Selected { get; set; }

@@ -15,7 +15,6 @@ namespace ArtGallery.Models
 
         [Required(ErrorMessage = "Please enter your budget ")]
         public int BUDGET { get; set; }
-        public string ORIENTATION { get; set; }
 
         public string MORE_INFO { get; set; }
         public int? RATING { get; set; }

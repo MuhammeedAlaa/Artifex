@@ -60,7 +60,7 @@ namespace ArtGallery.ViewModels
 
 
         [Required(ErrorMessage = "Please enter your last name")]
-        [StringLength(10, ErrorMessage = "Max length = 10 characters")]
+        [StringLength(20, ErrorMessage = "Max length = 20 characters")]
         [RegularExpression("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", ErrorMessage = "Only letters are allowed")]
         public string LNAME { get; set; }
 
