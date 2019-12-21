@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace ArtGallery.Models
+namespace ArtGallery.Models 
 {
     public class ExpertQualifications
     {

@@ -21,10 +21,11 @@ namespace ArtGallery.Models
         public HttpPostedFileBase imagefile { get; set; }
         [DisplayName("Price")]
         [Required(ErrorMessage = "Please enter the price of ticket ")]
-        [Range(20, 150)]
+        [Range(20, 1000,ErrorMessage ="Please enter a price from 20 to 1000")]
         public int TICKET_PRICE { get; set; }
 
         [DisplayName("Date")]
+        [Required]
         public DateTime EVENTDATE { get; set; }
 
         [DisplayName("Location")]
@@ -35,7 +36,7 @@ namespace ArtGallery.Models
 
         [DisplayName("Number of Tickets")]
         [Required(ErrorMessage = "Please enter the number of tickets ")]
-        [Range(10, 150)]
+        [Range(10, 1000)]
         public int TICKETS_NUM { get; set; }
 
         [DisplayName("Info")]

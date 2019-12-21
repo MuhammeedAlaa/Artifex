@@ -32,6 +32,7 @@ namespace ArtGallery.Models
         [RegularExpression("^(true|false)$", ErrorMessage = "Please enter a valid user name")]
         public bool PRIVACY { get; set; }
   
+        [Required]
         public bool STATUS { get; set; }
 
         [Required(ErrorMessage = "Please entet the description ")]
@@ -40,39 +41,38 @@ namespace ArtGallery.Models
         public string DESCRIPTION { get; set; }
 
         [Required(ErrorMessage ="Please enter the width ")]
-        [Range(20, 200)]
+        [Range(20, 200,ErrorMessage = "please enter number from 20 to 200")]
         public int WIDTH { get; set; }
 
         [Required(ErrorMessage = "Please enter the heigth ")]
-        [Range(20, 200)]
+        [Range(20, 200, ErrorMessage = "please enter number from 20 to 200")]
         public int HEIGHT { get; set; }
 
         [Required(ErrorMessage = "Please enter the depth ")]
-        [Range(2, 15)]
+        [Range(2, 15, ErrorMessage ="please enter number from 2 to 15")]
         public int DEPTH { get; set; }
 
         [Required(ErrorMessage = "Please enter the price ")]
-        [Range(20, 10000)]
+        [Range(20, 10000, ErrorMessage = "please enter a price from 20 to 10000")]
         public int PRICE { get; set; }
 
-        [Required(ErrorMessage = "Please entet the material ")]
-        [StringLength(20, ErrorMessage = "Max length = 20 characters")]
+        [Required(ErrorMessage = "Please enter the material ")]
+        [StringLength(10, ErrorMessage = "Max length = 10 characters")]
         [RegularExpression("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", ErrorMessage = "Only letters are allowed")]
         public string MATERIAL { get; set; }
 
-        [Required(ErrorMessage = "Please entet the medium ")]
-        [StringLength(20, ErrorMessage = "Max length = 20 characters")]
+        [Required(ErrorMessage = "Please enter the medium ")]
+        [StringLength(10, ErrorMessage = "Max length = 10 characters")]
         [RegularExpression("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", ErrorMessage = "Only letters are allowed")]
         public string MEDIUM { get; set; }
 
-        [Required(ErrorMessage = "Please entet the subject")]
-        [StringLength(20, ErrorMessage = "Max length = 20 characters")]
+        [StringLength(10, ErrorMessage = "Max length = 10 characters")]
         [RegularExpression("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", ErrorMessage = "Only letters are allowed")]
         public string SUBJECT { get; set; }
+        [Range(1950,2020,ErrorMessage ="please enter a year from 190 to 2020")]
         public int YEAR { get; set; }
         
         public string PHOTO { get; set; }
-        [Required]
         public HttpPostedFileBase imagefile { get; set; }
         public string Selected { get; set; }
         public string STS { get; set; }

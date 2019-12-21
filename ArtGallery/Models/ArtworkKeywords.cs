@@ -7,7 +7,7 @@ using System.Web;
 namespace ArtGallery.Models
 {
     public class ArtworkKeywords
-    {
+    { 
         public int AW_CODE { get; set; }
 
         [Required(ErrorMessage = "Please enter the keyword")]
