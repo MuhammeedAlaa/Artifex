@@ -15,6 +15,34 @@ BEGIN
 END;
 GO
 /******************************************/
+CREATE PROCEDURE SignInAdmin
+	
+   @EMAIL VARCHAR(50) ,
+   @PASSWORD VARCHAR(70)
+AS
+BEGIN
+	
+	SET NOCOUNT ON;
+	SELECT * FROM dbo.[ADMIN] 
+	WHERE EMAIL=@EMAIL AND HASHBYTES('SHA1',@PASSWORD) IN (SELECT PASSWORD FROM dbo.[ADMIN])
+ 
+END;
+GO
+/******************************************/
+CREATE PROCEDURE GetAdminID
+	
+   @EMAIL VARCHAR(50) ,
+   @PASSWORD VARCHAR(70)
+AS
+BEGIN
+	
+	SET NOCOUNT ON;
+	SELECT ADMIN_ID FROM dbo.[ADMIN] 
+	WHERE EMAIL=@EMAIL AND HASHBYTES('SHA1',@PASSWORD) IN (SELECT PASSWORD FROM dbo.[ADMIN])
+ 
+END;
+GO
+/******************************************/
 CREATE PROCEDURE SignUp
 	-- Add the parameters for the stored procedure here
 	@USER_NAME VARCHAR(20) ,

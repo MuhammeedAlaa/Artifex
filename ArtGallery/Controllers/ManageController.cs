@@ -120,7 +120,7 @@ namespace ArtGallery.Controllers
                 else
                     return View();
             }
-            else //if(Email == null && Uname != "" || (Email != null && Uname != "") )
+            else 
             {
                 Email = Uname;
                 ViewBag.title = db.GetUserName(Email);

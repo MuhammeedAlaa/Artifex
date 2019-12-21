@@ -152,6 +152,12 @@ namespace ArtGallery.Controllers
             DataTable t = db.SignIn(logeduser);
             if (t == null)
             {
+                DataTable d = db.adminsignin(logeduser);
+                if (d != null)
+                {
+                    System.Web.Security.FormsAuthentication.SetAuthCookie(db.adminid(logeduser), false);
+                    return RedirectToAction("index", "Admin");
+                }
                 ModelState.AddModelError("", "Invalid login attempt.");
                 return View(logeduser);
             }

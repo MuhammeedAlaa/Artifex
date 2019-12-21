@@ -11,7 +11,6 @@ using PagedList;
 
 namespace ArtGallery.Controllers
 {
-    //[CustomAuthorizeAttribte(Users="")]
     public class AdminController : Controller
     {
 
@@ -19,10 +18,10 @@ namespace ArtGallery.Controllers
 
         ArtifexContext db = new ArtifexContext();
         // GET: Admin
-
         public ActionResult Index()
         {
             //hard coded temporarly
+            string id = User.Identity.Name;
             admin = new AdminViewModel();
             admin.Admin.Name = "nice man";
             return View(admin);

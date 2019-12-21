@@ -43,7 +43,7 @@ INSERT INTO SHIPPING_COMPANY VALUES
 ;
 /*----------------------------*/
 INSERT INTO ADMIN VALUES
-('mahmou@gmail.com',HASHBYTES('SHA1','qwerty1234'),450),
-('MuhammedH@gmail.com',HASHBYTES('SHA1','pepsi1234'),450),
-('MohamedAl@gmail.com',HASHBYTES('SHA1','asdfg4321'),450);
+('mahmou@gmail.com',HASHBYTES('SHA1','Mahmoud@12'),450),
+('MuhammedH@gmail.com',HASHBYTES('SHA1','MohamedH@12'),450),
+('MohamedAl@gmail.com',HASHBYTES('SHA1','MohamedAlaa@12'),450);
 /*----------------------------*/

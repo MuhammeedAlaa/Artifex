@@ -429,12 +429,22 @@ namespace ArtGallery.DBaccess
         }
 
 
-        //PasswordHasher P = new PasswordHasher();
-
-        //string pas = logeduser.password;
-        //logeduser.password = P.HashPassword(logeduser.password);
-        //    bool f = Convert.ToBoolean(P.VerifyHashedPassword(logeduser.password, pas));
-
+        public DataTable adminsignin(LoginViewModel u) {
+            string StoredProcedureName = StoredProcedures.SignInAdmin;
+            Dictionary<string, object> Parameters = new Dictionary<string, object>();
+            Parameters.Add("@EMAIL", u.email);
+            Parameters.Add("@PASSWORD", u.password);
+            return db.ExecuteReader_proc(StoredProcedureName, Parameters);
+        }
+        public string adminid(LoginViewModel u)
+        {
+            string StoredProcedureName = StoredProcedures.GetAdminID;
+            Dictionary<string, object> Parameters = new Dictionary<string, object>();
+            Parameters.Add("@EMAIL", u.email);
+            Parameters.Add("@PASSWORD", u.password);
+            string id = Convert.ToString(db.ExecuteReader_proc(StoredProcedureName, Parameters).Rows[0]["Admin_Id"]);
+            return id;
+        }
         public bool CreateEvent(Event e)
         {
             string query = "INSERT INTO EVENT VALUES('" + e.TITLE + "', "+ e.ADMIN_ID+", '" + e.IMAGE + "', " + e.TICKET_PRICE + ", '" +
