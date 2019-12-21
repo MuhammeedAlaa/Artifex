@@ -8,6 +8,7 @@ namespace ArtGallery.DBaccess
     public class StoredProcedures
     {
         public static string SignIn = "SignIn";
+        public static string AddAdmin = "AddAdmin";
         public static string SignInAdmin = "SignInAdmin";
         public static string GetAdminID = "GetAdminID";
         public static string SignUp = "SignUp";

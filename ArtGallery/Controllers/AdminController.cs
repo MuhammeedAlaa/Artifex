@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Web.Mvc;
+using System.Web.Security;
 using System.Web.WebPages;
 using ArtGallery.Authorize;
 using ArtGallery.DBaccess;
@@ -11,6 +12,7 @@ using PagedList;
 
 namespace ArtGallery.Controllers
 {
+    [Authorize]
     public class AdminController : Controller
     {
 
@@ -20,14 +22,34 @@ namespace ArtGallery.Controllers
         // GET: Admin
         public ActionResult Index()
         {
-            //hard coded temporarly
-            string id = User.Identity.Name;
-            admin = new AdminViewModel();
-            admin.Admin.Name = "nice man";
-            return View(admin);
+            return View();
         }
 
 
+        public ActionResult AddAdmin()
+        {
+            return View();
+        }
+
+        public ActionResult Signout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public ActionResult AddAdmin(Admin a)
+        {
+            if (ModelState.IsValid)
+            {
+                if (db.AddAdmin(a))
+                    return RedirectToAction("Index");
+                else
+                    return HttpNotFound();
+            }
+
+            return View(a);
+        }
         public ActionResult Orders(string Orderby, int? page, string sortdir)
         {
             if (Request.QueryString["table_search"].IsNullOrWhiteSpace() ||
@@ -78,8 +100,7 @@ namespace ArtGallery.Controllers
         {
             if(ModelState.IsValid)
             {
-                //hardcoded for now
-                o.OrderInfo.ADMIN_ID = 1;
+                o.OrderInfo.ADMIN_ID = Convert.ToInt32(User.Identity.Name); 
                 if (db.AssignOrder(o.OrderInfo))
                     return View("Index");
 
@@ -126,8 +147,7 @@ namespace ArtGallery.Controllers
                 r.Report = db.GetReportById((int)reportid)[0];
                 r.OrderInfo = db.GetOrderInfo(r.Report.ORDER_ID);
                 r.Order = db.GetOrderById(r.Report.ORDER_ID)[0];
-                //hardcoded for now
-                r.Adminid = 1;
+                r.Adminid = Convert.ToInt32(User.Identity.Name); 
             }
             else
             {
@@ -141,7 +161,7 @@ namespace ArtGallery.Controllers
         public ActionResult ReportAction()
         {
             Report r = new Report();
-            r.ADMIN_ID = (int)Session["adminid"];
+            r.ADMIN_ID = Convert.ToInt32(User.Identity.Name);
             r.REPORT_ID = (int)Session["reportid"];
             if (ModelState.IsValid)
                 db.SolveReport(r);
@@ -204,14 +224,14 @@ namespace ArtGallery.Controllers
         {
             if (Request.Form["Approve"] != null)
             {
-                //should be updated with admin code later
-                if (!db.ApproveArtwork(1, Convert.ToInt32(code), 1))
+                
+                if (!db.ApproveArtwork(Convert.ToInt32(User.Identity.Name), Convert.ToInt32(code), 1))
                     return HttpNotFound();
 
             }
             else
             {
-                if (!db.ApproveArtwork(1, Convert.ToInt32(code), 0))
+                if (!db.ApproveArtwork(Convert.ToInt32(User.Identity.Name), Convert.ToInt32(code), 0))
                     return HttpNotFound();
 
             }
@@ -233,7 +253,7 @@ namespace ArtGallery.Controllers
             {
                 //temporary for testing will not be hardcoded later
                 e.SelectedArtists = (string[])Session["selected"];
-                e.ADMIN_ID = 1;
+                e.ADMIN_ID = Convert.ToInt32(User.Identity.Name) ;
                 if (e.imagefile != null)
                 {
                     string imagefilename = Path.GetFileNameWithoutExtension(e.imagefile.FileName);
@@ -273,8 +293,8 @@ namespace ArtGallery.Controllers
 
             if (ModelState.IsValid)
             {
-                //temporary for testing will not be hardcoded later
-                e.ADMIN_ID = 1;
+                
+                e.ADMIN_ID = Convert.ToInt32(User.Identity.Name);
                 if (e.imagefile != null)
                 {
                     string imagefilename = Path.GetFileNameWithoutExtension(e.imagefile.FileName);

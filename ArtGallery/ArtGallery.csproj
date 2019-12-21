@@ -2384,6 +2384,8 @@
     <Content Include="Views\Admin\ReportAction.cshtml" />
     <Content Include="Views\Manage\Favourite.cshtml" />
     <Content Include="Views\Home\Experts.cshtml" />
+    <Content Include="Views\Home\ArtistLeaderBoard.cshtml" />
+    <Content Include="Views\Admin\AddAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
