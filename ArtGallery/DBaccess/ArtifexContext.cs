@@ -536,12 +536,10 @@ namespace ArtGallery.DBaccess
             Parameters2.Add("@rating", rating);
             db.ExecuteNonQuery_proc(StoredProcedureName, Parameters2);
         }
-        public int GetRate(int code) 
+        public int GetRate() 
         {
             string StoredProcedureName = StoredProcedures.OldRating;
-            Dictionary<string, object> Parameters = new Dictionary<string, object>();
-            Parameters.Add("@AWCODE", code);
-            DataTable oldrate = db.ExecuteReader_proc(StoredProcedureName, Parameters);
+            DataTable oldrate = db.ExecuteReader_proc(StoredProcedureName, null);
             int rating = (int)oldrate.Rows[0]["SUM"];
             rating /= (int)oldrate.Rows[0]["COUNT"];
             return rating;
