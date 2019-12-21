@@ -243,13 +243,17 @@ namespace ArtGallery.Controllers
         {
             var artworks = db.GetRecommended((int) Session["surveyid"]);
             var data = new List<Artwork>();
-            foreach (var artwork in artworks)
+            if (data.Count != 0)
             {
-                data.Add(db.GetArtworkWithCode(artwork.AW_CODE));
-            }
-            foreach (var l in data)
-            {
-                l.PHOTO = l.PHOTO.Substring(1);
+                foreach (var artwork in artworks)
+                {
+                    data.Add(db.GetArtworkWithCode(artwork.AW_CODE));
+                }
+
+                foreach (var l in data)
+                {
+                    l.PHOTO = l.PHOTO.Substring(1);
+                }
             }
             return Json(new { data = data }, JsonRequestBehavior.AllowGet);
         }
