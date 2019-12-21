@@ -385,7 +385,8 @@ namespace ArtGallery.DBaccess
         }
         public List<Survey> GetRequestedSurvey(ExpertViewModel e)
         {
-            string query = "SELECT * FROM SURVEY WHERE EXPERT_UNAME='" + e.EXPERT_UNAME + "'";
+            string query = "SELECT * FROM SURVEY AS S WHERE EXPERT_UNAME='" + e.EXPERT_UNAME +
+                           "' AND S.SURVEY_ID NOT IN(SELECT R.SURVEY_ID FROM RECOMMEND AS R)";
             return ConvertDataTable<Survey>(db.ExecuteReader(query));
         }
         public Survey GetSurveyInfo(int code)
@@ -578,6 +579,12 @@ namespace ArtGallery.DBaccess
         {
             string query = "SELECT EMAIL FROM [USER] JOIN EXPERT ON EXPERT_UNAME = USER_NAME";
             return db.ExecuteReader(query).AsEnumerable().Select(x => x[0].ToString()).ToList();
+        }
+
+        public bool RecommendAW(int awcode, int surveyid)
+        {
+            string query = "INSERT INTO RECOMMEND VALUES (" + surveyid + ", " + awcode + ")";
+            return db.ExecuteNonQuery(query) != 0;
         }
         
 
