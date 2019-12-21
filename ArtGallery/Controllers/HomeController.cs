@@ -131,6 +131,7 @@ namespace ArtGallery.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("Home/fav/{rating?}")]
         public ActionResult fav(int rating) 
         {
             Artwork a = (Artwork)TempData["buyartwork"];

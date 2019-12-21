@@ -208,8 +208,6 @@ namespace ArtGallery.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult BillingForm(BillingInfo b) 
         {
-            if (ModelState.IsValid)
-            {
                 RegisterViewModel newuser = (RegisterViewModel)TempData["User"];
                 string path = (string)TempData["imagepath"];
                 if (db.SignUp(newuser) == 0)
@@ -223,9 +221,6 @@ namespace ArtGallery.Controllers
                 ModelState.Clear();
                 System.Web.Security.FormsAuthentication.SetAuthCookie(newuser.EMAIL, false);
                 return RedirectToAction("Index", "Home");
-            }
-            else
-                return View(b);
         }
         [HttpGet]
         [AllowAnonymous]
@@ -254,16 +249,9 @@ namespace ArtGallery.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ApplyArtist(Artist a)
         {
-
-            if (ModelState.IsValid)
-            {
                 string Email = User.Identity.Name;
                 db.InsertArtist(Email, a.BIO, a.BYEAR, a.START_SALARY, a.END_SALARY);
-
                 return RedirectToAction("index", "home");
-            }
-
-            return View(a);
         }
         [HttpGet]
         [Authorize]
