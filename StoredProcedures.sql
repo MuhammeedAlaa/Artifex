@@ -29,6 +29,30 @@ BEGIN
 END;
 GO
 /******************************************/
+CREATE PROCEDURE InsertRating
+   @uname varchar(20),
+   @AWCODE int,
+   @rating int 
+AS
+BEGIN
+	
+	SET NOCOUNT ON;
+	INSERT INTO RATE_AW VALUES(@uname,@AWCODE,@rating);
+	UPDATE ARTWORK SET STATUS =0 WHERE AW_CODE=@AWCODE;
+END;
+GO
+/******************************************/
+CREATE PROCEDURE OldRating
+	
+   @AWCODE int 
+AS
+BEGIN
+	
+	SET NOCOUNT ON;
+	SELECT SUM(RATING) AS SUM,COUNT(*) AS COUNT FROM RATE_AW WHERE AW_CODE=@AWCODE GROUP BY AW_CODE
+END;
+GO
+/******************************************/
 CREATE PROCEDURE GetAdminID
 	
    @EMAIL VARCHAR(50) ,
