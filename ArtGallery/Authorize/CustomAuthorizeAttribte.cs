@@ -16,7 +16,9 @@ namespace ArtGallery.Authorize
             {
                 return false;
             }
-                if (Users.Split(',').Contains(httpContext.User.Identity.Name.ToString()))
+            int result;
+            int.TryParse(httpContext.User.Identity.Name.ToString(), out result);
+            if (result != 0)
                     return true;
                 return false;
         }

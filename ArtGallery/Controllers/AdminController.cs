@@ -12,7 +12,7 @@ using PagedList;
 
 namespace ArtGallery.Controllers
 {
-    [CustomAuthorizeAttribte(Users ="1,2,3")]
+    [CustomAuthorizeAttribte]
     public class AdminController : Controller
     {
 
