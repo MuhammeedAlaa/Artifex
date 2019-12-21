@@ -13,11 +13,10 @@
             <ul class="nav navbar-nav">
 
                 <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                <li>@Html.ActionLink("About", "About", "Home")</li>
-                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 <li>@Html.ActionLink("Explore", "ExploreArtworks", "Home")</li>
                 @if (Request.IsAuthenticated)
                 {
+                    <li>@Html.ActionLink("ExpertList", "Experts", "Home")</li>
                     <li>@Html.ActionLink("Event", "Events", "Home")</li>
                     <li>@Html.ActionLink("ApplyArtist", "ApplyArtist", "Authorization")</li>
                     <li>@Html.ActionLink("ApplyExpert", "ApplyExpert", "Authorization")</li>

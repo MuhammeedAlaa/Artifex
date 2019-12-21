@@ -205,13 +205,16 @@
                 </div>
             </div>
             <!-- /.row -->
-            <div class="pagination">
-                @Html.PagedListPager(Model, page => Url.Action("Index",
-                    new
-                    {
-                        page
-                    }), PagedListRenderOptions.ClassicPlusFirstAndLast)
-            </div>
+            @if(Model != null)
+            { 
+                <div class="pagination">
+                    @Html.PagedListPager(Model, page => Url.Action("Index",
+                        new
+                        {
+                            page
+                        }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+                </div>
+            }
         </div>
     </section>
 }
