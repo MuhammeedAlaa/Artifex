@@ -491,15 +491,6 @@ BEGIN
 END
 GO
 /********************************************************/
-CREATE PROCEDURE GetRequestedSurvey
-@EXPERT_UNAME VARCHAR(20)
-AS
-BEGIN
-	SET NOCOUNT ON
-	SELECT * FROM SURVEY WHERE EXPERT_UNAME= @EXPERT_UNAME
-END
-GO
-/********************************************************/
 CREATE PROCEDURE GetSurveyInfo
 @code INT 
 AS
@@ -678,5 +669,66 @@ BEGIN
 	SELECT EMAIL FROM [USER] JOIN EXPERT ON EXPERT_UNAME = USER_NAME
 END
 GO
+/***************************START**********************************/ 
+CREATE PROCEDURE RecommendAW
 
+    @AWCode INT ,
+	@SurveyID INT 
+AS
+BEGIN 
+      INSERT INTO RECOMMEND VALUES (@SurveyID,@AWCode)
+END 
+GO 
+/*******************************************************************/
+CREATE PROCEDURE GetArtworksforrecommanded
 
+AS
+BEGIN 
+      SELECT * FROM ARTWORK WHERE PRIVACY=0
+END 
+GO 
+/*******************************************************************/
+CREATE PROCEDURE GetRequestedSurvey
+	@ExpertName VARCHAR(20)
+AS
+BEGIN 
+      SELECT * FROM SURVEY AS S 
+	  WHERE EXPERT_UNAME=@ExpertName AND S.SURVEY_ID NOT IN (SELECT R.SURVEY_ID FROM RECOMMEND AS R)  
+END 
+GO
+/********************************************************************/
+CREATE PROCEDURE GetRecommended 
+     @SurveyID INT 
+AS
+BEGIN 
+      SELECT * FROM RECOMMEND WHERE SURVEY_ID=@SurveyID
+END
+GO
+/*********************************************************************/
+CREATE PROCEDURE GetUserSurveys
+     @username	VARCHAR(20)
+AS 
+BEGIN 
+     SELECT * FROM SURVEY WHERE [USER_NAME]=@username
+END
+GO
+/**********************************************************************/
+CREATE PROCEDURE ArtistSalaryLess
+        @Budget INT
+AS
+BEGIN 
+     SELECT ARTIST_UNAME FROM ARTIST
+	 WHERE START_SALARY<=@Budget
+END 
+GO			 	   
+/***********************************************************************/
+CREATE PROCEDURE InsertCustomOrder
+	   @OrderDate DATE,
+	   @Deadline DATE
+AS
+BEGIN 
+    INSERT INTO [ORDER] VALUES
+	(1,@OrderDate,@Deadline)
+END
+GO
+/************************************************************************/
