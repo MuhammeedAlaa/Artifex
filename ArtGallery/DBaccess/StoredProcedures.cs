@@ -61,6 +61,7 @@ namespace ArtGallery.DBaccess
         public static string SellTicket = "SellTicket";
         public static string EditEvent = "EditEvent";
         public static string InviteArtist = "InviteArtist";
+        public static string AttendUserEvent = "AttendUserEvent";
 
         public static string ApproveArtwork = "ApproveArtwork";
 

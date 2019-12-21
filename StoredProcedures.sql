@@ -427,16 +427,17 @@ END
 GO
 /********************************************************/
 CREATE PROCEDURE GetEvents
-     @NowDate Date 
+     @NowDate Date,
+	 @Username varchar(20) 
 AS
 BEGIN
 
-	SET NOCOUNT ON;
-	SELECT * FROM dbo.[EVENT]
-	WHERE EVENTDATE>=@NowDate
+	SELECT * FROM [EVENT] AS E 
+	WHERE EVENTDATE>=@NowDate AND E.TITLE NOT IN
+	(SELECT A.TITLE FROM ATTEND AS A WHERE A.USER_NAME = @Username)
 
 END
-GO
+
 /*********************************************************/
 CREATE PROCEDURE GetArtWorksByArtist
      @Artist_UName VARCHAR(20)
@@ -676,6 +677,18 @@ AS
 BEGIN
 	SET NOCOUNT ON
 	SELECT EMAIL FROM [USER] JOIN EXPERT ON EXPERT_UNAME = USER_NAME
+END
+GO
+
+/****************************************************************/
+
+
+CREATE PROCEDURE AttendUserEvent 
+	@TITLE VARCHAR(20),
+	@USER_NAME VARCHAR(20)
+AS
+BEGIN
+    INSERT INTO ATTEND VALUES (@TITLE, @USER_NAME)
 END
 GO
 

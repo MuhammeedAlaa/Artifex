@@ -90,7 +90,8 @@ namespace ArtGallery.Controllers
         [Authorize]
         public ActionResult Events(int? page)
         {
-            List<Event> ev = db.GetEvents();
+            string username = db.GetUserName(User.Identity.Name);
+            List<Event> ev = db.GetEvents(username);
             List<Event> realevents = new List<Event>();
             foreach (var even in ev)
             {
@@ -110,9 +111,11 @@ namespace ArtGallery.Controllers
             return View(e[0]);
         }
         [Authorize]
-        public ActionResult Buy(string title) {
-
+        public ActionResult Buy(string title)
+        {
+            string username = db.GetUserName(User.Identity.Name);
             db.UpdateEvent(title);
+            db.AttendUserEvent(username, title);
             return RedirectToAction("Index", "Home");
         }
         
