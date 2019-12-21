@@ -283,6 +283,10 @@ namespace ArtGallery.Controllers
         public ActionResult LoadData()
         {
             var data = db.GetArtworksforrecommanded();
+            foreach(var l in data)
+            {
+                l.PHOTO = l.PHOTO.Substring(1);
+            }
             return Json(new { data = data }, JsonRequestBehavior.AllowGet);
         }
         public JsonResult SaveSelected(string[] list)
