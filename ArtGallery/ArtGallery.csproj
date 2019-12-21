@@ -2386,6 +2386,8 @@
     <Content Include="Views\Home\Experts.cshtml" />
     <Content Include="Views\Home\ArtistLeaderBoard.cshtml" />
     <Content Include="Views\Admin\AddAdmin.cshtml" />
+    <Content Include="Views\Manage\UserSurveys.cshtml" />
+    <Content Include="Views\Manage\UserSurveryResponse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

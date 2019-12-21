@@ -23,5 +23,6 @@ namespace ArtGallery.Models
         public string MORE_INFO { get; set; }
         public int? RATING { get; set; }
 
+
     }
 }
