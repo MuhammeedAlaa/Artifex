@@ -115,12 +115,12 @@ namespace ArtGallery.Controllers
             {
                 sortdir = sortdir == "desc" ? "asc" : "desc";
                 bool asc = sortdir == "desc" ? true : false;
-                if (Orderby == "UserName")
+                if (Orderby == "USER_NAME")
                 {
                     admin.Reports = db.GetSortedReports("USER_NAME", asc).ToPagedList(page ?? 1, 5);
                     return View(admin);
                 }
-                else if (Orderby == "OrderId")
+                else if (Orderby == "ORDER_ID")
                 {
                     admin.Reports = db.GetSortedReports("ORDER_ID", asc).ToPagedList(page ?? 1, 5);
                     return View(admin);
