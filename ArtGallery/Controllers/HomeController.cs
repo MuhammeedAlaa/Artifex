@@ -116,6 +116,7 @@ namespace ArtGallery.Controllers
         public ActionResult ArtworkView(string ArtworkTitle)
         {
             List<Artwork> e = db.GetArtworkInfo(ArtworkTitle);
+            ViewBag.same = db.GetEmail(e[0].ARTIST_UNAME) == User.Identity.Name;
             if (!e[0].STATUS)
                 ViewBag.status = "Sold";
             else
@@ -126,10 +127,10 @@ namespace ArtGallery.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult fav() 
+        public ActionResult fav(int rating) 
         {
             Artwork a = (Artwork)TempData["buyartwork"];
-            db.addFav(a.AW_CODE, db.GetUserName(User.Identity.Name));
+            db.addFav(a.AW_CODE, db.GetUserName(User.Identity.Name),rating);
 
             return RedirectToAction("index", "home");
         }

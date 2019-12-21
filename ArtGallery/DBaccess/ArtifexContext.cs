@@ -539,13 +539,24 @@ namespace ArtGallery.DBaccess
 
         }
         public void rateArtwork(int rating,int code,string uname) {
-            string query = "INSERT INTO RATE_AW VALUES('" + uname + "'," + code + "," + rating + ");";
-            db.ExecuteNonQuery(query);
-            query = "UPDATE ARTWORK SET STATUS =0 WHERE AW_CODE=" + code + ";";
-            db.ExecuteNonQuery(query);
+            string StoredProcedureName = StoredProcedures.InsertRating;
+            Dictionary<string, object> Parameters2 = new Dictionary<string, object>();
+            Parameters2.Add("@uname", uname);
+            Parameters2.Add("@AWCODE", code);
+            Parameters2.Add("@rating", rating);
+            db.ExecuteNonQuery_proc(StoredProcedureName, Parameters2);
         }
-        public void addFav(int code, string uname)
+        public int GetRate() 
         {
+            string StoredProcedureName = StoredProcedures.OldRating;
+            DataTable oldrate = db.ExecuteReader_proc(StoredProcedureName, null);
+            int rating = (int)oldrate.Rows[0]["SUM"];
+            rating /= (int)oldrate.Rows[0]["COUNT"];
+            return rating;
+        }
+        public void addFav(int code, string uname,int rating)
+        {
+            rateArtwork(rating, code, uname);
             string query = "INSERT INTO FAV_AW VALUES(" + code + ",'" + uname  + "');";
             db.ExecuteNonQuery(query);
         }

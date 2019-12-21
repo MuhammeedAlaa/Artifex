@@ -41,6 +41,29 @@ BEGIN
 END;
 GO
 /******************************************/
+CREATE PROCEDURE InsertRating
+   @uname varchar(20),
+   @AWCODE int,
+   @rating int 
+AS
+BEGIN
+	
+	SET NOCOUNT ON;
+	INSERT INTO RATE_AW VALUES(@uname,@AWCODE,@rating);
+	UPDATE ARTWORK SET STATUS =0 WHERE AW_CODE=@AWCODE;
+END;
+GO
+/******************************************/
+CREATE PROCEDURE OldRating
+
+AS
+BEGIN
+	
+	SET NOCOUNT ON;
+	SELECT SUM(RATING) AS SUM,COUNT(*) AS COUNT, A.ARTIST_UNAME  FROM RATE_AW AS RW JOIN ARTWORK A ON RW.AW_CODE = A.AW_CODE GROUP BY A.ARTIST_UNAME
+END;
+GO
+/******************************************/
 CREATE PROCEDURE GetAdminID
 	
    @EMAIL VARCHAR(50) ,

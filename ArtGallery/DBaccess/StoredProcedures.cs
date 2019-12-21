@@ -10,6 +10,8 @@ namespace ArtGallery.DBaccess
         public static string SignIn = "SignIn";
         public static string AddAdmin = "AddAdmin";
         public static string SignInAdmin = "SignInAdmin";
+        public static string OldRating = "OldRating";
+        public static string InsertRating = "InsertRating";
         public static string GetAdminID = "GetAdminID";
         public static string SignUp = "SignUp";
         public static string InsertExpert = "ADD_EXPERT";
