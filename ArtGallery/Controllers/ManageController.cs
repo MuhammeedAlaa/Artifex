@@ -241,12 +241,16 @@ namespace ArtGallery.Controllers
         }
         [Authorize]
         [HttpPost]
-        public ActionResult SurveyResponse(string Code)
+        public ActionResult SurveyResponse()
         {
             int surveyid = (int)Session["ID"];
             string[] x = (string[])Session["selected"];
-            Survey s = db.GetSurveyInfo(Convert.ToInt32(Code));
-            return View(s);
+            foreach (var Artwork in x)
+            {
+                if (!db.RecommendAW(Convert.ToInt32(Artwork), surveyid))
+                    return HttpNotFound();
+            }
+            return RedirectToAction("Index");
         }
 
 
