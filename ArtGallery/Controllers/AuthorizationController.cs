@@ -152,6 +152,12 @@ namespace ArtGallery.Controllers
             DataTable t = db.SignIn(logeduser);
             if (t == null)
             {
+                DataTable d = db.adminsignin(logeduser);
+                if (d != null)
+                {
+                    System.Web.Security.FormsAuthentication.SetAuthCookie(db.adminid(logeduser), false);
+                    return RedirectToAction("index", "Admin");
+                }
                 ModelState.AddModelError("", "Invalid login attempt.");
                 return View(logeduser);
             }
@@ -202,8 +208,6 @@ namespace ArtGallery.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult BillingForm(BillingInfo b) 
         {
-            if (ModelState.IsValid)
-            {
                 RegisterViewModel newuser = (RegisterViewModel)TempData["User"];
                 string path = (string)TempData["imagepath"];
                 if (db.SignUp(newuser) == 0)
@@ -217,18 +221,17 @@ namespace ArtGallery.Controllers
                 ModelState.Clear();
                 System.Web.Security.FormsAuthentication.SetAuthCookie(newuser.EMAIL, false);
                 return RedirectToAction("Index", "Home");
-            }
-            else
-                return View(b);
         }
         [HttpGet]
         [AllowAnonymous]
         public ActionResult ApplyArtist() 
         {
             string Email = User.Identity.Name;
+            Artist a = new Artist();
+            a.ARTIST_UNAME = db.GetUserName(Email);
             if (db.IsArtist(Email))
                 return RedirectToAction("IsArtist", "Authorization");
-            return View();
+            return View(a);
         }
 
         [HttpGet]
@@ -236,20 +239,19 @@ namespace ArtGallery.Controllers
         public ActionResult ApplyExpert()
         {
             string Email = User.Identity.Name;
+            ExpertViewModel e = new ExpertViewModel();
+            e.EXPERT_UNAME = db.GetUserName(Email);
             if (db.IsExpert(Email))
                 return RedirectToAction("IsExpert", "Authorization");
-            return View();
+            return View(e);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult ApplyArtist(Artist a)
         {
-            
-
-            string Email = User.Identity.Name;
-            db.InsertArtist(Email, a.BIO, a.BYEAR,a.START_SALARY,a.END_SALARY);
-
-            return RedirectToAction("index","home");
+                string Email = User.Identity.Name;
+                db.InsertArtist(Email, a.BIO, a.BYEAR, a.START_SALARY, a.END_SALARY);
+                return RedirectToAction("index", "home");
         }
         [HttpGet]
         [Authorize]
@@ -269,9 +271,14 @@ namespace ArtGallery.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ApplyExpert(ExpertViewModel e)
         {
-            string Email = User.Identity.Name;
-            db.InsertExpert(Email, e.BIO, e.QUALIFICATIONS, e.BYEAR);
-            return RedirectToAction("index", "home");
+            if(ModelState.IsValid)
+            { 
+                string Email = User.Identity.Name;
+                db.InsertExpert(Email, e.BIO, e.QUALIFICATIONS, e.BYEAR);
+                return RedirectToAction("index", "home");
+            }
+
+            return View(e);
         }
 
         protected override void Dispose(bool disposing)

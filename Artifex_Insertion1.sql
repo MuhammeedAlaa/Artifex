@@ -2,13 +2,13 @@ GO
 USE ARTIFEX
 
 INSERT INTO [dbo].[USER] VALUES
-('Alia241','aliam24@gmail.com',HASHBYTES('SHA1','ox1eeM9O'),'Aliaa','M','Ali','7036594912',' '),
-('MM2020','mmarwan20@gmail.com',HASHBYTES('SHA1','ohB3amoan'),'Mostafa','A','Marwan','4847397862',' '),
-('soha19','soha_ahmed@gmail.com',HASHBYTES('SHA1','aipe6Io0hu'),'Soha','S','Ahmed','7016884367',' '),
-('amany23','amany_23@gmail.com',HASHBYTES('SHA1','zoo2Eejei'),'Amany','A','Muhammed','3044215927',' '),
-('amgedXD','amgedXD@gmail.com',HASHBYTES('SHA1','IeX6hio8e'),'Muhammed','A','Amged','8635663564',' '),
-('bmohab44','bmohab@gmail.com',HASHBYTES('SHA1','ongeiC5d'),'Mohab','B','Islam','2139853701',' '),
-('mazen03','mazen03@gmail.com',HASHBYTES('SHA1','uNgaexai7oh'),'Mazen','M','Omar','3038949921',' ');
+('Alia241','aliam24@gmail.com',HASHBYTES('SHA1','MohamedAlaa@12'),'Aliaa','M','Ali','7036594912','~/Images/def.png'),
+('MM2020','mmarwan20@gmail.com',HASHBYTES('SHA1','MohamedAlaa@12'),'Mostafa','A','Marwan','4847397862','~/Images/def.png'),
+('soha19','soha_ahmed@gmail.com',HASHBYTES('SHA1','MohamedAlaa@12'),'Soha','S','Ahmed','7016884367','~/Images/def.png'),
+('amany23','amany_23@gmail.com',HASHBYTES('SHA1','MohamedAlaa@12'),'Amany','A','Muhammed','3044215927','~/Images/def.png'),
+('amgedXD','amgedXD@gmail.com',HASHBYTES('SHA1','MohamedAlaa@12'),'Muhammed','A','Amged','8635663564','~/Images/def.png'),
+('bmohab44','bmohab@gmail.com',HASHBYTES('SHA1','MohamedAlaa@12'),'Mohab','B','Islam','2139853701','~/Images/def.png'),
+('mazen03','mazen03@gmail.com',HASHBYTES('SHA1','MohamedAlaa@12'),'Mazen','M','Omar','3038949921','~/Images/def.png');
 /*----------------------------*/
 INSERT INTO BILLING_INFO VALUES
 ('4539303552691255','Alia241','9 street','Cairo','Aliaa',194,'2020-09-01'),
@@ -43,7 +43,7 @@ INSERT INTO SHIPPING_COMPANY VALUES
 ;
 /*----------------------------*/
 INSERT INTO ADMIN VALUES
-('mahmou@gmail.com',HASHBYTES('SHA1','qwerty1234'),450),
-('MuhammedH@gmail.com',HASHBYTES('SHA1','pepsi1234'),450),
-('MohamedAl@gmail.com',HASHBYTES('SHA1','asdfg4321'),450);
+('mahmou@gmail.com',HASHBYTES('SHA1','Mahmoud@12'),450),
+('MuhammedH@gmail.com',HASHBYTES('SHA1','MohamedH@12'),450),
+('MohamedAl@gmail.com',HASHBYTES('SHA1','MohamedAlaa@12'),450);
 /*----------------------------*/

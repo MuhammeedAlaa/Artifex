@@ -25,7 +25,7 @@
             Session["ID"] = Model.SURVEY_ID;
             
 
-        <div class=}"form-horizontal">
+        <div class="form-horizontal">
                 <h4>Survey</h4>
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -60,18 +60,16 @@
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
                         <tr>
-                            <th>Artist UserName</th>
-                            <th>Artwork Code</th>
+                            <th>Artist</th>
+                            <th>ArtCode</th>
                             <th>Title</th>
                             <th>Category</th>
-                            <th>Description</th>
                             <th>Price</th>
                             <th>Width</th>
                             <th>Height</th>
                             <th>Depth</th>
                             <th>Material</th>
                             <th>Medium</th>
-                            <th>Subject</th>
                             <th>Photo</th>
                             <th>Year</th>
                             <th>checked</th>
@@ -124,14 +122,12 @@
                     { "data": "AW_CODE", "autowidth": true, "className": 'AW_CODE'  },
                     { "data": "TITLE", "autowidth": true },
                     { "data": "CATEGORY_NAME", "autowidth": true },
-                    { "data": "DESCRIPTION", "autowidth": true },
                     { "data": "PRICE", "autowidth": true },
                     { "data": "WIDTH", "autowidth": true },
                     { "data": "HEIGHT", "autowidth": true },
                     { "data": "DEPTH", "autowidth": true },
                     { "data": "MATERIAL", "autowidth": true },
                     { "data": "MEDIUM", "autowidth": true },
-                    { "data": "SUBJECT", "autowidth": true },
                     {
                         "render": function(data, type, JsonResultRow, meta) {
                             return '<img src="' + JsonResultRow.PHOTO + '">';

@@ -22,7 +22,8 @@ namespace ArtGallery.ViewModels
 
         [Required(ErrorMessage = "Please enter your password")]
         [DataType(DataType.Password)]
-        [RegularExpression("^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$", ErrorMessage = "Invalid password format")]
+        [StringLength(70, ErrorMessage = "Max length = 70 characters")]
+        [RegularExpression("^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$", ErrorMessage = "Invalid password format your password should have upper and lower case and a number or a specail character")]
         public string password { get; set; }
 
 
@@ -44,7 +45,9 @@ namespace ArtGallery.ViewModels
         
         [Required(ErrorMessage = "Please enter your password")]
         [DataType(DataType.Password)]
-        [RegularExpression("^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$", ErrorMessage = "Invalid password format")]
+        [StringLength(70, ErrorMessage = "Max length = 70 characters")]
+        [RegularExpression("^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$", ErrorMessage = "Invalid password format your password should have upper and lower case and a number or a specail character")]
+
         public string PASSWORD { get; set; }
 
         [Required(ErrorMessage = "Please enter your first name")]
@@ -60,7 +63,7 @@ namespace ArtGallery.ViewModels
 
 
         [Required(ErrorMessage = "Please enter your last name")]
-        [StringLength(10, ErrorMessage = "Max length = 10 characters")]
+        [StringLength(20, ErrorMessage = "Max length = 20 characters")]
         [RegularExpression("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", ErrorMessage = "Only letters are allowed")]
         public string LNAME { get; set; }
 

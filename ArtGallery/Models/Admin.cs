@@ -15,22 +15,21 @@ namespace ArtGallery.Models
 
         [Required(ErrorMessage = "please enter your email correctly")]
         [RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$", ErrorMessage = "Please enter a valid e-mail address")]
+        [StringLength(50, ErrorMessage = "Max length = 50 characters")]
         [EmailAddress]
         public string EMAIL { get; set; }
 
         [Required(ErrorMessage = "Please enter your password")]
         [DataType(DataType.Password)]
-        [RegularExpression("^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$", ErrorMessage = "Invalid password format")]
+        [StringLength(70, ErrorMessage = "Max length = 70 characters")]
+        [RegularExpression("^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$", ErrorMessage = "Invalid password format your password should have upper and lower case and a number or a specail character")]
+
         public string PASSWORD { get; set; }
 
 
         [Required(ErrorMessage = "Please enter the salary ")]
-        [RegularExpression(" ^[0 - 5000]$", ErrorMessage = "Enter a number between 0 and 5000 ")]
+        [Range(10, 5000000)]
         public int SALARY { get; set; }
 
-        // No name in admin
-        public string Name { get; set; }
-        [Column("PROFILE_PICTURE")]
-        public string ProfilePic { get; set; }
     }
 }

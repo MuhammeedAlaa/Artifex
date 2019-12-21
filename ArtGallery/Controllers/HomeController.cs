@@ -55,7 +55,11 @@ namespace ArtGallery.Controllers
         }
 
         public ActionResult Index()
-        {            
+        {
+            int result;
+            int.TryParse(User.Identity.Name.ToString(), out result);
+            if (result != 0)
+             return   RedirectToAction("index", "admin");
             return View();
         }
         [Authorize]
@@ -116,6 +120,7 @@ namespace ArtGallery.Controllers
         public ActionResult ArtworkView(string ArtworkTitle)
         {
             List<Artwork> e = db.GetArtworkInfo(ArtworkTitle);
+            ViewBag.same = db.GetEmail(e[0].ARTIST_UNAME) == User.Identity.Name;
             if (!e[0].STATUS)
                 ViewBag.status = "Sold";
             else
@@ -126,10 +131,11 @@ namespace ArtGallery.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult fav() 
+        [Route("Home/fav/{rating?}")]
+        public ActionResult fav(int rating) 
         {
             Artwork a = (Artwork)TempData["buyartwork"];
-            db.addFav(a.AW_CODE, db.GetUserName(User.Identity.Name));
+            db.addFav(a.AW_CODE, db.GetUserName(User.Identity.Name),rating);
 
             return RedirectToAction("index", "home");
         }

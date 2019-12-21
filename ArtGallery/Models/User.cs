@@ -20,7 +20,7 @@ namespace ArtGallery.Models
 
         [Required(ErrorMessage = "Please enter your password")]
         [DataType(DataType.Password)]
-        [RegularExpression("^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$", ErrorMessage = "Invalid password format")]
+        [RegularExpression("^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$", ErrorMessage = "Invalid password format your password should have upper and lower case and a number or a specail character")]
         public string PASSWORD { get; set; }
 
         [Required(ErrorMessage = "Please enter your first name")]

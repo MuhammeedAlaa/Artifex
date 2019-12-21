@@ -1,0 +1,58 @@
+﻿@model ArtGallery.Models.Admin
+@{
+    ViewBag.Title = "AddAdmin";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section class="content" style="padding-top: 1vh">
+    <div class="container-fluid">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Quick Example</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+        @using (Html.BeginForm("AddAdmin", "Admin", FormMethod.Post, new {enctype = "multipart/form-data"}))
+        {
+            @Html.AntiForgeryToken()
+        <div class="card-body">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.EMAIL, "Email", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(model => model.EMAIL, new { @class = "form-control", placeholder = "Enter email" , type = "email"})
+                    @Html.ValidationMessageFor(model => model.EMAIL, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.PASSWORD, "Password", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(model => model.PASSWORD, new { @class = "form-control", placeholder = "Password" , type = "password"})
+                    @Html.ValidationMessageFor(model => model.PASSWORD, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.SALARY, "Salary", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(model => model.SALARY, new { @class = "form-control", placeholder = "Salary" , type = "number"})
+                    @Html.ValidationMessageFor(model => model.SALARY, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+        </div>
+            <!-- /.card-body -->
+
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary col-md-2">Submit</button>
+            </div>
+        }
+        </div>
+    </div>
+</section>
+
