@@ -679,8 +679,7 @@ BEGIN
 END
 GO
 
-<<<<<<< HEAD
-=======
+
 /****************************************************************/
 CREATE PROCEDURE AttendUserEvent 
 	@TITLE VARCHAR(20),
@@ -736,7 +735,6 @@ BEGIN
 	GROUP BY EXPERT_UNAME
 END
 GO
->>>>>>> eafe602f3dd779dd76f95b234827cf74811a9117
 
 --Number of users for our website
 CREATE PROCEDURE NumUsers
