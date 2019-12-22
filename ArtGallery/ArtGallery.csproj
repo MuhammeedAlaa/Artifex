@@ -19,8 +19,7 @@
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <Use64BitIISExpress>
-    </Use64BitIISExpress>
+    <Use64BitIISExpress>false</Use64BitIISExpress>
     <IISExpressSSLPort>44331</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -443,6 +442,7 @@
     <Compile Include="ViewModels\ListExpViewModel.cs" />
     <Compile Include="ViewModels\OrderInfoViewModel.cs" />
     <Compile Include="ViewModels\ReportViewModel.cs" />
+    <Compile Include="ViewModels\ScoreBoardViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
@@ -2388,6 +2388,7 @@
     <Content Include="Views\Admin\AddAdmin.cshtml" />
     <Content Include="Views\Manage\UserSurveys.cshtml" />
     <Content Include="Views\Manage\UserSurveryResponse.cshtml" />
+    <Content Include="Views\Home\Scoreboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

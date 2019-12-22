@@ -60,7 +60,7 @@ AS
 BEGIN
 	
 	SET NOCOUNT ON;
-	SELECT SUM(RATING) AS SUM,COUNT(*) AS COUNT, A.ARTIST_UNAME  FROM RATE_AW AS RW JOIN ARTWORK A ON RW.AW_CODE = A.AW_CODE GROUP BY A.ARTIST_UNAME
+	SELECT SUM(RATING) AS SUM,COUNT(*) AS COUNT, A.ARTIST_UNAME AS ARTIST  FROM RATE_AW AS RW JOIN ARTWORK A ON RW.AW_CODE = A.AW_CODE GROUP BY A.ARTIST_UNAME
 END;
 GO
 /******************************************/
@@ -427,17 +427,16 @@ END
 GO
 /********************************************************/
 CREATE PROCEDURE GetEvents
-     @NowDate Date,
-	 @Username varchar(20) 
+     @NowDate Date 
 AS
 BEGIN
 
-	SELECT * FROM [EVENT] AS E 
-	WHERE EVENTDATE>=@NowDate AND E.TITLE NOT IN
-	(SELECT A.TITLE FROM ATTEND AS A WHERE A.USER_NAME = @Username)
+	SET NOCOUNT ON;
+	SELECT * FROM dbo.[EVENT]
+	WHERE EVENTDATE>=@NowDate
 
 END
-
+GO
 /*********************************************************/
 CREATE PROCEDURE GetArtWorksByArtist
      @Artist_UName VARCHAR(20)
@@ -677,18 +676,6 @@ AS
 BEGIN
 	SET NOCOUNT ON
 	SELECT EMAIL FROM [USER] JOIN EXPERT ON EXPERT_UNAME = USER_NAME
-END
-GO
-
-/****************************************************************/
-
-
-CREATE PROCEDURE AttendUserEvent 
-	@TITLE VARCHAR(20),
-	@USER_NAME VARCHAR(20)
-AS
-BEGIN
-    INSERT INTO ATTEND VALUES (@TITLE, @USER_NAME)
 END
 GO
 

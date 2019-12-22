@@ -721,13 +721,11 @@ namespace ArtGallery.DBaccess
             Parameters2.Add("@rating", rating);
             db.ExecuteNonQuery_proc(StoredProcedureName, Parameters2);
         }
-        public int GetRate() 
+        public DataTable GetRate() 
         {
             string StoredProcedureName = StoredProcedures.OldRating;
-            DataTable oldrate = db.ExecuteReader_proc(StoredProcedureName, null);
-            int rating = (int)oldrate.Rows[0]["SUM"];
-            rating /= (int)oldrate.Rows[0]["COUNT"];
-            return rating;
+            DataTable rate = db.ExecuteReader_proc(StoredProcedureName, null);
+            return rate;
         }
         public void addFav(int code, string uname,int rating)
         {
