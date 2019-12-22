@@ -820,7 +820,45 @@ namespace ArtGallery.DBaccess
             return (db.ExecuteNonQuery_proc(storedProcedureName, Parameters) != 0);
 
         }
-        
+        public DataTable NumAttendEvent()
+        {
+
+            string storedProcedureName = StoredProcedures.NumAttendEvent;
+            return db.ExecuteReader_proc(storedProcedureName, null);
+        }
+        public DataTable NumOrderShipped()
+        {
+
+            string storedProcedureName = StoredProcedures.NumOrderShipped;
+            return (db.ExecuteReader_proc(storedProcedureName, null));
+        }
+
+        public DataTable NumArtwrkCategory()
+        {
+
+            string storedProcedureName = StoredProcedures.NumArtwrkCategory;
+            return (db.ExecuteReader_proc(storedProcedureName, null));
+        }
+
+        public DataTable NumSurvExp()
+        {
+
+            string storedProcedureName = StoredProcedures.NumSurvExp;
+            return (db.ExecuteReader_proc(storedProcedureName, null));
+        }
+
+        public DataTable NumUsers()
+        {
+
+            string storedProcedureName = StoredProcedures.NumUsers;
+            return (db.ExecuteReader_proc(storedProcedureName, null));
+        }
+        public DataTable EventsRevenue()
+        {
+
+            string storedProcedureName = StoredProcedures.EventsRevenue;
+            return (db.ExecuteReader_proc(storedProcedureName, null));
+        }
 
     }
 }

@@ -80,6 +80,18 @@ namespace ArtGallery.DBaccess
         public static string UpdateOrderInfo = "UpdateOrderInfo";
 
 
+        //statistics
+
+        public static string NumAttendEvent = "NumAttendEvent ";
+        public static string NumOrderShipped = "NumOrderShipped";
+        public static string NumArtwrkCategory = "NumArtwrkCategory";
+        public static string NumSurvExp = "NumSurvExp";
+        public static string NumUsers = "NumUsers";
+        public static string NumArtists = "NumArtists";
+        public static string NumExperts = "NumExperts";
+        public static string EventsRevenue = "EventsRevenue";
+
+
 
 
     }
