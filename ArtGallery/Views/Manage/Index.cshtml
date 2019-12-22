@@ -137,8 +137,12 @@
                                     {
                                         <tr>
                                             <td>@artwork.TITLE</td>
+                                            @if (!artwork.PRIVACY)
+                                            {
                                             <td><img src="@Url.Content(artwork.PHOTO)" alt="event photo" height="100vh" width="120vw" /></td>
-
+                                            }
+                                            else
+                                            { <td>--</td>}
                                             <td>@artwork.PRICE</td>
                                             <td>@Html.ActionLink("More details", "ArtViwer", "Manage", new { Code = @artwork.AW_CODE }, null)</td>
                                         </tr>

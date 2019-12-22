@@ -1,9 +1,9 @@
 ﻿@using ArtGallery.ViewModels
 @using PagedList
 @using PagedList.Mvc
-@model IPagedList<ArtGallery.Models.Artwork>
+@model IPagedList<ArtGallery.ViewModels.ScoreBoardViewModel>
 @{
-    ViewBag.Title = "ExploreArtworks";
+    ViewBag.Title = "ScoreBoard";
 }
 
 <style>
@@ -50,18 +50,32 @@
                         <table class="table table-hover customtbl">
                             <thead>
                                 <tr>
+                                    <th>Artist Name</th>
                                     <th>Photo</th>
+                                    <th>rate</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var AW in Model)
+                                @foreach (var board in Model)
                                 {
                                 <tr>
+                                    <td>@board.artist</td>
                                     <td>
-                                        <a href=@Url.Action("ArtworkView", "Home", new { ArtworkTitle = @AW.TITLE })>
-                                            <img src=@Url.Content(AW.PHOTO) alt="Artwork Photo" height="300" width="400" />
+                                        <a href="@Url.Action("Index", "Manage", new { Uname = board.Email })">
+                                            <img src=@Url.Content(board.path) alt="Artwork Photo" height="300" width="400" />
                                         </a>
                                     </td>
+                                    <td>
+                                        @for (int i = 0; i < board.rate; i++)
+                                        {
+                                            <span class="glyphicon glyphicon-star"></span>
+                                        }
+
+                                        @for (int i = board.rate; i < 5; i++)
+                                        {
+                                            <span class="glyphicon glyphicon-star-empty"></span>
+                                        }
+                                    <td>
                                 </tr>
                                 }
                             </tbody>
@@ -74,7 +88,7 @@
         </div>
         <!-- /.row -->
         <div class="pagination">
-            @Html.PagedListPager(Model, page => Url.Action("Events",
+            @Html.PagedListPager(Model, page => Url.Action("Scoreboard",
                 new
                 {
                     page
