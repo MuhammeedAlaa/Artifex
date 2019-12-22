@@ -732,3 +732,31 @@ BEGIN
 END
 GO
 /************************************************************************/
+CREATE PROCEDURE SolveReport
+	   @ADMIN_ID int,
+	   @REPORT_ID int
+AS
+BEGIN 
+    UPDATE  REPORT SET ADMIN_ID=@ADMIN_ID WHERE REPORT_ID=@REPORT_ID
+END
+GO
+/*************************************************************************/
+CREATE PROCEDURE UpdateOrderInfo
+	   @ADMIN_ID int,
+	   @SHIPPING_NAME VARCHAR(20),
+	   @ORDER_ID INT
+AS
+BEGIN 
+    UPDATE  ORDER_INFO SET ADMIN_ID=@ADMIN_ID ,SHIPPING_NAME=@SHIPPING_NAME WHERE ORDER_ID=@ORDER_ID
+END
+GO
+/************************************************************************/
+CREATE PROCEDURE UpdateOrder
+	   @DELIVERY_DATE DATE,
+	   @ORDER_ID INT
+AS
+BEGIN 
+    UPDATE  [ORDER] SET DELIVERY_DATE=@DELIVERY_DATE,[STATUS]=1 WHERE ORDER_ID=@ORDER_ID
+END
+GO
+/************************************************************************/

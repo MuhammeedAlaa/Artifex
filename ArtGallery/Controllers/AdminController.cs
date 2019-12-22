@@ -322,7 +322,8 @@ namespace ArtGallery.Controllers
 
         public ActionResult ViewEvents(int? page)
         {
-            IPagedList<Event> events = db.GetEvents().ToPagedList(page ?? 1, 5);
+            //some dummy user name as events attended by user h will not be viewed
+            IPagedList<Event> events = db.GetEvents("h").ToPagedList(page ?? 1, 5);
             return View(events);
 
         }

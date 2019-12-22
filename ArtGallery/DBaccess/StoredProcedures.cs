@@ -61,12 +61,23 @@ namespace ArtGallery.DBaccess
         public static string SellTicket = "SellTicket";
         public static string EditEvent = "EditEvent";
         public static string InviteArtist = "InviteArtist";
+        public static string AttendUserEvent = "AttendUserEvent";
 
         public static string ApproveArtwork = "ApproveArtwork";
 
         public static string deleteCompany = "deleteCompany";
 
         public static string addFav = "addFav";
+        public static string RecommendAW = "RecommendAW";
+        public static string GetArtworksforrecommanded = "GetArtworksforrecommanded";
+      
+        public static string GetRecommended = "GetRecommended ";
+        public static string GetUserSurveys = "GetUserSurveys";
+        public static string ArtistSalaryLess = "ArtistSalaryLess";
+        public static string InsertCustomOrder = "InsertCustomOrder";
+        public static string SolveReport = "SolveReport";
+        public static string UpdateOrder = "UpdateOrder";
+        public static string UpdateOrderInfo = "UpdateOrderInfo";
 
 
 
