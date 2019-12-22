@@ -672,7 +672,6 @@ GO
 /***************************START**********************************/ 
 CREATE PROCEDURE RecommendAW
 
-<<<<<<< HEAD
     @AWCode INT ,
 	@SurveyID INT 
 AS
@@ -680,16 +679,12 @@ BEGIN
       INSERT INTO RECOMMEND VALUES (@SurveyID,@AWCode)
 END 
 GO 
-/*******************************************************************/
-CREATE PROCEDURE GetArtworksforrecommanded
-
-=======
 
 /****************************************************************/
 CREATE PROCEDURE AttendUserEvent 
 	@TITLE VARCHAR(20),
 	@USER_NAME VARCHAR(20)
->>>>>>> 2e1f5cdfcb8106bd2f574ab29dd21bae4258c0b0
+
 AS
 BEGIN 
       SELECT * FROM ARTWORK WHERE PRIVACY=0
@@ -712,7 +707,7 @@ BEGIN
       SELECT * FROM RECOMMEND WHERE SURVEY_ID=@SurveyID
 END
 GO
-<<<<<<< HEAD
+
 /*********************************************************************/
 CREATE PROCEDURE GetUserSurveys
      @username	VARCHAR(20)
@@ -729,7 +724,15 @@ BEGIN
      SELECT ARTIST_UNAME FROM ARTIST
 	 WHERE START_SALARY<=@Budget
 END 
-GO			 	   
+GO			 
+/***********************************************************************/
+CREATE PROCEDURE [dbo].[GetArtworksforrecommanded]
+
+AS
+BEGIN 
+      SELECT * FROM ARTWORK WHERE PRIVACY=0
+END 
+	   
 /***********************************************************************/
 CREATE PROCEDURE InsertCustomOrder
 	   @OrderDate DATE,
@@ -769,7 +772,7 @@ BEGIN
 END
 GO
 /************************************************************************/
-=======
+
 /************************* Statistics *****************************/
 --Number of Users Who attended Each Event hosted Uptill now
 CREATE PROCEDURE NumAttendEvent
@@ -781,7 +784,7 @@ BEGIN
 	GROUP BY A.TITLE
 END
 GO
-
+/***************************************************/
 --Number of orders assigned for each Shipping company 
 CREATE PROCEDURE NumOrderShipped
 AS
@@ -793,7 +796,7 @@ BEGIN
 	GROUP BY SHIPPING_NAME
 END
 GO
-
+/***************************************************/
 --Number of artworks in each category
 CREATE PROCEDURE NumArtwrkCategory
 AS
@@ -804,7 +807,7 @@ BEGIN
 	GROUP BY CATEGORY_NAME
 END
 GO
-
+/***************************************************/
 --Number of surveys for each expert
 CREATE PROCEDURE NumSurvExp
 AS
@@ -816,7 +819,7 @@ BEGIN
 	GROUP BY EXPERT_UNAME
 END
 GO
-
+/***************************************************/
 --Number of users for our website
 CREATE PROCEDURE NumUsers
 AS
@@ -826,7 +829,7 @@ BEGIN
 	From [User]
 END
 GO
-
+/***************************************************/
 --Number of artists in our website
 CREATE PROCEDURE NumArtists
 AS
@@ -836,7 +839,7 @@ BEGIN
 	FROM Artist
 END
 GO
-
+/**************************************************/
 --Number of Experts in our website
 CREATE PROCEDURE NumExperts
 AS
@@ -846,7 +849,7 @@ BEGIN
 	From Expert
 END
 GO
-
+/**************************************************/
 --Total Revenue From an Event
 CREATE PROCEDURE EventsRevenue
 AS
@@ -857,4 +860,4 @@ BEGIN
 	GROUP BY E.TITLE,E.TICKET_PRICE
 END
 GO
->>>>>>> 2e1f5cdfcb8106bd2f574ab29dd21bae4258c0b0
+
