@@ -109,6 +109,7 @@ namespace ArtGallery.Controllers
                 if (a != null)
                 {
                     ViewBag.artist = a;
+                    
                     AW = db.GetArtWorks(a).ToPagedList(page ?? 1, 5);
                 }
                 else

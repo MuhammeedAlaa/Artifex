@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using ArtGallery.ViewModels;
 using PagedList;
+using System.Data;
 
 namespace ArtGallery.Controllers
 {
@@ -150,13 +151,30 @@ namespace ArtGallery.Controllers
 
             return RedirectToAction("index", "home");
         }
-
+        [Authorize]
         public ActionResult Experts(int? page)
         {
             ListExpViewModel ex = new ListExpViewModel();
             ex.Experts = db.GetExperts().ToPagedList(page ?? 1, 10);
             ex.Emails = db.GetExpertMails();
             return View(ex);
+        }
+        [Authorize]
+        public ActionResult Scoreboard(int? page) 
+        {
+            DataTable rate = db.GetRate();
+            List<ScoreBoardViewModel> s = new List<ScoreBoardViewModel>();
+            for (int i = 0; i < rate.Rows.Count; i++)
+                s.Add(new ScoreBoardViewModel
+                {
+                    artist = (string)rate.Rows[i]["ARTIST"],
+                    rate = (int)rate.Rows[i]["SUM"]/(int)rate.Rows[i]["COUNT"],
+                    path = db.ProfileImagePath(db.GetEmail((string)rate.Rows[i]["ARTIST"])),
+                    Email=db.GetEmail(db.GetEmail((string)rate.Rows[i]["ARTIST"]))
+                });
+            s = s.OrderByDescending(x => x.rate).ToList();
+            IPagedList<ScoreBoardViewModel> scoreboard = s.ToPagedList(page ?? 1, 5);
+            return View(scoreboard); 
         }
         protected override void Dispose(bool disposing)
         {
