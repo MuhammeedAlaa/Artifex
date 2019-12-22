@@ -732,7 +732,7 @@ AS
 BEGIN 
       SELECT * FROM ARTWORK WHERE PRIVACY=0
 END 
-	   
+GO	   
 /***********************************************************************/
 CREATE PROCEDURE InsertCustomOrder
 	   @OrderDate DATE,
@@ -860,4 +860,23 @@ BEGIN
 	GROUP BY E.TITLE,E.TICKET_PRICE
 END
 GO
-
+/***************************************************/
+CREATE PROCEDURE CATEGORY_PRICE
+AS
+BEGIN
+	SET NOCOUNT ON
+	SELECT CATEGORY_NAME AS Category, AVG(PRICE) AS Average_Price
+	FROM ARTWORK
+	GROUP BY CATEGORY_NAME
+END
+GO
+/****************************************************/
+CREATE PROCEDURE NumInvitedArtist
+AS
+BEGIN
+	SET NOCOUNT ON
+	SELECT A.TITLE AS EventTitle, COUNT(*) AS Invited_Artist_Num
+	FROM [EVENT] E JOIN INVITED A ON E.TITLE = A.TITLE 
+	GROUP BY A.TITLE
+END
+GO
