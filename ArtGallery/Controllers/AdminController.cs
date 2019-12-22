@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -6,6 +8,7 @@ using System.Web.WebPages;
 using ArtGallery.Authorize;
 using ArtGallery.DBaccess;
 using ArtGallery.Models;
+using ArtGallery.Statistics;
 using ArtGallery.ViewModels;
 using Microsoft.Ajax.Utilities;
 using PagedList;
@@ -22,6 +25,83 @@ namespace ArtGallery.Controllers
         // GET: Admin
         public ActionResult Index()
         {
+            List<string> l1 = new List<string>();
+            List<string> d1 = new List<string>();
+            DataTable t1 = db.NumAttendEvent();
+            for (int i = 0; i < t1.Rows.Count; i++)
+            {
+                l1.Add(Convert.ToString(t1.Rows[i][0]));
+            }
+            for (int i = 0; i < t1.Rows.Count; i++)
+            {
+                d1.Add(Convert.ToString(t1.Rows[i][1]));
+            }
+
+            ViewBag.l1 = l1;
+            ViewBag.d1 = d1;
+
+            List<string> l2 = new List<string>();
+            List<string> d2 = new List<string>();
+            DataTable t2 = db.NumOrderShipped();
+            for (int i = 0; i < t2.Rows.Count; i++)
+            {
+                l2.Add(Convert.ToString(t2.Rows[i][0]));
+            }
+            for (int i = 0; i < t2.Rows.Count; i++)
+            {
+                d2.Add(Convert.ToString(t2.Rows[i][1]));
+            }
+
+            ViewBag.l2 = l2;
+            ViewBag.d2 = d2;
+
+            List<string> l3 = new List<string>();
+            List<string> d3 = new List<string>();
+            DataTable t3 = db.NumArtwrkCategory();
+            for (int i = 0; i < t3.Rows.Count; i++)
+            {
+                l3.Add(Convert.ToString(t3.Rows[i][0]));
+            }
+            for (int i = 0; i < t3.Rows.Count; i++)
+            {
+                d3.Add(Convert.ToString(t3.Rows[i][1]));
+            }
+
+            ViewBag.l3 = l3;
+            ViewBag.d3 = d3;
+
+            List<string> l4 = new List<string>();
+            List<string> d4 = new List<string>();
+            DataTable t4 = db.NumSurvExp();
+            for (int i = 0; i < t4.Rows.Count; i++)
+            {
+                l4.Add(Convert.ToString(t4.Rows[i][0]));
+            }
+            for (int i = 0; i < t4.Rows.Count; i++)
+            {
+                d4.Add(Convert.ToString(t4.Rows[i][1]));
+            }
+
+            ViewBag.l4 = l4;
+            ViewBag.d4 = d4;
+
+
+            List<string> l5 = new List<string>();
+            List<string> d5 = new List<string>();
+            DataTable t5 = db.EventsRevenue();
+            for (int i = 0; i < t5.Rows.Count; i++)
+            {
+                l5.Add(Convert.ToString(t5.Rows[i][0]));
+            }
+            for (int i = 0; i < t5.Rows.Count; i++)
+            {
+                d5.Add(Convert.ToString(t5.Rows[i][1]));
+            }
+
+            ViewBag.l5 = l5;
+            ViewBag.d5 = d5;
+
+
             return View();
         }
 
@@ -333,6 +413,8 @@ namespace ArtGallery.Controllers
             var data = db.GetArtists();
             return Json(new{data = data}, JsonRequestBehavior.AllowGet);
         }
+
+
         public JsonResult SaveSelected(string[] list)
         {
             Session["selected"] = list;
