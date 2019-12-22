@@ -28,110 +28,126 @@ namespace ArtGallery.Controllers
             List<string> l1 = new List<string>();
             List<string> d1 = new List<string>();
             DataTable t1 = db.NumAttendEvent();
-            for (int i = 0; i < t1.Rows.Count; i++)
+            if (t1 != null)
             {
-                l1.Add(Convert.ToString(t1.Rows[i][0]));
-            }
-            for (int i = 0; i < t1.Rows.Count; i++)
-            {
-                d1.Add(Convert.ToString(t1.Rows[i][1]));
-            }
+                for (int i = 0; i < t1.Rows.Count; i++)
+                {
+                    l1.Add(Convert.ToString(t1.Rows[i][0]));
+                }
+                for (int i = 0; i < t1.Rows.Count; i++)
+                {
+                    d1.Add(Convert.ToString(t1.Rows[i][1]));
+                }
 
-            ViewBag.l1 = l1;
-            ViewBag.d1 = d1;
-
+                ViewBag.l1 = l1;
+                ViewBag.d1 = d1;
+            }
             List<string> l2 = new List<string>();
             List<string> d2 = new List<string>();
             DataTable t2 = db.NumOrderShipped();
-            for (int i = 0; i < t2.Rows.Count; i++)
+            if (t2 != null)
             {
-                l2.Add(Convert.ToString(t2.Rows[i][0]));
-            }
-            for (int i = 0; i < t2.Rows.Count; i++)
-            {
-                d2.Add(Convert.ToString(t2.Rows[i][1]));
-            }
+                for (int i = 0; i < t2.Rows.Count; i++)
+                {
+                    l2.Add(Convert.ToString(t2.Rows[i][0]));
+                }
+                for (int i = 0; i < t2.Rows.Count; i++)
+                {
+                    d2.Add(Convert.ToString(t2.Rows[i][1]));
+                }
 
-            ViewBag.l2 = l2;
-            ViewBag.d2 = d2;
-
+                ViewBag.l2 = l2;
+                ViewBag.d2 = d2;
+            }
             List<string> l3 = new List<string>();
             List<string> d3 = new List<string>();
             DataTable t3 = db.NumArtwrkCategory();
-            for (int i = 0; i < t3.Rows.Count; i++)
+            if (t3 != null)
             {
-                l3.Add(Convert.ToString(t3.Rows[i][0]));
-            }
-            for (int i = 0; i < t3.Rows.Count; i++)
-            {
-                d3.Add(Convert.ToString(t3.Rows[i][1]));
-            }
+                for (int i = 0; i < t3.Rows.Count; i++)
+                {
+                    l3.Add(Convert.ToString(t3.Rows[i][0]));
+                }
+                for (int i = 0; i < t3.Rows.Count; i++)
+                {
+                    d3.Add(Convert.ToString(t3.Rows[i][1]));
+                }
 
-            ViewBag.l3 = l3;
-            ViewBag.d3 = d3;
-
+                ViewBag.l3 = l3;
+                ViewBag.d3 = d3;
+            }
             List<string> l4 = new List<string>();
             List<string> d4 = new List<string>();
             DataTable t4 = db.NumSurvExp();
-            for (int i = 0; i < t4.Rows.Count; i++)
+            if (t4 != null)
             {
-                l4.Add(Convert.ToString(t4.Rows[i][0]));
-            }
-            for (int i = 0; i < t4.Rows.Count; i++)
-            {
-                d4.Add(Convert.ToString(t4.Rows[i][1]));
-            }
+                for (int i = 0; i < t4.Rows.Count; i++)
+                {
+                    l4.Add(Convert.ToString(t4.Rows[i][0]));
+                }
+                for (int i = 0; i < t4.Rows.Count; i++)
+                {
+                    d4.Add(Convert.ToString(t4.Rows[i][1]));
+                }
 
-            ViewBag.l4 = l4;
-            ViewBag.d4 = d4;
-
+                ViewBag.l4 = l4;
+                ViewBag.d4 = d4;
+            }
 
             List<string> l5 = new List<string>();
             List<string> d5 = new List<string>();
             DataTable t5 = db.EventsRevenue();
-            for (int i = 0; i < t5.Rows.Count; i++)
+            if (t5 != null)
             {
-                l5.Add(Convert.ToString(t5.Rows[i][0]));
-            }
-            for (int i = 0; i < t5.Rows.Count; i++)
-            {
-                d5.Add(Convert.ToString(t5.Rows[i][1]));
-            }
+                for (int i = 0; i < t5.Rows.Count; i++)
+                {
+                    l5.Add(Convert.ToString(t5.Rows[i][0]));
+                }
+                for (int i = 0; i < t5.Rows.Count; i++)
+                {
+                    d5.Add(Convert.ToString(t5.Rows[i][1]));
+                }
 
-            ViewBag.l5 = l5;
-            ViewBag.d5 = d5;
+                ViewBag.l5 = l5;
+                ViewBag.d5 = d5;
+            }
 
             List<string> l6 = new List<string>();
             List<string> d6 = new List<string>();
             DataTable t6 = db.NumInvitedArtist();
-            for (int i = 0; i < t6.Rows.Count; i++)
+            if (t6 != null)
             {
-                l6.Add(Convert.ToString(t6.Rows[i][0]));
-            }
-            for (int i = 0; i < t6.Rows.Count; i++)
-            {
-                d6.Add(Convert.ToString(t6.Rows[i][1]));
-            }
+                for (int i = 0; i < t6.Rows.Count; i++)
+                {
+                    l6.Add(Convert.ToString(t6.Rows[i][0]));
+                }
+                for (int i = 0; i < t6.Rows.Count; i++)
+                {
+                    d6.Add(Convert.ToString(t6.Rows[i][1]));
+                }
 
-            ViewBag.l6 = l6;
-            ViewBag.d6 = d6;
-
+                ViewBag.l6 = l6;
+                ViewBag.d6 = d6;
+            }
             List<string> l7 = new List<string>();
             List<string> d7 = new List<string>();
             DataTable t7 = db.CATEGORY_PRICE();
-            for (int i = 0; i < t7.Rows.Count; i++)
+            if (t7 != null)
             {
-                l7.Add(Convert.ToString(t7.Rows[i][0]));
-            }
-            for (int i = 0; i < t7.Rows.Count; i++)
-            {
-                d7.Add(Convert.ToString(t7.Rows[i][1]));
-            }
+                for (int i = 0; i < t7.Rows.Count; i++)
+                {
+                    l7.Add(Convert.ToString(t7.Rows[i][0]));
+                }
+                for (int i = 0; i < t7.Rows.Count; i++)
+                {
+                    d7.Add(Convert.ToString(t7.Rows[i][1]));
+                }
 
-            ViewBag.l7 = l7;
-            ViewBag.d7 = d7;
-
+                ViewBag.l7 = l7;
+                ViewBag.d7 = d7;
+            }
             return View();
+            
         }
 
 

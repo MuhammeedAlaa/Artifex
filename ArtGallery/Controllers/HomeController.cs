@@ -167,10 +167,10 @@ namespace ArtGallery.Controllers
             for (int i = 0; i < rate.Rows.Count; i++)
                 s.Add(new ScoreBoardViewModel
                 {
-                    artist = (string)rate.Rows[i]["ARTIST_UNAME"],
+                    artist = (string)rate.Rows[i]["ARTIST"],
                     rate = (int)rate.Rows[i]["SUM"]/(int)rate.Rows[i]["COUNT"],
-                    path = db.ProfileImagePath(db.GetEmail((string)rate.Rows[i]["ARTIST_UNAME"])),
-                    Email=db.GetEmail(db.GetEmail((string)rate.Rows[i]["ARTIST_UNAME"]))
+                    path = db.ProfileImagePath(db.GetEmail((string)rate.Rows[i]["ARTIST"])),
+                    Email=db.GetEmail(db.GetEmail((string)rate.Rows[i]["ARTIST"]))
                 });
             s = s.OrderByDescending(x => x.rate).ToList();
             IPagedList<ScoreBoardViewModel> scoreboard = s.ToPagedList(page ?? 1, 5);

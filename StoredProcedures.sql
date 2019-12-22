@@ -687,7 +687,7 @@ CREATE PROCEDURE AttendUserEvent
 
 AS
 BEGIN 
-      SELECT * FROM ARTWORK WHERE PRIVACY=0
+      INSERT INTO ATTEND VALUES (@TITLE,@USER_NAME)
 END 
 GO 
 /*******************************************************************/
@@ -773,7 +773,7 @@ END
 GO
 /************************************************************************/
 
-/************************* Statistics *****************************/
+/*************************Statistics*****************************/
 --Number of Users Who attended Each Event hosted Uptill now
 CREATE PROCEDURE NumAttendEvent
 AS
