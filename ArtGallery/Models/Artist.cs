@@ -8,7 +8,7 @@ namespace ArtGallery.Models
 {
     public class Artist
     {
-        //[Required(ErrorMessage = "Please enter your user name")]
+        [Required(ErrorMessage = "Please enter your user name")]
         [StringLength(20, ErrorMessage = "Max length = 20 characters")]
         [RegularExpression("^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$", ErrorMessage = "Please enter a valid user name")]
         public string ARTIST_UNAME { get; set; }
@@ -17,7 +17,7 @@ namespace ArtGallery.Models
         [RegularExpression("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", ErrorMessage = "Only letters are allowed")]
         public string BIO { get; set; }
 
-        [Range(1930 , 2000 )]
+        [Range(1931 , 1999 )]
         public int? BYEAR { get; set; }
 
         [Required(ErrorMessage = "Please enter your start salary ")]

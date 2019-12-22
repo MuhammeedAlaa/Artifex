@@ -243,7 +243,7 @@ namespace ArtGallery.Controllers
         {
             var artworks = db.GetRecommended((int) Session["surveyid"]);
             var data = new List<Artwork>();
-            if (data.Count != 0)
+            if (artworks.Count != 0)
             {
                 foreach (var artwork in artworks)
                 {

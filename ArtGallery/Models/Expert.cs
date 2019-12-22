@@ -17,7 +17,7 @@ namespace ArtGallery.Models
         [StringLength(200, ErrorMessage = "Max length = 200 characters")]
         [RegularExpression("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$", ErrorMessage = "Only letters are allowed")]
         public string BIO { get; set; }
-        [Range(1930,2000,ErrorMessage ="please enter a date from 1930 to 2000")]
+        [Range(1931,2000,ErrorMessage ="please enter a date from 1930 to 2000")]
         public int? BYEAR { get; set; }
     }
 }

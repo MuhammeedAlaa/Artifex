@@ -388,15 +388,25 @@ namespace ArtGallery.DBaccess
 
         }
 
-        public List<Event> GetEvents()
+        public List<Event> GetEvents(string username)
         {
 
             string storedProcedureName = StoredProcedures.GetEvents;
             Dictionary<string, object> Parameters = new Dictionary<string, object>();
-            
             Parameters.Add("@NowDate", DateTime.Now.Date);
+            Parameters.Add("@Username", username);
             return ConvertDataTable<Event>(db.ExecuteReader_proc(storedProcedureName, Parameters));
 
+        }
+
+        public bool AttendUserEvent(string userName, string eventTitle)
+        {
+            string storedProcedureName = StoredProcedures.AttendUserEvent;
+            Dictionary<string, object> Parameters = new Dictionary<string, object>();
+
+            Parameters.Add("@TITLE", eventTitle);
+            Parameters.Add("@USER_NAME", userName);
+            return db.ExecuteNonQuery_proc(storedProcedureName, Parameters) != 0;
         }
 
         public List<Artwork> GetArtWorks(Artist A)

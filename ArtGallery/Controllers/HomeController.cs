@@ -90,7 +90,15 @@ namespace ArtGallery.Controllers
         [Authorize]
         public ActionResult Events(int? page)
         {
-            IPagedList<Event> events = db.GetEvents().ToPagedList(page ?? 1, 5);
+            string username = db.GetUserName(User.Identity.Name);
+            List<Event> ev = db.GetEvents(username);
+            List<Event> realevents = new List<Event>();
+            foreach (var even in ev)
+            {
+                if(even.TICKETS_NUM > 0)
+                    realevents.Add(even);
+            }
+            IPagedList<Event> events = realevents.ToPagedList(page ?? 1, 5);
             return View(events);
 
         }
@@ -99,12 +107,15 @@ namespace ArtGallery.Controllers
         public ActionResult EventViwer(string EventTitle)
         {
             List<Event> e = db.GetEventInfo(EventTitle);
+
             return View(e[0]);
         }
         [Authorize]
-        public ActionResult Buy(string title) {
-
+        public ActionResult Buy(string title)
+        {
+            string username = db.GetUserName(User.Identity.Name);
             db.UpdateEvent(title);
+            db.AttendUserEvent(username, title);
             return RedirectToAction("Index", "Home");
         }
         
