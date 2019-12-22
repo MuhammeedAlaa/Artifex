@@ -491,15 +491,6 @@ BEGIN
 END
 GO
 /********************************************************/
-CREATE PROCEDURE GetRequestedSurvey
-@EXPERT_UNAME VARCHAR(20)
-AS
-BEGIN
-	SET NOCOUNT ON
-	SELECT * FROM SURVEY WHERE EXPERT_UNAME= @EXPERT_UNAME
-END
-GO
-/********************************************************/
 CREATE PROCEDURE GetSurveyInfo
 @code INT 
 AS
@@ -678,17 +669,107 @@ BEGIN
 	SELECT EMAIL FROM [USER] JOIN EXPERT ON EXPERT_UNAME = USER_NAME
 END
 GO
+/***************************START**********************************/ 
+CREATE PROCEDURE RecommendAW
 
+<<<<<<< HEAD
+    @AWCode INT ,
+	@SurveyID INT 
+AS
+BEGIN 
+      INSERT INTO RECOMMEND VALUES (@SurveyID,@AWCode)
+END 
+GO 
+/*******************************************************************/
+CREATE PROCEDURE GetArtworksforrecommanded
+
+=======
 
 /****************************************************************/
 CREATE PROCEDURE AttendUserEvent 
 	@TITLE VARCHAR(20),
 	@USER_NAME VARCHAR(20)
+>>>>>>> 2e1f5cdfcb8106bd2f574ab29dd21bae4258c0b0
 AS
-BEGIN
-    INSERT INTO ATTEND VALUES (@TITLE, @USER_NAME)
+BEGIN 
+      SELECT * FROM ARTWORK WHERE PRIVACY=0
+END 
+GO 
+/*******************************************************************/
+CREATE PROCEDURE GetRequestedSurvey
+	@ExpertName VARCHAR(20)
+AS
+BEGIN 
+      SELECT * FROM SURVEY AS S 
+	  WHERE EXPERT_UNAME=@ExpertName AND S.SURVEY_ID NOT IN (SELECT R.SURVEY_ID FROM RECOMMEND AS R)  
+END 
+GO
+/********************************************************************/
+CREATE PROCEDURE GetRecommended 
+     @SurveyID INT 
+AS
+BEGIN 
+      SELECT * FROM RECOMMEND WHERE SURVEY_ID=@SurveyID
 END
 GO
+<<<<<<< HEAD
+/*********************************************************************/
+CREATE PROCEDURE GetUserSurveys
+     @username	VARCHAR(20)
+AS 
+BEGIN 
+     SELECT * FROM SURVEY WHERE [USER_NAME]=@username
+END
+GO
+/**********************************************************************/
+CREATE PROCEDURE ArtistSalaryLess
+        @Budget INT
+AS
+BEGIN 
+     SELECT ARTIST_UNAME FROM ARTIST
+	 WHERE START_SALARY<=@Budget
+END 
+GO			 	   
+/***********************************************************************/
+CREATE PROCEDURE InsertCustomOrder
+	   @OrderDate DATE,
+	   @Deadline DATE
+AS
+BEGIN 
+    INSERT INTO [ORDER] VALUES
+	(1,@OrderDate,@Deadline)
+END
+GO
+/************************************************************************/
+CREATE PROCEDURE SolveReport
+	   @ADMIN_ID int,
+	   @REPORT_ID int
+AS
+BEGIN 
+    UPDATE  REPORT SET ADMIN_ID=@ADMIN_ID WHERE REPORT_ID=@REPORT_ID
+END
+GO
+/*************************************************************************/
+CREATE PROCEDURE UpdateOrderInfo
+	   @ADMIN_ID int,
+	   @SHIPPING_NAME VARCHAR(20),
+	   @ORDER_ID INT
+AS
+BEGIN 
+    UPDATE  ORDER_INFO SET ADMIN_ID=@ADMIN_ID ,SHIPPING_NAME=@SHIPPING_NAME WHERE ORDER_ID=@ORDER_ID
+END
+GO
+/************************************************************************/
+CREATE PROCEDURE UpdateOrder
+	   @DELIVERY_DATE DATE,
+	   @ORDER_ID INT
+AS
+BEGIN 
+    UPDATE  [ORDER] SET DELIVERY_DATE=@DELIVERY_DATE,[STATUS]=1 WHERE ORDER_ID=@ORDER_ID
+END
+GO
+/************************************************************************/
+=======
 /************************* Statistics *****************************/
 --Number of Users Who attended Each Event hosted Uptill now
 CREATE PROCEDURE NumAttendEvent
@@ -776,3 +857,4 @@ BEGIN
 	GROUP BY E.TITLE,E.TICKET_PRICE
 END
 GO
+>>>>>>> 2e1f5cdfcb8106bd2f574ab29dd21bae4258c0b0

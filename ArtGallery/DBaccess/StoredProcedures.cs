@@ -68,6 +68,16 @@ namespace ArtGallery.DBaccess
         public static string deleteCompany = "deleteCompany";
 
         public static string addFav = "addFav";
+        public static string RecommendAW = "RecommendAW";
+        public static string GetArtworksforrecommanded = "GetArtworksforrecommanded";
+      
+        public static string GetRecommended = "GetRecommended ";
+        public static string GetUserSurveys = "GetUserSurveys";
+        public static string ArtistSalaryLess = "ArtistSalaryLess";
+        public static string InsertCustomOrder = "InsertCustomOrder";
+        public static string SolveReport = "SolveReport";
+        public static string UpdateOrder = "UpdateOrder";
+        public static string UpdateOrderInfo = "UpdateOrderInfo";
 
 
 
