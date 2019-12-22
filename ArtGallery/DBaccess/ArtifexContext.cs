@@ -400,8 +400,8 @@ namespace ArtGallery.DBaccess
 
             string storedProcedureName = StoredProcedures.GetEvents;
             Dictionary<string, object> Parameters = new Dictionary<string, object>();
-            Parameters.Add("@NowDate", DateTime.Now.Date);
-            Parameters.Add("@Username", username);
+            Parameters.Add("@NowDate", DateTime.Now.ToString("MM\\/dd\\/yyyy"));
+   
             return ConvertDataTable<Event>(db.ExecuteReader_proc(storedProcedureName, Parameters));
 
         }
