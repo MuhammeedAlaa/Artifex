@@ -679,4 +679,90 @@ BEGIN
 END
 GO
 
+/************************* Statistics *****************************/
+--Number of Users Who attended Each Event hosted Uptill now
+CREATE PROCEDURE NumAttendEvent
+AS
+BEGIN
+	SET NOCOUNT ON
+	SELECT A.TITLE AS EventTitle, COUNT(*) AS NUMATTENDING 
+	FROM [EVENT] E JOIN ATTEND A ON E.TITLE = A.TITLE 
+	GROUP BY A.TITLE
+END
+GO
 
+--Number of orders assigned for each Shipping company 
+CREATE PROCEDURE NumOrderShipped
+AS
+BEGIN
+	SET NOCOUNT ON
+	SELECT SHIPPING_NAME AS ShippingCompany, COUNT(*) AS NumberOfOrders
+	FROM ORDER_INFO
+	WHERE SHIPPING_NAME IS NOT NULL
+	GROUP BY SHIPPING_NAME
+END
+GO
+
+--Number of artworks in each category
+CREATE PROCEDURE NumArtwrkCategory
+AS
+BEGIN
+	SET NOCOUNT ON
+	SELECT CATEGORY_NAME AS Category, COUNT(*) AS NUMOFARTWORKS
+	FROM ARTWORK
+	GROUP BY CATEGORY_NAME
+END
+GO
+
+--Number of surveys for each expert
+CREATE PROCEDURE NumSurvExp
+AS
+BEGIN
+	SET NOCOUNT ON
+	SELECT EXPERT_UNAME AS EXPERT, COUNT(*) AS NUMBER_OF_SURVEYS
+	FROM SURVEY
+	WHERE EXPERT_UNAME IS NOT NULL
+	GROUP BY EXPERT_UNAME
+END
+GO
+
+--Number of users for our website
+CREATE PROCEDURE NumUsers
+AS
+BEGIN
+	SET NOCOUNT ON
+	Select Count(*) AS NumOfUsers
+	From [User]
+END
+GO
+
+--Number of artists in our website
+CREATE PROCEDURE NumArtists
+AS
+BEGIN
+	SET NOCOUNT ON
+	SELECT Count(*) As NumOfArtists 
+	FROM Artist
+END
+GO
+
+--Number of Experts in our website
+CREATE PROCEDURE NumExperts
+AS
+BEGIN
+	SET NOCOUNT ON
+	Select Count(*) AS NumOfExperts
+	From Expert
+END
+GO
+
+--Total Revenue From an Event
+CREATE PROCEDURE EventsRevenue
+AS
+BEGIN
+	SET NOCOUNT ON
+	Select E.Title, SUM(TICKET_PRICE) AS EVENT_REVENUE
+	FROM ATTEND A JOIN EVENT E ON E.TITLE = A.TITLE
+	GROUP BY E.TITLE,E.TICKET_PRICE
+END
+GO
