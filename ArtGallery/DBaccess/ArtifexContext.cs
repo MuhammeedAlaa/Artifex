@@ -859,7 +859,18 @@ namespace ArtGallery.DBaccess
             string storedProcedureName = StoredProcedures.EventsRevenue;
             return (db.ExecuteReader_proc(storedProcedureName, null));
         }
+        public DataTable CATEGORY_PRICE()
+        {
 
+            string storedProcedureName = StoredProcedures.CATEGORY_PRICE;
+            return (db.ExecuteReader_proc(storedProcedureName, null));
+        }
+        public DataTable NumInvitedArtist()
+        {
+
+            string storedProcedureName = StoredProcedures.NumInvitedArtist;
+            return (db.ExecuteReader_proc(storedProcedureName, null));
+        }
     }
 }
 

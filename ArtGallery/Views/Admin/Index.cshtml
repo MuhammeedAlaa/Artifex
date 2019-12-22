@@ -68,12 +68,33 @@
                 </div>
 
 
+
+
+                <div class="card card-gray">
+                    <div class="card-header">
+                        <h3 class="card-title">Average price for each category</h3>
+
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="pieChart3" width="800" height="450"></canvas>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+
+
+
             </div>
 
 
             <!--right part of the page-->
             <div class="col-md-6">
-                <div class="card card-danger">
+                <div class="card card-cyan">
                     <div class="card-header">
                         <h3 class="card-title">Number of attendants for Each event</h3>
 
@@ -91,7 +112,7 @@
                 </div>
                 <!-- /.card-body -->
 
-                <div class="card card-danger">
+                <div class="card card-dark">
                     <div class="card-header">
                         <h3 class="card-title">Number of surveys for each expert</h3>
 
@@ -106,6 +127,26 @@
                         <canvas id="pieChart2" width="800" height="450"></canvas>
                     </div>
                     <!-- /.card-body -->
+                </div>
+
+
+
+
+                <div class="card card-danger">
+                    <div class="card-header">
+                        <h3 class="card-title">Number of invited artists for Each event</h3>
+
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                        <canvas id="donutChart3" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 454px;" width="671" height="369" class="chartjs-render-monitor"></canvas>
+                    </div>
                 </div>
 
 
@@ -210,6 +251,41 @@
             });
 
 
+        var lbl = @Html.Raw(Json.Encode(ViewBag.l6));
+        var dt = @Html.Raw(Json.Encode(ViewBag.d6));
+        var donutChartCanvas = $('#donutChart3').get(0).getContext('2d')
+        var donutChart = new Chart(donutChartCanvas,
+            {
+                type: 'doughnut',
+                labels: lbl,
+                data: {
+                    labels: lbl,
+                    datasets: [
+                        {
+                            data: dt,
+                            backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de', '#fdea12', '#aaff43', '#ffffff', '#000000']
+                        }
+                    ]
+                }
+            });
+
+        var lbl = @Html.Raw(Json.Encode(ViewBag.l7));
+        var dt = @Html.Raw(Json.Encode(ViewBag.d7));
+        var donutChartCanvas = $('#pieChart3').get(0).getContext('2d')
+        var donutChart = new Chart(donutChartCanvas,
+            {
+                type: 'doughnut',
+                labels: lbl,
+                data: {
+                    labels: lbl,
+                    datasets: [
+                        {
+                            data: dt,
+                            backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de', '#fdea12', '#aaff43', '#ffffff', '#000000']
+                        }
+                    ]
+                }
+            });
     });
 
         

@@ -101,6 +101,35 @@ namespace ArtGallery.Controllers
             ViewBag.l5 = l5;
             ViewBag.d5 = d5;
 
+            List<string> l6 = new List<string>();
+            List<string> d6 = new List<string>();
+            DataTable t6 = db.NumInvitedArtist();
+            for (int i = 0; i < t6.Rows.Count; i++)
+            {
+                l6.Add(Convert.ToString(t6.Rows[i][0]));
+            }
+            for (int i = 0; i < t6.Rows.Count; i++)
+            {
+                d6.Add(Convert.ToString(t6.Rows[i][1]));
+            }
+
+            ViewBag.l6 = l6;
+            ViewBag.d6 = d6;
+
+            List<string> l7 = new List<string>();
+            List<string> d7 = new List<string>();
+            DataTable t7 = db.CATEGORY_PRICE();
+            for (int i = 0; i < t7.Rows.Count; i++)
+            {
+                l7.Add(Convert.ToString(t7.Rows[i][0]));
+            }
+            for (int i = 0; i < t7.Rows.Count; i++)
+            {
+                d7.Add(Convert.ToString(t7.Rows[i][1]));
+            }
+
+            ViewBag.l7 = l7;
+            ViewBag.d7 = d7;
 
             return View();
         }

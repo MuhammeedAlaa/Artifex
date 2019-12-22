@@ -90,6 +90,8 @@ namespace ArtGallery.DBaccess
         public static string NumArtists = "NumArtists";
         public static string NumExperts = "NumExperts";
         public static string EventsRevenue = "EventsRevenue";
+        public static string CATEGORY_PRICE = "CATEGORY_PRICE";
+        public static string NumInvitedArtist = "NumInvitedArtist";
 
 
 
