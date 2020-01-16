@@ -1,0 +1,38 @@
+﻿@model ArtGallery.Models.OrderInfo
+
+@{
+    ViewBag.Title = "myorders";
+}
+
+<h2>myorders</h2>
+
+@using (Html.BeginForm("report", "home", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>OrderInfo</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(model => model.ORDER_ID, Model.ORDER_ID)
+        <div class="form-group">
+            @Html.LabelFor(model => model.SHIPPING_NAME, "Shiping company", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.Label(Model.SHIPPING_NAME, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.USER_NAME, "report text", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.USER_NAME, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.USER_NAME, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="report" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}

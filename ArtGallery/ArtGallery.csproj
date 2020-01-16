@@ -2392,6 +2392,7 @@
     <Content Include="Views\Manage\UserSurveys.cshtml" />
     <Content Include="Views\Manage\UserSurveryResponse.cshtml" />
     <Content Include="Views\Home\Scoreboard.cshtml" />
+    <Content Include="Views\Home\myorders.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

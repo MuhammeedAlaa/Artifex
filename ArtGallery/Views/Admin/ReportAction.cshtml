@@ -1,7 +1,9 @@
-﻿@model ArtGallery.ViewModels.ReportViewModel
+﻿@using ArtGallery.Models
+@model ArtGallery.ViewModels.ReportViewModel
 @{
     ViewBag.Title = "ReportAction";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    OrderInfo o = Model.OrderInfo;
 }
 
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>

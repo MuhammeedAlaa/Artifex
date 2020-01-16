@@ -10,9 +10,7 @@ namespace ArtGallery.Models
     {
         [Required]
         public int ORDER_ID { get; set; }
-        [Required]
         public int? ADMIN_ID { get; set; }
-        [Required]
         [StringLength(20, ErrorMessage = "Max length = 20 characters")]
         public string SHIPPING_NAME { get; set; }
         [Required]

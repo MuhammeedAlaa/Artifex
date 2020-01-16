@@ -227,7 +227,7 @@ namespace ArtGallery.Controllers
             {
                 o.OrderInfo.ADMIN_ID = Convert.ToInt32(User.Identity.Name); 
                 if (db.AssignOrder(o.OrderInfo))
-                    return View("Index");
+                    return RedirectToAction("Index");
 
             }
             return HttpNotFound();

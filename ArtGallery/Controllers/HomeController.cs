@@ -68,6 +68,7 @@ namespace ArtGallery.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult rate(int rating) {
             Artwork a = (Artwork)TempData["buyartwork"];
+            db.insertorder(a.AW_CODE, db.GetUserName(User.Identity.Name));
             db.rateArtwork(rating,a.AW_CODE,db.GetUserName(User.Identity.Name));
 
             return RedirectToAction("Index", "Home");
@@ -79,6 +80,33 @@ namespace ArtGallery.Controllers
 
             return View();
         }
+        [Authorize]
+        public ActionResult myorders()
+        {
+            DataTable rate = db.getmyorder(db.GetUserName(User.Identity.Name));
+            if (rate != null)
+            {
+                List<OrderInfo> s = new List<OrderInfo>();
+
+                for (int i = 0; i < rate.Rows.Count; i++)
+                    s.Add(new OrderInfo
+                    {
+                        SHIPPING_NAME = (string)rate.Rows[i]["SHIPPING_NAME"],
+                        ORDER_ID = (int)rate.Rows[i]["ORDER_ID"]
+
+                    });
+                return View(s[0]);
+            }
+            return RedirectToAction("index", "home");
+        }
+
+        [Authorize]
+        public ActionResult report(OrderInfo o)
+        {
+            db.insertorder(o.USER_NAME, o.ORDER_ID, db.GetUserName(User.Identity.Name));
+            return RedirectToAction("index", "home");
+        }
+
 
         public ActionResult Contact()
         {

@@ -564,8 +564,8 @@ namespace ArtGallery.DBaccess
                 return;
             storedProcedureName = StoredProcedures.InsertCustomOrder;
             Parameters = new Dictionary<string, object>();
-            Parameters.Add("@OrderDate", DateTime.Now.ToString("MM\\/dd\\/yyyy"));
-            Parameters.Add("@Deadline", c.Deadline.ToString().Substring(0, 9));
+            Parameters.Add("@OrderDate", DateTime.Now.ToString("MM/dd/yyyy"));
+            Parameters.Add("@Deadline", c.Deadline.ToString("MM/dd/yyyy"));
 
             db.ExecuteNonQuery_proc(storedProcedureName, Parameters);
         }
@@ -744,11 +744,16 @@ namespace ArtGallery.DBaccess
                 return false;
 
             storedProcedureName = StoredProcedures.UpdateOrder;
-            Parameters = new Dictionary<string, object>();
-            Parameters.Add("@DELIVERY_DATE", DateTime.Now.AddDays(10).ToString("MM\\/dd\\/yyyy"));
-            Parameters.Add("@ORDER_ID", o.ORDER_ID);
-        
-            return (db.ExecuteNonQuery_proc(storedProcedureName, Parameters) != 0);
+            Dictionary<string, object> Parameters2 = new Dictionary<string, object>();
+            Parameters2.Add("@DELIVERY_DATE", DateTime.Now.AddDays(10).ToString("MM/dd/yyyy"));
+            Parameters2.Add("@ORDER_ID", o.ORDER_ID);
+            if (db.ExecuteNonQuery_proc(storedProcedureName, Parameters2) == 0)
+                return false;
+            else
+                return true;
+
+
+
         }
         public List<Artwork> GetArtworkInfo(string title)
         {
@@ -870,6 +875,35 @@ namespace ArtGallery.DBaccess
 
             string storedProcedureName = StoredProcedures.NumInvitedArtist;
             return (db.ExecuteReader_proc(storedProcedureName, null));
+        }
+
+        public bool insertorder(int awcode, string username)
+        {
+            string query = "INSERT INTO [ORDER] VALUES(0, '" + DateTime.Now.ToString("MM/dd/yyyy") + "', '" +
+                           DateTime.Now.AddDays(10).ToString("MM/dd/yyyy") + "')";
+            db.ExecuteNonQuery(query);
+            query = "SELECT ORDER_ID FROM [ORDER] ORDER BY ORDER_ID DESC";
+            int ID = (int)db.ExecuteReader(query).Rows[0]["ORDER_ID"];
+            query = "INSERt INTO ORDER_INFO VALUES(" + ID + ",NULL, NULL, '" + username + "'," + awcode + ")";
+            return (db.ExecuteNonQuery(query) != 0);
+
+        }
+        public DataTable getmyorder(string email)
+        {
+            string query = "SELECT OI.* FROM [dbo].[ORDER] AS O JOIN ORDER_INFO AS OI ON O.ORDER_ID = OI.ORDER_ID WHERE OI.USER_NAME= '" + email + "';";
+            return db.ExecuteReader(query);
+        }
+
+
+        public void insertorder(string name, int id, string uname)
+        {
+            string query = "INSERT INTO [dbo].[REPORT]"
+                           + "([USER_NAME]"
+                           + ",[ADMIN_ID]"
+                           + ",[ORDER_ID]"
+                           + ",[TEXT])"
+                           + "VALUES('" + uname + "',NULL," + id + ",'" + name + "');";
+            db.ExecuteNonQuery(query);
         }
     }
 }
